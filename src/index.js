@@ -17,37 +17,7 @@ console.log(
   calculateExpression("3 + 5 * 2")
 ); // Виведе 13
 
-// Задача 2: Напишіть функцію, яка перевіряє, чи є переданий аргумент кінечним числом
-
-function checkFinite(value) {
-  // Перевіряємо, чи є значення кінечним числом
-  if (isFinite(value)) {
-    // Якщо так, повертаємо текст "Value is a finite number"
-    return "Value is a finite number";
-  } else {
-    // Якщо ні, повертаємо текст "Value is not a finite number"
-    return "Value is not a finite number";
-  }
-}
-
-console.log("Завдання 2 ====================================");
-console.log("checkFinite(100)", checkFinite(100)); // Виведе "Value is a finite number"
-console.log("checkFinite(Infinity)", checkFinite(Infinity)); // Виведе "Value is not a finite number"
-
-// Задача 3: Напишіть функцію, яка перевіряє, чи є переданий аргумент NaN
-
-function checkNaN(value) {
-  // Перевіряємо, чи є значення NaN
-  if (isNaN(value)) {
-    // Якщо так, повертаємо текст "Value is NaN"
-    return "Value is NaN";
-  } else {
-    // Якщо ні, повертаємо текст "Value is not NaN"
-    return "Value is not NaN";
-  }
-}
-
-// Задача 4: Напишіть функцію, яка приймає рядок та повертає число з цього рядка або повідомлення про помилку.
+// Задача 2: Напишіть функцію, яка приймає рядок та повертає число з цього рядка або повідомлення про помилку.
 
 // Створюємо функцію з назвою getNumberFromString, яка приймає один аргумент s
 function getNumberFromString(s) {
@@ -65,7 +35,7 @@ function getNumberFromString(s) {
 }
 
 // Виводимо результати виклику функції
-console.log("Завдання 4 ====================================");
+console.log("Завдання 2 ====================================");
 console.log(
   'getNumberFromString("100.5 apples")',
   getNumberFromString("100.5 apples")
@@ -75,7 +45,7 @@ console.log(
   getNumberFromString("No numbers here")
 ); // Виведе повідомлення про помилку
 
-// Задача 5: Напишіть функцію, яка приймає рядок та повертає ціле число з цього рядка або повідомлення про помилку.
+// Задача 3: Напишіть функцію, яка приймає рядок та повертає ціле число з цього рядка або повідомлення про помилку.
 
 // Створюємо функцію з назвою getIntegerFromString, яка приймає один аргумент s
 function getIntegerFromString(s) {
@@ -93,7 +63,7 @@ function getIntegerFromString(s) {
 }
 
 // Виводимо результати виклику функції
-console.log("Завдання 5 ====================================");
+console.log("Завдання 3 ====================================");
 console.log(
   'getIntegerFromString("100 apples")',
   getIntegerFromString("100 apples")
@@ -103,7 +73,7 @@ console.log(
   getIntegerFromString("No integers here")
 ); // Виведе повідомлення про помилку
 
-// Задача 6: Напишіть функцію, яка перевіряє, чи є введене число скінченним.
+// Задача 4: Напишіть функцію, яка перевіряє, чи є введене число скінченним.
 
 // Створюємо функцію з назвою isNumberFinite, яка приймає один аргумент - num
 function isNumberFinite(num) {
@@ -122,11 +92,11 @@ function isNumberFinite(num) {
 }
 
 // Виконуємо функцію з різними вхідними даними і виводимо результат.
-console.log("Завдання 6 ====================================");
+console.log("Завдання 4 ====================================");
 console.log("isNumberFinite(100)", isNumberFinite(100)); // Виведе "The number is finite."
 console.log("isNumberFinite(Infinity)", isNumberFinite(Infinity)); // Виведе "The number is not finite."
 
-// Задача 7: Напишіть функцію, яка перевіряє, чи є введене значення NaN.
+// Задача 5: Напишіть функцію, яка перевіряє, чи є введене значення NaN.
 
 // Створюємо функцію з назвою isValueNaN, яка приймає один аргумент - value
 function isValueNaN(value) {
@@ -145,11 +115,11 @@ function isValueNaN(value) {
 }
 
 // Виконуємо функцію з різними вхідними даними і виводимо результат.
-console.log("Завдання 7 ====================================");
+console.log("Завдання 5 ====================================");
 console.log("isValueNaN(NaN)", isValueNaN(NaN)); // Виведе "The value is NaN."
 console.log("isValueNaN(100)", isValueNaN(100)); // Виведе "The value is not NaN."
 
-// Задача 8: Напишіть функцію, яка створює об'єкт URL.
+// Задача 6: Напишіть функцію, яка створює об'єкт URL.
 
 // Створюємо функцію з назвою createURLObject, яка приймає один аргумент - urlStr
 function createURLObject(urlStr) {
@@ -161,13 +131,13 @@ function createURLObject(urlStr) {
 }
 
 // Виконуємо функцію з вхідними даними і виводимо результат.
-console.log("Завдання 8 ====================================");
+console.log("Завдання 6 ====================================");
 console.log(
   'createURLObject("https://example.com")',
   createURLObject("https://example.com")
 ); // Виведе URL об'єкт
 
-// Задача 9: Напишіть функцію, яка кодує компонент URL.
+// Задача 7: Напишіть функцію, яка кодує компонент URL.
 
 // Створюємо функцію з назвою encodeURLComponent, яка приймає один аргумент - urlComponent
 function encodeURLComponent(urlComponent) {
@@ -180,13 +150,13 @@ function encodeURLComponent(urlComponent) {
 }
 
 // Виконуємо функцію з вхідними даними і виводимо результат.
-console.log("Завдання 9 ====================================");
+console.log("Завдання 7 ====================================");
 console.log(
   'encodeURLComponent("Hello World!")',
   encodeURLComponent("Hello World!")
 ); // Виведе "Hello%20World%21"
 
-// Задача 10: Напишіть функцію, яка кодує URL.
+// Задача 8: Напишіть функцію, яка кодує URL.
 
 // Створюємо функцію з назвою encodeURL, яка приймає один аргумент - url
 function encodeURL(url) {
@@ -199,13 +169,13 @@ function encodeURL(url) {
 }
 
 // Виконуємо функцію з вхідними даними і виводимо результат.
-console.log("Завдання 10 ====================================");
+console.log("Завдання 8 ====================================");
 console.log(
   'encodeURL("https://ex ample.com")',
   encodeURL("https://ex ample.com")
 ); // Виведе "https://ex%20ample.com"
 
-// Задача 11: Напишіть функцію, яка декодує закодований компонент URL.
+// Задача 9: Напишіть функцію, яка декодує закодований компонент URL.
 
 // Створюємо функцію з назвою decodeURLComponent, яка приймає один аргумент - urlComponent
 function decodeURLComponent(urlComponent) {
@@ -218,13 +188,13 @@ function decodeURLComponent(urlComponent) {
 }
 
 // Виконуємо функцію з вхідними даними і виводимо результат.
-console.log("Завдання 11 ====================================");
+console.log("Завдання 9 ====================================");
 console.log(
   'decodeURLComponent("Hello%20World%21")',
   decodeURLComponent("Hello%20World%21")
 ); // Виведе "Hello World!"
 
-// Задача 12: Напишіть функцію, яка декодує закодований URL.
+// Задача 10: Напишіть функцію, яка декодує закодований URL.
 
 // Створюємо функцію з назвою decodeURL, яка приймає один аргумент - url
 function decodeURL(url) {
@@ -237,7 +207,7 @@ function decodeURL(url) {
 }
 
 // Виконуємо функцію з вхідними даними і виводимо результат.
-console.log("Завдання 12 ====================================");
+console.log("Завдання 10 ====================================");
 console.log(
   'decodeURL("https://ex%20ample.com")',
   decodeURL("https://ex%20ample.com")
