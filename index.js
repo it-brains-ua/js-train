@@ -1,137 +1,284 @@
-// Задача 1: Напишіть функцію, яка перетворює рядок в число, використовуючи Number()
+// Завдання 1: Напишіть функцію, яка визначає довжину рядка
 
-function stringToNumber(str) {
-  // Використовуємо Number() для перетворення рядка в число
-  const number = Number(str);
-
-  // Повертаємо отримане число
-  return number;
+function findStringLength(str) {
+  // Використовуємо властивість length, щоб знайти довжину рядка str
+  return str.length;
 }
 
 console.log("Завдання 1 ====================================");
-console.log('stringToNumber("42")', stringToNumber("42")); // Виведе 42
+console.log(
+  'findStringLength("Hello, world!")',
+  findStringLength("Hello, world!")
+); // Виведе 13
 
-// Задача 2: Напишіть функцію, яка визначає, чи є два числа майже однаковими, використовуючи Number.EPSILON
+// Завдання 2: Напишіть функцію, яка генерує рядок з символів на основі їх кодів Unicode
 
-function isAlmostSame(num1, num2) {
-  // Визначаємо, чи є різниця між двома числами меншою або рівною EPSILON
-  return Math.abs(num1 - num2) <= Number.EPSILON;
+function generateStringFromCharCode(code1, code2, code3, code4, code5) {
+  // Використовуємо String.fromCharCode(), щоб створити рядок з символів code1, code2, code3, code4, code5 на основі їх кодів Unicode
+  return String.fromCharCode(code1, code2, code3, code4, code5);
 }
 
 console.log("Завдання 2 ====================================");
-console.log("isAlmostSame(0.1 + 0.2, 0.3)", isAlmostSame(0.1 + 0.2, 0.3)); // Виведе true
+console.log(
+  "generateStringFromCharCode(72, 101, 108, 108, 111)",
+  generateStringFromCharCode(72, 101, 108, 108, 111)
+); // Виведе "Hello"
 
-// Задача 3: Напишіть функцію, яка перевіряє, чи є число безпечним цілим числом
+// Завдання 3: Напишіть функцію, яка генерує рядок з символів на основі їх кодів Unicode
 
-function isSafeInteger(num) {
-  // Перевіряємо, чи є число меншим або рівним MAX_SAFE_INTEGER і більшим або рівним MIN_SAFE_INTEGER
-  return num <= Number.MAX_SAFE_INTEGER && num >= Number.MIN_SAFE_INTEGER;
+function generateStringFromCodePoint(code1, code2, code3, code4, code5) {
+  // Використовуємо String.fromCodePoint(), щоб створити рядок з символів code1, code2, code3, code4, code5 на основі їх кодів Unicode
+  return String.fromCodePoint(code1, code2, code3, code4, code5);
 }
 
 console.log("Завдання 3 ====================================");
 console.log(
-  "isSafeInteger(Number.MAX_SAFE_INTEGER + 1)",
-  isSafeInteger(Number.MAX_SAFE_INTEGER + 1)
-); // Виведе false
+  "generateStringFromCodePoint(72, 101, 108, 108, 111)",
+  generateStringFromCodePoint(72, 101, 108, 108, 111)
+); // Виведе "Hello"
 
-// Задача 4: Використовуючи результати Задачі 3, напишіть функцію, яка перевіряє, чи є число небезпечним цілим числом
+// Завдання 4: Напишіть функцію, яка виводить рядок з використанням String.raw
 
-function isUnsafeInteger(num) {
-  // Використовуємо логічну оператор НЕ (!), щоб отримати протилежну відповідь від функції isSafeInteger()
-  return !isSafeInteger(num);
+function rawString() {
+  // Використовуємо String.raw, щоб створити рядок "Привіт\u000A!", який ігнорує спеціальні символи
+  return String.raw`Привіт\u000A!`;
 }
 
 console.log("Завдання 4 ====================================");
-console.log(
-  "isUnsafeInteger(Number.MIN_SAFE_INTEGER - 1)",
-  isUnsafeInteger(Number.MIN_SAFE_INTEGER - 1)
-); // Виведе true
+console.log("rawString()", rawString()); // Виведе Привіт\u000A!
 
-// Задача 5: Напишіть функцію, яка перевіряє, чи є число надто великим для представлення в JavaScript
+// Завдання 5: Напишіть функцію, яка об'єднує два рядки
 
-function isTooLarge(num) {
-  // Перевіряємо, чи є число більшим за MAX_VALUE
-  return num > Number.MAX_VALUE;
+function concatenateStrings(str1, str2) {
+  // Використовуємо метод concat(), щоб об'єднати два рядки str1 та str2
+  return str1.concat(str2);
 }
 
 console.log("Завдання 5 ====================================");
 console.log(
-  "isTooLarge(Number.MAX_VALUE * 2)",
-  isTooLarge(Number.MAX_VALUE * 2)
-); // Виведе true
+  'concatenateStrings("Hello", "World!")',
+  concatenateStrings("Hello", "World!")
+); // Виведе "HelloWorld!"
 
-// Задача 6: Напишіть функцію, яка перевіряє, чи є число надто малим для представлення в JavaScript
+// Завдання 6: Напишіть функцію, яка перевіряє, чи входить підрядок в рядок
 
-function isTooSmall(num) {
-  // Перевіряємо, чи є число більшим за 0, але меншим за MIN_VALUE
-  return num > 0 && num < Number.MIN_VALUE;
+function checkIfIncludes(mainStr, subStr) {
+  // Використовуємо метод includes(), щоб перевірити, чи входить підрядок subStr в рядок mainStr
+  return mainStr.includes(subStr);
 }
 
 console.log("Завдання 6 ====================================");
 console.log(
-  "isTooSmall(Number.MIN_VALUE / 2)",
-  isTooSmall(Number.MIN_VALUE / 2)
+  'checkIfIncludes("Hello, world!", "world")',
+  checkIfIncludes("Hello, world!", "world")
 ); // Виведе true
 
-// Задача 7: Напишіть функцію, яка перевіряє, чи є значення цілим числом
+// Завдання 7: Напишіть функцію, яка знаходить індекс підрядка в рядку
 
-function checkIsInteger(num) {
-  // Використовуємо вбудовану функцію Number.isInteger(), щоб перевірити, чи є значення цілим числом
-  return Number.isInteger(num);
+function findIndexOf(mainStr, subStr) {
+  // Використовуємо метод indexOf(), щоб знайти індекс підрядка subStr в рядку mainStr
+  return mainStr.indexOf(subStr);
 }
 
 console.log("Завдання 7 ====================================");
-console.log("checkIsInteger(42.5)", checkIsInteger(42.5)); // Виведе false
+console.log(
+  'findIndexOf("Hello, world!", "world")',
+  findIndexOf("Hello, world!", "world")
+); // Виведе 7
 
-// Задача 8: Напишіть функцію, яка перевіряє, чи є значення безпечним цілим числом
+// Завдання 8: Напишіть функцію, яка знаходить останній індекс підрядка в рядку
 
-function checkIsSafeInteger(num) {
-  // Використовуємо вбудовану функцію Number.isSafeInteger(), щоб перевірити, чи є значення безпечним цілим числом
-  return Number.isSafeInteger(num);
+function findLastIndexOf(mainStr, subStr) {
+  // Використовуємо метод lastIndexOf(), щоб знайти останній індекс підрядка subStr в рядку mainStr
+  return mainStr.lastIndexOf(subStr);
 }
 
 console.log("Завдання 8 ====================================");
 console.log(
-  "checkIsSafeInteger(Math.pow(2, 53))",
-  checkIsSafeInteger(Math.pow(2, 53))
-); // Виведе false
+  'findLastIndexOf("Hello, world! Hello, universe!", "Hello")',
+  findLastIndexOf("Hello, world! Hello, universe!", "Hello")
+); // Виведе 14
 
-// Задача 9: Напишіть функцію, яка конвертує число в рядок з експоненційним представленням
+// Завдання 9: Напишіть функцію, яка перевіряє, чи починається рядок з певного підрядка
 
-function convertToExponential(num) {
-  // Використовуємо метод toExponential(), щоб конвертувати число в рядок з експоненційним представленням
-  return num.toExponential();
+function checkIfStartsWith(mainStr, subStr) {
+  // Використовуємо метод startsWith(), щоб перевірити, чи починається рядок mainStr з певного підрядка subStr
+  return mainStr.startsWith(subStr);
 }
 
 console.log("Завдання 9 ====================================");
-console.log("convertToExponential(42)", convertToExponential(42)); // Виведе "4.2e+1"
+console.log(
+  'checkIfStartsWith("Hello, world!", "Hello")',
+  checkIfStartsWith("Hello, world!", "Hello")
+); // Виведе true
 
-// Задача 10: Напишіть функцію, яка конвертує число в рядок з фіксованою кількістю знаків після коми
+// Завдання 10: Напишіть функцію, яка перевіряє, чи закінчується рядок певним підрядком
 
-function convertToFixed(num, precision) {
-  // Використовуємо метод toFixed(), щоб конвертувати число в рядок з фіксованою кількістю знаків після коми
-  return num.toFixed(precision);
+function checkIfEndsWith(mainStr, subStr) {
+  // Використовуємо метод endsWith(), щоб перевірити, чи закінчується рядок mainStr певним підрядком subStr
+  return mainStr.endsWith(subStr);
 }
 
 console.log("Завдання 10 ====================================");
-console.log("convertToFixed(42.9876, 2)", convertToFixed(42.9876, 2)); // Виведе "42.99"
+console.log(
+  'checkIfEndsWith("Hello, world!", "world!")',
+  checkIfEndsWith("Hello, world!", "world!")
+); // Виведе true
 
-// Задача 11: Напишіть функцію, яка конвертує число в рядок
+// Завдання 11: Напишіть функцію, яка отримує символ рядка за індексом
 
-function convertToString(num) {
-  // Використовуємо метод toString(), щоб конвертувати число в рядок
-  return num.toString();
+function getCharacterAt(string, index) {
+  // Використовуємо метод at(), щоб отримати символ рядка string за індексом index
+  return string.at(index);
 }
 
 console.log("Завдання 11 ====================================");
-console.log("convertToString(42)", convertToString(42)); // Виведе "42"
+console.log(
+  'getCharacterAt("Hello, world!", 4)',
+  getCharacterAt("Hello, world!", 4)
+); // Виведе 'o'
 
-// Задача 12: Напишіть функцію, яка конвертує число в рядок з вказаною загальною кількістю значущих цифр
+// Завдання 12: Напишіть функцію, яка отримує символ рядка string за індексом використовуючи charAt
 
-function convertToPrecision(num, precision) {
-  // Використовуємо метод toPrecision(), щоб конвертувати число в рядок з вказаною загальною кількістю значущих цифр
-  return num.toPrecision(precision);
+function getCharAt(string, index) {
+  // Використовуємо метод charAt(), щоб отримати символ рядка string за індексом index
+  return string.charAt(index);
 }
 
 console.log("Завдання 12 ====================================");
-console.log("convertToPrecision(42.9876, 2)", convertToPrecision(42.9876, 2)); // Виведе "43"
+console.log('getCharAt("Hello, world!", 7)', getCharAt("Hello, world!", 7)); // Виведе 'w'
+
+// Завдання 13: Напишіть функцію, яка отримує код символа рядка за індексом
+
+function getCharCodeAt(string, index) {
+  // Використовуємо метод charCodeAt(), щоб отримати код символа рядка string за індексом index
+  return string.charCodeAt(index);
+}
+
+console.log("Завдання 13 ====================================");
+console.log(
+  'getCharCodeAt("Hello, world!", 0)',
+  getCharCodeAt("Hello, world!", 0)
+); // Виведе 72
+
+// Завдання 14: Напишіть функцію, яка отримує код символа рядка за індексом використовуючи codePointAt
+
+function getCodePointAt(string, index) {
+  // Використовуємо метод codePointAt(), щоб отримати код символа рядка string за індексом index
+  return string.codePointAt(index);
+}
+
+console.log("Завдання 14 ====================================");
+console.log(
+  'getCodePointAt("Hello, world!", 0)',
+  getCodePointAt("Hello, world!", 0)
+); // Виведе 72
+
+// Завдання 15: Напишіть функцію, яка доповнює рядок до певної довжини вставляючи символи на початку
+
+function padStringStart(string, length, padChar) {
+  // Використовуємо метод padStart(), щоб доповнити рядок string до певної довжини length, вставляючи символи padChar на початку
+  return string.padStart(length, padChar);
+}
+
+console.log("Завдання 15 ====================================");
+console.log('padStringStart("123", 5, "0")', padStringStart("123", 5, "0")); // Виведе '00123'
+
+// Завдання 16: Напишіть функцію, яка доповнює рядок до певної довжини вставляючи символи в кінець
+
+function padStringEnd(string, length, padChar) {
+  // Використовуємо метод padEnd(), щоб доповнити рядок string до певної довжини length, вставляючи символи padChar в кінець
+  return string.padEnd(length, padChar);
+}
+
+console.log("Завдання 16 ====================================");
+console.log('padStringEnd("123", 5, "0")', padStringEnd("123", 5, "0")); // Виведе '12300'
+
+// Завдання 17: Напишіть функцію, яка повторює рядок певну кількість разів
+
+function repeatString(string, times) {
+  // Використовуємо метод repeat(), щоб повторити рядок певну кількість разів times
+  return string.repeat(times);
+}
+
+console.log("Завдання 17 ====================================");
+console.log('repeatString("abc", 3)', repeatString("abc", 3)); // Виведе 'abcabcabc'
+
+// Завдання 18: Напишіть функцію, яка видаляє частину рядка між двома індексами
+
+function sliceString(string, startIndex, endIndex) {
+  // Використовуємо метод slice(), щоб видалити частину рядка string між двома індексами startIndex та endIndex
+  return string.slice(startIndex, endIndex);
+}
+
+console.log("Завдання 18 ====================================");
+console.log(
+  'sliceString("Hello, world!", 0, 5)',
+  sliceString("Hello, world!", 0, 5)
+); // Виведе 'Hello'
+
+// Завдання 19: Напишіть функцію, яка видаляє частину рядка між двома індексами використовуючи substring
+
+function substringString(string, startIndex, endIndex) {
+  // Використовуємо метод substring(), щоб видалити частину рядка string між двома індексами startIndex та endIndex
+  return string.substring(startIndex, endIndex);
+}
+
+console.log("Завдання 19 ====================================");
+console.log(
+  'substringString("Hello, world!", 0, 5)',
+  substringString("Hello, world!", 0, 5)
+); // Виведе 'Hello'
+
+// Завдання 20: Напишіть функцію, яка переводить всі символи рядка в нижній регістр
+
+function convertToLower(string) {
+  // Використовуємо метод toLowerCase(), щоб перевести всі символи рядка string в нижній регістр
+  return string.toLowerCase();
+}
+
+console.log("Завдання 20 ====================================");
+console.log('convertToLower("Hello, World!")', convertToLower("Hello, World!")); // Виведе 'hello, world!'
+
+// Завдання 21: Напишіть функцію, яка переводить всі символи рядка в верхній регістр
+
+function convertToUpper(string) {
+  // Використовуємо метод toUpperCase(), щоб перевести всі символи рядка string в верхній регістр
+  return string.toUpperCase();
+}
+
+console.log("Завдання 21 ====================================");
+console.log('convertToUpper("Hello, World!")', convertToUpper("Hello, World!")); // Виведе 'HELLO, WORLD!'
+
+// Завдання 22: Напишіть функцію, яка видаляє пробіли на початку та в кінці рядка
+
+function trimString(string) {
+  // Використовуємо метод trim(), щоб видалити пробіли на початку та в кінці рядка string
+  return string.trim();
+}
+
+console.log("Завдання 22 ====================================");
+console.log('trimString(" Hello, World! ")', trimString(" Hello, World! ")); // Виведе 'Hello, World!'
+
+// Завдання 23: Напишіть функцію, яка видаляє пробіли на початку рядка
+
+function trimStringStart(string) {
+  // Використовуємо метод trimStart(), щоб видалити пробіли на початку рядка string
+  return string.trimStart();
+}
+
+console.log("Завдання 23 ====================================");
+console.log(
+  'trimStringStart(" Hello, World!")',
+  trimStringStart(" Hello, World!")
+); // Виведе 'Hello, World!'
+
+// Завдання 24: Напишіть функцію, яка видаляє пробіли в кінці рядка
+
+function trimStringEnd(string) {
+  // Використовуємо метод trimEnd(), щоб видалити пробіли в кінці рядка string
+  return string.trimEnd();
+}
+
+console.log("Завдання 24 ====================================");
+console.log('trimStringEnd("Hello, World! ")', trimStringEnd("Hello, World! ")); // Виведе 'Hello, World!'
