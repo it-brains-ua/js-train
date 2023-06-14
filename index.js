@@ -91,12 +91,12 @@ function deleteProperty(obj, property) {
   // Використовуємо оператор "delete" для видалення властивості
   delete obj[property];
 
-  // Виводимо об'єкт на консоль
-  console.log(obj);
+  // Повертаємо об'єкт
+  return obj;
 }
 
 console.log("Завдання 6 ====================================");
-deleteProperty(movie, "director"); // Виведе { title: 'Inception' }
+console.log(deleteProperty(movie, "director")); // Виведе { title: 'Inception' }
 
 //Завдання 7: Використайте ключове слово this в об'єкті.
 // Створюємо об'єкт
