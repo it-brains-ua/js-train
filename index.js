@@ -103,16 +103,16 @@ console.log(deleteProperty(movie, "director")); // Виведе { title: 'Incept
 let user = {
   name: "John",
   age: 25,
-  // Створюємо метод, який виводить ім'я та вік особи introduse,
-  //  який за допомогою ключового слова this має вивести такий рядок My name is John and I am 25 years old.
   introduce: function () {
-    console.log(`My name is ${this.name} and I am ${this.age} years old.`);
+    // Створюємо метод introduse, який за допомогою ключового слова this має повернути такий рядок
+    // My name is John and I am 25 years old.
+    return `My name is ${this.name} and I am ${this.age} years old.`;
   },
 };
 
 console.log("Завдання 7 ====================================");
 // Викликаємо метод introduce об'єкта user
-user.introduce();
+console.log(user.introduce());
 // Виведе My name is John and I am 25 years old.
 
 // Завдання 8: Створіть функцію, яка додає нове поле до об'єкту.
@@ -126,7 +126,7 @@ function addField(obj, newField, value) {
   // Додаємо нове поле до об'єкту з допомогою квадратних дужок
   obj[newField] = value;
 
-  // Виводимо об'єкт на консоль
+  // Повертаємо об'єкт
   return obj;
 }
 
@@ -143,12 +143,12 @@ function destructureObject(obj) {
   // Використовуємо деструктуризацію для створення нових змінних з властивостей об'єкту і отримуємо з нього змінні brand та model
   let { brand, model } = obj;
 
-  // Виводимо нові змінні на консоль в форматі Brand: ${brand}, Model: ${model}
-  console.log(`Brand: ${brand}, Model: ${model}`);
+  // Повертаємо нові змінні  в форматі 'Brand: ${brand}, Model: ${model}'
+  return `Brand: ${brand}, Model: ${model}`;
 }
 
 console.log("Завдання 9 ====================================");
-destructureObject(laptop); // Виведе Brand: Dell, Model: XPS 13
+console.log(destructureObject(laptop)); // Виведе Brand: Dell, Model: XPS 13
 
 // Завдання 10: Змініть значення полів об'єкту, що знаходяться в масиві об'єктів.
 
@@ -241,8 +241,7 @@ function showCarInfo({
 }
 
 console.log("Завдання 13 ====================================");
-let carInfo = showCarInfo(car);
-console.log(car); // Виведе { brand: 'BMW', year: 2022 }
+console.log(showCarInfo(car)); // Виведе { brand: 'BMW', year: 2022, country: 'Unknown' }
 
 // Завдання 14: Додайте нову властивість до вбудованого об'єкту Array через літерал.
 // Створюємо функцію, яка буде додавати нову властивість до масиву
