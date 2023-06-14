@@ -62,16 +62,17 @@ console.log(
 
 // Задача 6: Напишіть функцію, яка перевіряє, чи є число надто малим для представлення в JavaScript
 
-function isTooSmall(num) {
+function isAlmostZero(num) {
   // Перевіряємо, чи є число більшим за 0, але меншим за MIN_VALUE
   return num > 0 && num < Number.MIN_VALUE;
 }
 
 console.log("Завдання 6 ====================================");
 console.log(
-  "isTooSmall(Number.MIN_VALUE / 2)",
-  isTooSmall(Number.MIN_VALUE / 2)
-); // Виведе true
+  "isAlmostZero(Number.MIN_VALUE / 2)",
+  isAlmostZero(Number.MIN_VALUE / 2)
+); // Виведе false
+console.log("isAlmostZero(Number.MIN_VALUE)", isAlmostZero(Number.MIN_VALUE)); // Виведе true
 
 // Задача 7: Напишіть функцію, яка перевіряє, чи є значення цілим числом
 
