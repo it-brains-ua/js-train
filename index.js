@@ -60,11 +60,11 @@ console.log(
   isTooLarge(Number.MAX_VALUE * 2)
 ); // Виведе true
 
-// Задача 6: Напишіть функцію, яка перевіряє, чи є число надто малим для представлення в JavaScript
+// Задача 6: Напишіть функцію, яка перевіряє, чи є число меншим чим  найменше можливе числове значення в JavaScript
 
 function isAlmostZero(num) {
   // Перевіряємо, чи є число більшим за 0, але меншим за MIN_VALUE
-  return num > 0 && num < Number.MIN_VALUE;
+  return num > 0 && num <= Number.MIN_VALUE;
 }
 
 console.log("Завдання 6 ====================================");
