@@ -5,27 +5,26 @@ function createSymbol() {
 }
 
 console.log("Завдання 1 ====================================");
-let symbol1 = createSymbol(); // Створюємо новий символ
-console.log(symbol1); // Виведе Symbol()
+console.log(createSymbol()); // Виведе Symbol()
 
 //Завдання 2: Функція для створення символу з описом та виведення опису
-function createSymbolWithDescription() {
-  // Створюємо символ symbol з описом 'My symbol'
-  let symbol = Symbol("My symbol");
+function createSymbolWithDescription(property) {
+  // Створюємо символ symbol з описом  property
+  let symbol = Symbol(property);
   //Повертаємо опис символа symbol
   return symbol.description;
 }
 
 console.log("Завдання 2 ====================================");
-console.log(createSymbolWithDescription()); // Виведе My symbol
+console.log(createSymbolWithDescription("My symbol")); // Виведе My symbol
 
 // Завдання 3: Створення властивостей об'єкту з використанням Symbol
 // В даному завданні ми створимо властивість об'єкту, ключ якої буде символом.
 
 // Створимо функцію, яка створює об'єкт з властивістю, ключ якої є символом
-function createSymbolProperty() {
-  // Створимо змінну sym яка дорівнює символу з описом "property"
-  let sym = Symbol("property");
+function createSymbolProperty(property) {
+  // Створимо змінну sym яка дорівнює символу з описом property
+  let sym = Symbol();
 
   // Створимо пустий об'єкт
   let obj = {};
@@ -39,10 +38,11 @@ function createSymbolProperty() {
 
 console.log("Завдання 3 ====================================");
 
-console.log(createSymbolProperty()); //Виведе
+console.log(createSymbolProperty("property")); //Виведе
 // {
 //   [Symbol(property)]: "Це властивість об'єкту з використанням символу"
 // }
+
 // Завдання 4. Перевіримо чи є символи унікальними
 // Функція для створення двох символів з однаковим описом та порівнянням
 function createAndCompareTwoSymbols(value) {
@@ -151,26 +151,37 @@ console.log(useSymbolDescription()); //Виведе mySymbol
 
 // Завдання 10: Використання Symbol.iterator
 
-// Об'єкт "myObject" представляє значення   from: 1, to: 7, які можна перебрати
+// Оголошення об'єкта "myObject" з властивістю "category"
 let myObject = {
-  from: 1,
-  to: 7,
+  //Cтворюємо масив category
+  category: [
+    { id: 1, name: "apple" }, // Об'єкт категорії з ідентифікатором 1 та назвою "apple"
+    { id: 2, name: "banana" }, // Об'єкт категорії з ідентифікатором 2 та назвою "banana"
+    { id: 3, name: "orange" }, // Об'єкт категорії з ідентифікатором 3 та назвою "orange"
+    { id: 4, name: "grape" }, // Об'єкт категорії з ідентифікатором 4 та назвою "grape"
+    { id: 5, name: "mango" }, // Об'єкт категорії з ідентифікатором 5 та назвою "mango"
+  ],
+  //Створюємо властивість currentIndex зі значенням 0, яка буде нашим лічильником в ітерації
+  currentIndex: 0, // Початковий індекс для ітерації
 
-  // Використовуємо Symbol.iterator для створення ітератора всередині об'єкта "myObject"
+  // Оголошення методу Symbol.iterator для об'єкта "myObject"
   [Symbol.iterator]() {
-    // this.current присвоюємо this.from
-    this.current = this.from;
-    return this; // Індекс для ітерації по масиву ключів
+    //Повертаємо this
+    return this;
   },
-  //створюжмо метод "next" який визначає поведінку при кожній ітерації
+
+  // Оголошення методу "next" для ітерації
   next() {
-    if (this.current < this.to) {
-      // Використовуйте if
-      // Якщо current менше to, повертаємо об'єкт з властивістю "value",
-      // що містить поточне значення ,та не забуваємо збільшити індекс за допомогою інкремент, і "done" - false, означаючи, що ітерація ще не закінчена
-      return { value: this.current++, done: false };
+    // Створюємо логічний оператор який буде перевіряти чи властивість об'єкту currentIndex менша ніж довжина масиву category
+    if (this.currentIndex < this.category.length) {
+      //Створюємо змінну value якій присвоємо властивість name елемента масиву category з індексом currentIndex
+      const value = this.category[this.currentIndex].name;
+      // Збільшимо currentIndex на одиницю
+      this.currentIndex++;
+      // Повертаємо об'єкт з властивістю value значенням якої буде value,та прапорцем done: false
+      return { value, done: false };
     } else {
-      // Якщо індекс вийшов за межі масиву ключів, повертаємо об'єкт з властивістю "done" - true, означаючи, що ітерація закінчена
+      //Якщо властивість об'єкту currentIndex більше або дорівнює довжині масиву category повертаємо об'єкт з прапорцем done: true, коли ітерація закінчена
       return { done: true };
     }
   },
@@ -192,4 +203,4 @@ function useSymbolIterator() {
 
 console.log("Завдання 10 ====================================");
 
-console.log(useSymbolIterator()); //Виведе [ 1, 2, 3, 4, 5, 6 ]
+console.log(useSymbolIterator()); //Виведе
