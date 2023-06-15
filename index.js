@@ -9,7 +9,7 @@ console.log(createSymbol()); // Виведе Symbol()
 
 //Завдання 2: Функція для створення символу з описом та виведення опису
 function createSymbolWithDescription(property) {
-  // Створюємо символ symbol з описом  property
+  // Створюємо символ symbol з описом property
   let symbol = Symbol(property);
   //Повертаємо опис символа symbol
   return symbol.description;
@@ -23,14 +23,14 @@ console.log(createSymbolWithDescription("My symbol")); // Виведе My symbol
 
 // Створимо функцію, яка створює об'єкт з властивістю, ключ якої є символом
 function createSymbolProperty(property) {
-  // Створимо змінну sym яка дорівнює символу з описом property
+  // Створимо змінну sym яка дорівнює символу без опису
   let sym = Symbol();
 
   // Створимо пустий об'єкт
   let obj = {};
 
-  // Додамо властивість до об'єкту, ключем якої буде наш символ, а значенням буде рядок Це властивість об'єкту з використанням символу
-  obj[sym] = "Це властивість об'єкту з використанням символу";
+  // Додамо властивість до об'єкту, ключем якої буде наш символ, а значенням буде аргумент property
+  obj[sym] = property;
 
   // Повертаємо об'єкт
   return obj;
@@ -38,7 +38,9 @@ function createSymbolProperty(property) {
 
 console.log("Завдання 3 ====================================");
 
-console.log(createSymbolProperty("property")); //Виведе
+console.log(
+  createSymbolProperty("Це властивість об'єкту з використанням символу")
+); //Виведе
 // {
 //   [Symbol(property)]: "Це властивість об'єкту з використанням символу"
 // }
@@ -91,31 +93,7 @@ console.log("Завдання 6 ====================================");
 let symbolForKey = Symbol.for("myKey"); // Створюємо новий символ або отримуємо існуючий з глобального реєстру символів
 console.log(getSymbolKey(symbolForKey)); // Виводимо ключ символу. Виведе: "myKey"
 
-// Завдання 7: Використання Symbol.isConcatSpreadable
-
-// Функція useIsConcatSpreadable використовує властивість Symbol.isConcatSpreadable для вказівки, чи масив розкривається під час конкатенації.
-
-function useIsConcatSpreadable() {
-  // Створюємо перший масив array1 зі значеннями 1, 2, 3.
-  let array1 = [1, 2, 3];
-
-  // Створюємо другий масив array2 зі значеннями 4, 5, 6.
-  let array2 = [4, 5, 6];
-
-  // Встановлюємо властивість Symbol.isConcatSpreadable для масиву array2 в значення false.
-  array2[Symbol.isConcatSpreadable] = false;
-
-  // Використовуємо метод concat для об'єднання масивів array1 і array2.
-  let concatArray = array1.concat(array2);
-
-  // Повертаємо результат конкатенації.
-  return concatArray;
-}
-
-console.log("Завдання 7 ====================================");
-console.log(useIsConcatSpreadable()); // Виведе [ 1, 2, 3, [ 4, 5, 6, [Symbol(Symbol.isConcatSpreadable)]: false ] ]
-
-// Завдання 8: Використання Symbol.toString
+// Завдання 7: Використання Symbol.toString
 
 function useSymbolToStringTag() {
   // Створюємо об'єкт myObject.
@@ -128,10 +106,10 @@ function useSymbolToStringTag() {
   return myObject[Symbol].toString();
 }
 
-console.log("Завдання 8 ====================================");
+console.log("Завдання 7 ====================================");
 console.log(useSymbolToStringTag()); //Виведе CustomObject
 
-// Завдання 9: Використання Symbol.description
+// Завдання 8: Використання Symbol.description
 
 // Функція useSymbolDescription використовує властивість Symbol.description для отримання опису символу.
 
@@ -146,8 +124,53 @@ function useSymbolDescription() {
   return symbolDescription;
 }
 
-console.log("Завдання 9 ====================================");
+console.log("Завдання 8 ====================================");
 console.log(useSymbolDescription()); //Виведе mySymbol
+
+// Завдання 9: Використання Symbol.iterator
+
+// Об'єкт "myObject" представляє значення   from: 1, to: 7, які можна перебрати
+let rangeObject = {
+  from: 1,
+  to: 7,
+
+  // Використовуємо Symbol.iterator для створення ітератора всередині об'єкта "myObject"
+  [Symbol.iterator]() {
+    // this.current присвоюємо this.from
+    this.current = this.from;
+    return this; // Індекс для ітерації по масиву ключів
+  },
+  //створюжмо метод "next" який визначає поведінку при кожній ітерації
+  next() {
+    if (this.current < this.to) {
+      // Використовуйте if
+      // Якщо current менше to, повертаємо об'єкт з властивістю "value",
+      // що містить поточне значення ,та не забуваємо збільшити індекс за допомогою інкремент, і "done" - false, означаючи, що ітерація ще не закінчена
+      return { value: this.current++, done: false };
+    } else {
+      // Якщо індекс вийшов за межі масиву ключів, повертаємо об'єкт з властивістю "done" - true, означаючи, що ітерація закінчена
+      return { done: true };
+    }
+  },
+};
+
+// Функція "useSymbolIterator" використовує ітератор для отримання значень об'єкта
+function useSymbolIterator(obj) {
+  let result = []; // Створюємо масив для зберігання значень
+
+  // Проходимо крізь елементи об'єкта, використовуючи цикл "for...of"
+  for (let value of obj) {
+    // Додаємо кожне значення до масиву "result"
+    result = [...result, value];
+  }
+
+  // Повертаємо масив зі значеннями
+  return result;
+}
+
+console.log("Завдання 9 ====================================");
+
+console.log(useSymbolIterator(rangeObject)); //Виведе [ 1, 2, 3, 4, 5, 6 ]
 
 // Завдання 10: Використання Symbol.iterator
 
@@ -187,20 +210,6 @@ let myObject = {
   },
 };
 
-// Функція "useSymbolIterator" використовує ітератор для отримання значень об'єкта
-function useSymbolIterator() {
-  let result = []; // Створюємо масив для зберігання значень
-
-  // Проходимо крізь елементи об'єкта, використовуючи цикл "for...of"
-  for (let value of myObject) {
-    // Додаємо кожне значення до масиву "result"
-    result = [...result, value];
-  }
-
-  // Повертаємо масив зі значеннями
-  return result;
-}
-
 console.log("Завдання 10 ====================================");
 
-console.log(useSymbolIterator()); //Виведе
+console.log(useSymbolIterator(myObject)); //Виведе [ 'apple', 'banana', 'orange', 'grape', 'mango' ]
