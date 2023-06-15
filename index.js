@@ -72,7 +72,7 @@ console.log(
   "isAlmostZero(Number.MIN_VALUE / 2)",
   isAlmostZero(Number.MIN_VALUE / 2)
 ); // Виведе false
-console.log("isAlmostZero(Number.MIN_VALUE)", isAlmostZero(Number.MIN_VALUE)); // Виведе true
+console.log("isAlmostZero(Number.MIN_VALUE)", isAlmostZero(Number.MIN_VALUE)); // Виведе false
 
 // Задача 7: Напишіть функцію, яка перевіряє, чи є значення цілим числом
 
