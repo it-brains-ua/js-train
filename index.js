@@ -64,7 +64,7 @@ console.log(
 
 function isAlmostZero(num) {
   // Перевіряємо, чи є число більшим за 0, але меншим за MIN_VALUE
-  return num > 0 && num <= Number.MIN_VALUE;
+  return num > 0 && num < Number.MIN_VALUE;
 }
 
 console.log("Завдання 6 ====================================");
