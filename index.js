@@ -6,7 +6,7 @@ function createSymbol() {
 
 console.log("Завдання 1 ====================================");
 let symbol1 = createSymbol(); // Створюємо новий символ
-console.log(symbol1); // Виведе символ
+console.log(symbol1); // Виведе Symbol()
 
 //Завдання 2: Функція для створення символу з описом та виведення опису
 function createSymbolWithDescription() {
@@ -17,7 +17,7 @@ function createSymbolWithDescription() {
 }
 
 console.log("Завдання 2 ====================================");
-console.log(createSymbolWithDescription); // Виводить опис символу
+console.log(createSymbolWithDescription()); // Виведе My symbol
 
 // Завдання 3: Створення властивостей об'єкту з використанням Symbol
 // В даному завданні ми створимо властивість об'єкту, ключ якої буде символом.
@@ -37,14 +37,12 @@ function createSymbolProperty() {
   return obj;
 }
 
-// Створимо функцію, яка виводить значення властивості об'єкту по ключу-символу
-function printSymbolProperty(obj, sym) {
-  // Виводимо значення властивості об'єкту по ключу-символу
-  console.log(obj[sym]);
-}
-
 console.log("Завдання 3 ====================================");
 
+console.log(createSymbolProperty()); //Виведе
+// {
+//   [Symbol(property)]: "Це властивість об'єкту з використанням символу"
+// }
 // Завдання 4. Перевіримо чи є символи унікальними
 // Функція для створення двох символів з однаковим описом та порівнянням
 function createAndCompareTwoSymbols(value) {
