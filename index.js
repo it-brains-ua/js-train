@@ -158,7 +158,7 @@ let rangeObject = {
 function useSymbolIterator(obj) {
   let result = []; // Створюємо масив для зберігання значень
 
-  // Проходимо крізь елементи об'єкта, використовуючи цикл "for...of"
+  // Проходимо крізь елементи об'єкта obj, використовуючи цикл "for...of"
   for (let value of obj) {
     // Додаємо кожне значення до масиву "result"
     result = [...result, value];
