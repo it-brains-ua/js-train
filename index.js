@@ -9,11 +9,11 @@
 function getUsersFromDatabase(array) {
   // Використовуємо метод `Array.from` для створення масиву користувачів зі списку
   const users = Array.from(array, (record) => {
-    //повертаємо об'єкт який міститись id,name в верхньому регістрі та age
+    //повертаємо об'єкт який міститись id який дорівнює id користувача,firstName який дорівнює firstName користувача в верхньому регістрі та years який дорівнює age користувача
     return {
       id: record.id,
-      name: record.name.toUpperCase(),
-      age: record.age,
+      firstName: record.name.toUpperCase(),
+      years: record.age,
     };
   });
 
@@ -32,9 +32,9 @@ console.log("Завдання: 1 ==============================");
 console.log(getUsersFromDatabase(userRecords));
 // Виведе
 // [
-//   { id: 1, name: 'JOHN', age: 30 },
-//   { id: 2, name: 'JANE', age: 28 },
-//   { id: 3, name: 'MIKE', age: 32 }
+//   { id: 1, firstName: 'JOHN', years: 30 },
+//   { id: 2, firstName: 'JANE', years: 28 },
+//   { id: 3, firstName: 'MIKE', years: 32 }
 // ]
 
 // Завдання:2 - Видалення останнього елементу з масиву
@@ -51,9 +51,6 @@ function removeLastElement(arr) {
     console.log("Масив порожній");
     return undefined;
   }
-
-  // Отримуємо останній елемент з масиву
-  let lastElement = arr[arr.length - 1];
 
   // Використовуємо метод `pop` для видалення останнього елементу з масиву
   arr.pop();
@@ -447,7 +444,8 @@ function customUnshift(arr, ...elements) {
   // Зберігаємо початкову довжину масиву в змінну initialLength
   const initialLength = arr.length;
 
-  // Додаємо елементи на початок масиву за допомогою методу `unshift` та циклу
+  // Додаємо елементи на початок масиву за допомогою методу `unshift` та циклу for, початкове значення лічильника на 1 менше ніж довжина масива,
+  // при кожній ітерації лічильник зменшуємо на 1 та продовжуємо поки лічильник більше, або дорівнює нулю
   for (let i = elements.length - 1; i >= 0; i--) {
     arr.unshift(elements[i]);
   }
