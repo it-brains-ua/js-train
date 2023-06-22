@@ -119,17 +119,17 @@ console.log(filterAndAdd(new Set([1, 2, 3, "a", "b", "c"]), ["d", "e", "f"]));
 function checkValueAndType(mySet, value) {
   // Використовуємо метод has для перевірки, чи містить множина певне значення.
   if (mySet.has(value)) {
-    // Якщо значення знайдено, повертаємо рядок Set contains the value "${value}" of type "${typeof value}".
-    return `Set contains the value "${value}" of type "${typeof value}".`;
+    // Якщо значення знайдено, повертаємо рядок Множина має значення "${value}" типу "${typeof value}".
+    return `Множина має значення "${value}" типу "${typeof value}"`;
   } else {
-    // Якщо значення не знайдено, повертаємо рядок Set does not contain the value "${value}"..
-    return `Set does not contain the value "${value}".`;
+    // Якщо значення не знайдено, повертаємо рядок Множина не має значення "${value}".
+    return `Множина не має значення "${value}".`;
   }
 }
 // Приклад використання функції checkValueAndType
 console.log("Завдання: 5 ==============================");
 console.log(checkValueAndType(new Set([1, 2, 3, "a", "b", "c"]), "b"));
-// Виведе: Set contains the value "b" of type "string".
+// Виведе: Множина має значення "b" типу "string"
 
 // Завдання: 6
 
