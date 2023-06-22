@@ -36,58 +36,37 @@ console.log(
 
 // Завдання: 2
 /**
- * Функція `iterateDictionary` виконує ітерацію по словнику та виводить його ключі, значення та записи кожного елемента.
- * dictionary - Словник, який потрібно пройтись.
+ * Функція `convertMapToObject` отримує словник (Map) та перетворює його в об'єкт.
+ * Ключами об'єкту стають ключі словника, а значеннями об'єкту - значення відповідних ключів у словнику.
+ *
+ * map - Словник, який потрібно перетворити.
+ *
+ * Повертає - Об'єкт, що містить ключі та значення з вхідного словника.
  */
-function iterateDictionary(dictionary) {
-  // Виведення ключів словника
-  console.log("Ключі:");
-  // Цикл for...of для кожного ключа з ітератора ключів словника
-  for (let key of dictionary.keys()) {
-    // Виведення ключа у консоль
-    console.log(key);
+function convertMapToObject(map) {
+  let newObject = {};
+
+  // Перебираємо ключі та значення в словнику
+  for (let [key, value] of map) {
+    // Додаємо ключ та значення до об'єкту
+    newObject[key] = value;
   }
 
-  // Виведення значень словника
-  console.log("Значення:");
-  // Цикл for...of для кожного значення з ітератора значень словника
-  for (let value of dictionary.values()) {
-    // Виведення значення у консоль
-    console.log(value);
-  }
-
-  // Виведення записів словника
-  console.log("Записи:");
-  // Цикл for...of для кожного запису з ітератора записів словника
-  for (let entry of dictionary.entries()) {
-    // Виведення запису у консоль
-    console.log(entry);
-  }
+  // Повертаємо отриманий об'єкт
+  return newObject;
 }
 
-// Приклад використання функції iterateDictionary
+// Приклад використання функції convertMapToObject
 console.log("Завдання: 2 ==============================");
-iterateDictionary(
-  new Map([
-    ["apple", "яблуко"],
-    ["banana", "банан"],
-    ["orange", "апельсин"],
-  ])
-);
 
-// Виведе:
-// Ключі:
-// apple
-// banana
-// orange
-// Значення:
-// яблуко
-// банан
-// апельсин
-// Записи:
-// [ 'apple', 'яблуко' ]
-// [ 'banana', 'банан' ]
-// [ 'orange', 'апельсин' ]
+let someMap = new Map([
+  ["name", "John"],
+  ["age", 30],
+  ["city", "New York"],
+]);
+
+console.log(convertMapToObject(someMap));
+// Виведе: { name: 'John', age: 30, city: 'New York' }
 
 // Завдання: 3
 /**
@@ -99,11 +78,11 @@ iterateDictionary(
 function setValue(dictionary, key, value) {
   // Перевірка, чи існує вже ключ у словнику
   if (dictionary.has(key)) {
-    // Якщо ключ вже існує, встановлюємо нове значення для нього
+    // Якщо ключ вже існує, встановлюємо для нього нове значення в верхньому регістрі
     dictionary.set(key, value);
   } else {
-    // Якщо ключ не існує, додаємо нову пару ключ-значення до словника
-    dictionary.set(key, value);
+    // Якщо ключ не існує, додаємо нову пару ключ-значення до словника де значення буде таким же як ключ
+    dictionary.set(key, key);
   }
   return dictionary;
 }
@@ -395,14 +374,13 @@ console.log(
  */
 function sortByValues(dictionary) {
   // Конвертуємо словник в масив пар ключ-значення за допомогою оператора деструктурізації
-  console.log(dictionary.values());
-  let entries = Array.from(dictionary.values());
+  let entries = [...dictionary.entries()];
 
   // Сортуємо масив пар ключ-значення за значеннями в порядку спадання
-  entries.sort((a, b) => b - a);
+  entries.sort((a, b) => b[1] - a[1]);
 
   // Конвертуємо відсортований масив пар ключ-значення назад у словник
-  // return new Map(entries);
+  return new Map(entries);
 }
 
 console.log("Завдання: 11 ==============================");
@@ -462,7 +440,7 @@ console.log(
 );
 // Виведе: true, оскільки у словнику було 5 елементів, що більше ніж maxSize = 3
 
-// Завдання: 15
+// Завдання: 13
 /**
  * Функція `convertDictionaryToSet` отримує словник та перетворює його в множину.
  * Значенням множини є ключі словника, де рядкові ключі переводяться в верхній регістр,
@@ -492,7 +470,7 @@ function convertDictionaryToSet(dictionary) {
 }
 
 // Приклад використання функції convertDictionaryToSet
-console.log("Завдання: 15 ==============================");
+console.log("Завдання: 13 ==============================");
 
 let mixedDictionary = new Map([
   ["apple", "red"],
@@ -504,7 +482,7 @@ let mixedDictionary = new Map([
 console.log(convertDictionaryToSet(mixedDictionary));
 // Виведе: Set { 'APPLE', 'BANANA', 2, 3 }
 
-// Завдання: 16
+// Завдання: 14
 /**
  * Функція `convertSetToDictionary` отримує множину та перетворює її в словник.
  * Ключами словника стають елементи множини, а значеннями - коди перших символів цих елементів.
@@ -527,7 +505,7 @@ function convertSetToDictionary(set) {
 }
 
 // Приклад використання функції convertSetToDictionary
-console.log("Завдання: 16 ==============================");
+console.log("Завдання: 14 ==============================");
 
 let someSet = new Set(["apple", "banana", "1", "2"]);
 
