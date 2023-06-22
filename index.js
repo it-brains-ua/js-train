@@ -350,7 +350,7 @@ function getFilteredDictionarySize(dictionary, filter) {
   return filteredDictionary.size;
 }
 
-console.log("Завдання: 10 ==============================");
+console.log("Завдання: 9 ==============================");
 
 console.log(
   getFilteredDictionarySize(
@@ -366,7 +366,7 @@ console.log(
 );
 // Виведе: 2, оскільки лише два міста мають населення більше ніж 1 мільйон
 
-// Завдання: 11
+// Завдання: 10
 /**
  * Функція `sortByValues` сортує словник за значеннями від найбільшого до найменшого.
  * dictionary - Словник, який потрібно відсортувати.
@@ -383,7 +383,7 @@ function sortByValues(dictionary) {
   return new Map(entries);
 }
 
-console.log("Завдання: 11 ==============================");
+console.log("Завдання: 10 ==============================");
 
 console.log(
   sortByValues(
@@ -403,7 +403,7 @@ console.log(
 // 'And Then There Were None' => 100000000,
 // 'Dream of the Red Chamber' => 100000000 }
 
-// Завдання: 12
+// Завдання: 11
 /**
  * Функція `resetDictionary` перевіряє кількість елементів у словнику, та якщо вона більша ніж задана, очищує словник.
  * dictionary - Словник, який потрібно перевірити та можливо очистити.
@@ -424,7 +424,7 @@ function resetDictionary(dictionary, maxSize) {
   return false;
 }
 
-console.log("Завдання: 12 ==============================");
+console.log("Завдання: 11 ==============================");
 
 console.log(
   resetDictionary(
@@ -440,7 +440,7 @@ console.log(
 );
 // Виведе: true, оскільки у словнику було 5 елементів, що більше ніж maxSize = 3
 
-// Завдання: 13
+// Завдання: 12
 /**
  * Функція `convertDictionaryToSet` отримує словник та перетворює його в множину.
  * Значенням множини є ключі словника, де рядкові ключі переводяться в верхній регістр,
@@ -470,7 +470,7 @@ function convertDictionaryToSet(dictionary) {
 }
 
 // Приклад використання функції convertDictionaryToSet
-console.log("Завдання: 13 ==============================");
+console.log("Завдання: 12 ==============================");
 
 let mixedDictionary = new Map([
   ["apple", "red"],
@@ -482,7 +482,7 @@ let mixedDictionary = new Map([
 console.log(convertDictionaryToSet(mixedDictionary));
 // Виведе: Set { 'APPLE', 'BANANA', 2, 3 }
 
-// Завдання: 14
+// Завдання: 13
 /**
  * Функція `convertSetToDictionary` отримує множину та перетворює її в словник.
  * Ключами словника стають елементи множини, а значеннями - коди перших символів цих елементів.
@@ -505,7 +505,7 @@ function convertSetToDictionary(set) {
 }
 
 // Приклад використання функції convertSetToDictionary
-console.log("Завдання: 14 ==============================");
+console.log("Завдання: 13 ==============================");
 
 let someSet = new Set(["apple", "banana", "1", "2"]);
 
