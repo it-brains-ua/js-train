@@ -395,13 +395,14 @@ console.log(
  */
 function sortByValues(dictionary) {
   // Конвертуємо словник в масив пар ключ-значення за допомогою оператора деструктурізації
-  let entries = [...dictionary.entries()];
+  console.log(dictionary.values());
+  let entries = Array.from(dictionary.values());
 
   // Сортуємо масив пар ключ-значення за значеннями в порядку спадання
-  entries.sort((a, b) => b[1] - a[1]);
+  entries.sort((a, b) => b - a);
 
   // Конвертуємо відсортований масив пар ключ-значення назад у словник
-  return new Map(entries);
+  // return new Map(entries);
 }
 
 console.log("Завдання: 11 ==============================");
@@ -460,3 +461,75 @@ console.log(
   )
 );
 // Виведе: true, оскільки у словнику було 5 елементів, що більше ніж maxSize = 3
+
+// Завдання: 15
+/**
+ * Функція `convertDictionaryToSet` отримує словник та перетворює його в множину.
+ * Значенням множини є ключі словника, де рядкові ключі переводяться в верхній регістр,
+ * а числові ключі збільшуються на 1.
+ *
+ * dictionary - Словник, який потрібно перетворити.
+ *
+ * Повертає - Множину, яка містить ключі словника в модифікованому вигляді.
+ */
+function convertDictionaryToSet(dictionary) {
+  let newSet = new Set();
+
+  // Перебираємо ключі словника
+  for (let key of dictionary.keys()) {
+    // Якщо ключ є рядком, переводимо його в верхній регістр і додаємо до множини
+    if (typeof key === "string") {
+      newSet.add(key.toUpperCase());
+    }
+    // Якщо ключ є числом, збільшуємо його на 1 і додаємо до множини
+    else if (typeof key === "number") {
+      newSet.add(key + 1);
+    }
+  }
+
+  // Повертаємо отриману множину
+  return newSet;
+}
+
+// Приклад використання функції convertDictionaryToSet
+console.log("Завдання: 15 ==============================");
+
+let mixedDictionary = new Map([
+  ["apple", "red"],
+  ["banana", "yellow"],
+  [1, "one"],
+  [2, "two"],
+]);
+
+console.log(convertDictionaryToSet(mixedDictionary));
+// Виведе: Set { 'APPLE', 'BANANA', 2, 3 }
+
+// Завдання: 16
+/**
+ * Функція `convertSetToDictionary` отримує множину та перетворює її в словник.
+ * Ключами словника стають елементи множини, а значеннями - коди перших символів цих елементів.
+ *
+ * set - Множина, яку потрібно перетворити.
+ *
+ * Повертає - Словник, який містить елементи множини як ключі та їх коди перших символів як значення.
+ */
+function convertSetToDictionary(set) {
+  let newDictionary = new Map();
+
+  // Перебираємо елементи множини
+  for (let item of set) {
+    // Додаємо елемент в словник з ключем, який дорівнює елементу, та значенням, яке дорівнює коду його першого символу
+    newDictionary.set(item, item.charCodeAt(0));
+  }
+
+  // Повертаємо отриманий словник
+  return newDictionary;
+}
+
+// Приклад використання функції convertSetToDictionary
+console.log("Завдання: 16 ==============================");
+
+let someSet = new Set(["apple", "banana", "1", "2"]);
+
+console.log(convertSetToDictionary(someSet));
+// Виведе: Map { 'apple' => 97, 'banana' => 98, '1' => 49, '2' => 50 }
