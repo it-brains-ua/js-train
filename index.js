@@ -316,7 +316,8 @@ console.log(checkOwnership({ a: 1, b: 2, c: 3 }, { a: 1, b: 2, c: 4 }, "a")); //
 
 function getObjectValuesSum(obj) {
   // Перевірка, чи є аргумент об'єктом,якщо ні повертаємо 0
-  if (typeof obj === "object" && obj !== null) {
+  if (typeof obj !== "object" && obj === null) {
+    console.log(typeof obj === "object");
     return 0;
   }
 
