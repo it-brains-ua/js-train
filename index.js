@@ -14,7 +14,7 @@ function generateRandomPassword(length) {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-  // Генеруємо випадковий символ та додаємо його до паролю довжиною length.
+  // За допомогою циклу for проходимось по кожному символу рядка characters
   for (let i = 0; i < length; i++) {
     // Визначаємо випадковий індекс символу зі списку characters та округляємо до найбільшого цілого, яке менше.
     const randomIndex = Math.floor(Math.random() * characters.length);
