@@ -326,3 +326,59 @@ function estimateInvestment(principal, interestRate, years) {
 console.log("Завдання 10");
 console.log(estimateInvestment(1000, 0.05, 5));
 // Виведе  1276.
+
+// Завдання 13
+/**
+ * Функція `isTotalPriceExceedsMaxPrice` приймає масив з об'єктами {price, title} та maxPrice.
+ * Кожен об'єкт містить властивість price як дробове число.
+ * Функція обраховує суму всіх price (totalPrice), конвертує totalPrice та maxPrice за допомогою Math.fround
+ * і перевіряє чи не перевищує totalPrice maxPrice.
+ *
+ * products - масив з об'єктами {price, title}.
+ * maxPrice - максимальна сума.
+ * Повертає чи перевищує totalPrice maxPrice.
+ */
+function isTotalPriceExceedsMaxPrice(products, maxPrice) {
+  // Перевіряємо, чи аргумент products є масивом.
+  if (!Array.isArray(products)) {
+    // Якщо products не є масивом, виводимо повідомлення про помилку.
+    console.log("Помилка: аргумент 'products' має бути масивом.");
+    // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
+    return null;
+  }
+
+  // Перевіряємо, чи аргумент maxPrice є числом.
+  if (typeof maxPrice !== "number") {
+    // Якщо maxPrice не є числом, виводимо повідомлення про помилку.
+    console.log("Помилка: аргумент 'maxPrice' має бути числом.");
+    // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
+    return null;
+  }
+
+  // Використовуємо метод reduce() для обчислення загальної ціни.
+
+  let totalPrice = products.reduce((accumulator, product) => {
+    // Додаємо ціну продукту до аккумулятора.
+    return accumulator + product.price;
+  }, 0);
+
+  // Конвертуємо totalPrice та maxPrice за допомогою Math.fround.
+  totalPrice = Math.fround(totalPrice);
+  maxPrice = Math.fround(maxPrice);
+
+  // Порівнюємо, чи не перевищує totalPrice maxPrice.
+  return totalPrice > maxPrice;
+}
+
+console.log("Завдання 12");
+let products = [
+  { title: "Product 1", price: 0.4 },
+  { title: "Product 2", price: 0.23 },
+  { title: "Product 3", price: 0.109 },
+  { title: "Product 4", price: 0.7564 },
+  { title: "Product 5", price: 0.33456 },
+  { title: "Product 6", price: 0.897654 },
+];
+let maxPrice = 3.567894;
+console.log(isTotalPriceExceedsMaxPrice(products, maxPrice));
+// Виведе: false
