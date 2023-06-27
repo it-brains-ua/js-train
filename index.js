@@ -56,7 +56,7 @@ function calculateCircleArea(radius) {
   return area;
 }
 
-console.log("Завдання 2: Обчислення площі кола");
+console.log("Завдання 2 ==============================");
 console.log(calculateCircleArea(5));
 // Виведе площу кола з радіусом 5, наприклад 78.53981633974483.
 
@@ -86,9 +86,7 @@ function findMinMax(numbers) {
   return { min, max };
 }
 
-console.log(
-  "Завдання 3: Знаходження мінімального та максимального числа в масиві"
-);
+console.log("Завдання 3 ==============================");
 console.log(findMinMax([5, 2, 9, 1, 5, 6, 7, 8]));
 // Виведе об'єкт, що містить мінімальне (1) та максимальне (9) числа.
 
@@ -116,7 +114,7 @@ function calculateHypotenuse(a, b) {
   return c;
 }
 
-console.log("Завдання 4: Обчислення довжини гіпотенузи");
+console.log("Завдання 4 ==============================");
 console.log(calculateHypotenuse(3, 4));
 // Виведе довжину гіпотенузи для прямокутного трикутника з катетами довжиною 3 та 4, що дорівнює 5.
 
@@ -159,7 +157,7 @@ function roundObjectValues(obj) {
   return roundedObj;
 }
 
-console.log("Завдання 5");
+console.log("Завдання 5 ==============================");
 const myObject = {
   a: 3.5,
   b: 2.2,
@@ -194,7 +192,7 @@ function calculateVolumeCylinder(radius, height) {
   return volume;
 }
 
-console.log("Завдання 6: Обчислення об'єму циліндра");
+console.log("Завдання 6 ==============================");
 console.log(calculateVolumeCylinder(3, 5));
 // Виведе 142
 
@@ -229,7 +227,7 @@ function sumPositiveNumbers(numbers) {
   return sum;
 }
 
-console.log("Завдання 7");
+console.log("Завдання 7 ==============================");
 console.log(sumPositiveNumbers([-5, 3, 2, -1, 7, -6]));
 // Виведе 12
 
@@ -260,7 +258,7 @@ function getFractionalPart(num) {
   return fractionalPart;
 }
 
-console.log("Завдання 8");
+console.log("Завдання 8 ==============================");
 console.log(getFractionalPart(12.34567));
 // Виведе дробову частину числа, наприклад 0.34567001461982727
 
@@ -290,7 +288,7 @@ function compareAndRound(num1, num2) {
   return roundedNumber;
 }
 
-console.log("Завдання 9");
+console.log("Завдання 9 ==============================");
 console.log(compareAndRound(13.4, 15.7));
 // Виведе 16.
 
@@ -323,11 +321,11 @@ function estimateInvestment(principal, interestRate, years) {
   return investment;
 }
 
-console.log("Завдання 10");
+console.log("Завдання 10 ==============================");
 console.log(estimateInvestment(1000, 0.05, 5));
 // Виведе  1276.
 
-// Завдання 13
+// Завдання 11
 /**
  * Функція `isTotalPriceExceedsMaxPrice` приймає масив з об'єктами {price, title} та maxPrice.
  * Кожен об'єкт містить властивість price як дробове число.
@@ -370,7 +368,7 @@ function isTotalPriceExceedsMaxPrice(products, maxPrice) {
   return totalPrice > maxPrice;
 }
 
-console.log("Завдання 12");
+console.log("Завдання 11 ==============================");
 let products = [
   { title: "Product 1", price: 0.4 },
   { title: "Product 2", price: 0.23 },
