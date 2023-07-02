@@ -272,11 +272,6 @@ function checkRegexMethods(regex) {
     usedMethods.push("sticky");
   }
 
-  // Перевіряємо, чи використовується метод `hasIncludes`.
-  if (regex.hasIncludes) {
-    usedMethods.push("hasIncludes");
-  }
-
   // Повертаємо масив використаних методів.
   return usedMethods;
 }
