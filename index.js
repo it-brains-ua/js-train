@@ -1,312 +1,361 @@
 // Завдання 1
 /**
- * Функція `replaceText` замінює всі входження певного слова у тексті на задану фразу.
+ * Функція `checkData` перевіряє наявність даних.
+ * У випадку помилки, викликається помилка з причиною (cause).
  *
- *  word - Слово для заміни.
- *  replacement - Фраза, якою треба замінити слово.
- *  text - Текст, у якому треба здійснити заміну.
+ *  data - вхідні дані.
  */
-function replaceText(word, replacement, text) {
-  // Створення регулярного виразу для пошуку слова з флагом 'g' (глобальний пошук).
-  const regex = new RegExp(word, "g");
-
-  // Використання методу `replace` регулярного виразу для заміни слова на фразу у тексті.
-  const replacedText = text.replace(regex, replacement);
-
-  // Повернення заміненого тексту.
-  return replacedText;
+function checkData(data) {
+  try {
+    // Якщо об'єкт не пустий повертаємо дані
+    if (Object.keys(data).length) {
+      return data;
+    } else {
+      // Інакше створюємо помилку,в якості тексту помилки ми використовуємо рядок "Об'єкт пустий".
+      throw new Error("Об'єкт пустий");
+    }
+  } catch (error) {
+    // Якщо виникла помилка, повертаємо її повідомлення.
+    return error.message;
+  }
 }
 
-// Перевірка
-console.log("Завдання 1 ==============================");
-console.log(
-  replaceText(
-    "example",
-    "sample text",
-    "This is an example sentence. Another example is here."
-  )
-);
-// Виведе This is an sample text sentence. Another sample text is here.
+console.log("Завдання: 1 ==============================");
+
+// Спробуємо отримати дані з неіснуючого URL.
+console.log(checkData({}));
+// Виведе Об'єкт пустий
+console.log(checkData({ name: "John", age: 30, city: "New York" }));
+// Виведе { name: 'John', age: 30, city: 'New York' }
 
 // Завдання 2
-
 /**
- * Функція `checkWord` перевіряє, чи міститься певне слово у тексті.
+ * Функція `parseJson` намагається аналізувати вхідний JSON-рядок.
+ * Якщо рядок має невірний формат, генерується помилка з відповідним текстом.
  *
- *  word - Слово для перевірки.
- *  text - Текст, який треба перевірити.
+ *  jsonStr - JSON-рядок для аналізу.
  */
-function checkWord(word, text) {
-  // Створення регулярного виразу для пошуку слова з флагом 'i' (регістронезалежний пошук).
-  const regex = new RegExp(word, "i");
-
-  // Використання методу `test` регулярного виразу для перевірки наявності слова у тексті.
-  const wordExists = regex.test(text);
-
-  // Повернення результату перевірки.
-  return wordExists;
+function parseJson(jsonStr) {
+  try {
+    // Спроба розпарсити JSON-рядок.
+    // Якщо рядок має невірний формат, виникне помилка, яку ми обробляємо у блоку catch.
+    let data = JSON.parse(jsonStr);
+    // Повертаємо отриманий об'єкт
+    return data;
+  } catch (error) {
+    // Якщо виникла помилка, повертаємо її повідомлення.
+    return error.message;
+  }
 }
+console.log("Завдання: 2 ==============================");
 
-// Перевірка
-console.log("Завдання 2 ==============================");
-console.log(checkWord("example", "This is an example sentence."));
-// Виведе true
+// Вхідний JSON-рядок з правильним форматом.
+let validJson = '{"name":"John","age":30,"city":"New York"}';
+// Вхідний JSON-рядок з неправильним форматом.
+let invalidJson = '{"name":"John,"age":30,"city":"New York"}'; // Пропущена закриваюча лапка після "John".
+
+// Спробуємо аналізувати JSON-рядки.
+console.log(parseJson(validJson));
+// Виведе { name: 'John', age: 30, city: 'New York' }
+console.log(parseJson(invalidJson));
+// Виведе Unexpected token a in JSON at position 15
 
 // Завдання 3
 
 /**
- * Функція `extractTextInParentheses` вилучає текст, який знаходиться в круглих дужках, з рядка.
+ * Функція `getAge` отримує вік користувача.
+ * Якщо вік користувача менше 0, генерується помилка з відповідним текстом.
  *
- *  str - Рядок, з якого треба вилучити текст.
+ *  age - вік користувача.
  */
-function extractTextInParentheses(str) {
-  // Створення регулярного виразу з використанням зворотніх посилань для пошуку тексту в круглих дужках /\((.*?)\)/g.
-  const regex = /\((.*?)\)/g;
+function getAge(age) {
+  try {
+    // Спроба отримати вік користувача.
+    // Якщо вік менше 0, виникне помилка, яку ми обробляємо у блоку catch.
+    if (age < 0) {
+      // Генеруємо помилку, якщо вік менше 0 з повідомленням Вік не може бути менше 0!.
+      let error = new Error(`Вік не може бути менше 0!`);
 
-  // Використання методу `matchAll` для отримання всіх збігів регулярного виразу.
-  const matches = str.matchAll(regex);
+      // До помилки дадаємо властивість name зі значенням "AgeError"
+      error.name = "AgeError";
 
-  // Створення масиву зі знайденими текстами.
-  const extractedTexts = Array.from(matches, (match) => match[1]);
-
-  // Повернення масиву вилучених текстів.
-  return extractedTexts;
+      // Викидаємо помилку
+      throw error;
+    }
+    // Якщо помилки не має повертаємо рядок `Вік користувача: ${age}`
+    return `Вік користувача: ${age}`;
+  } catch (error) {
+    // Якщо виникла помилка, повертаємо об'єкт з name та message помилки.
+    return { error: error.message, name: error.name };
+  }
 }
+console.log("Завдання: 3 ==============================");
 
-// Перевірка
-console.log("Завдання 3 ==============================");
-
-console.log(extractTextInParentheses("I have some (text) in (parentheses)."));
-// Виведе [ 'text', 'parentheses' ]
+// Виклик функції з від'ємним віком.
+console.log(getAge(-1));
+// Виведе { error: 'Вік не може бути менше 0!', name: 'AgeError' }
+// Виклик функції з віком 20.
+console.log(getAge(20));
+// Виведе Вік користувача: 20
 
 // Завдання 4
-
 /**
- * Функція `countEmails` знаходить та підраховує кількість email-адрес у рядку.
+ * Функція `getBookById` отримує книгу за її ID.
+ * Якщо книги з таким ID не існує, генерується TypeError.
  *
- *  str - Рядок, в якому потрібно знайти email-адреси.
+ *  books - масив книг.
+ *  id - ID книги.
  */
-function countEmails(str) {
-  // Створення регулярного виразу для пошуку email-адрес /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g.
-  const regex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g;
+function getBookById(books, id) {
+  try {
+    // Спроба знайти книгу по ID та записати в змінну book.
+    let book = books.find((book) => book.id === id);
 
-  // Використання методу `match` для отримання всіх збігів регулярного виразу.
-  const matches = str.match(regex);
+    // Якщо книга не знайдена, генерується TypeError з повідомленням Книга з ID ${id} не знайдена!.
+    if (!book) {
+      throw new TypeError(`Книга з ID ${id} не знайдена!`);
+    }
 
-  // Підрахунок кількості email-адрес.
-  const count = matches ? matches.length : 0;
-
-  // Повернення кількості email-адрес.
-  return count;
+    // Повертаємо book
+    return `Книга: ${book.title}`;
+  } catch (error) {
+    // Повертаємо текстове представлення помилки
+    return error.toString();
+  }
 }
+console.log("Завдання: 4 ==============================");
 
-// Перевірка
-console.log("Завдання 4 ==============================");
+// Виклик функції з неіснуючим ID.
 
 console.log(
-  countEmails("Emails: john@example.com, kate@example.com, mike@example.com")
+  getBookById(
+    [
+      { id: 1, title: "Книга 1" },
+      { id: 2, title: "Книга 2" },
+    ],
+    3
+  )
 );
-// Виведе  3
+// Виведе TypeError: Книга з ID 3 не знайдена!
+console.log(
+  getBookById(
+    [
+      { id: 1, title: "Книга 1" },
+      { id: 2, title: "Книга 2" },
+    ],
+    2
+  )
+);
+// Виведе Книга: Книга 2
 
 // Завдання 5
+
 /**
- * Функція `findWordOccurrences` знаходить всі входження заданого слова у рядок з урахуванням ігнорування регістру.
+ * Функція `decodeURIComponentWrapper` виконує декодування рядка `encodedString`
+ * з використанням функції `decodeURIComponent`. Якщо сталася помилка URIError,
+ * вона перехоплюється та виводиться повідомлення про помилку.
  *
- *  str - Рядок, в якому потрібно знайти входження слова.
- *  word - Слово, входження якого потрібно знайти.
- *  Повертає масив з індексами всіх входжень слова у рядок.
+ *  encodedString - Рядок для декодування.
  */
-function findWordOccurrences(str, word) {
-  // Створення регулярного виразу для пошуку слова з флагами 'g та 'i',
-  const regex = new RegExp(word, "gi");
-
-  // Створюємо пустий масив matches, та змінну match без значення
-  let matches = [];
-  let match;
-
-  // За допомогою циклу whild створюємо ітерацію поки рядок містить збіги з регулярним виразом, та змінній match присвоюємо збіги
-  while ((match = regex.exec(str))) {
-    // Додавання індексу поточного входження слова у масив.
-    matches.push(match.index);
-
-    // Оновлення lastIndex,присвоєюмо йому значення  match.index + 1, щоб продовжити пошук з наступного символу
-    regex.lastIndex = match.index + 1;
+function decodeURIComponentWrapper(encodedString) {
+  try {
+    // Спроба декодувати рядок
+    const decodedString = decodeURIComponent(encodedString);
+    // Повертаємо декодований рядок
+    return decodedString;
+  } catch (error) {
+    // Якщо виникла помилка, і ії назва дорівнює URIError повертаємо помилку про неправильний URI формат з повідомленням Помилка декодування URI,
+    //  інкше повертаємо текстове представлення помилки
+    if (error.name === "URIError") {
+      return new URIError(`Помилка декодування URI`);
+    } else {
+      return new Error(error.toString());
+    }
   }
-  // Повертаємо масив
-
-  return matches;
 }
 
-// Перевірка
+console.log("Завдання: 5 ==============================");
 
-console.log("Завдання 5 ==============================");
-
-console.log(
-  findWordOccurrences(
-    "The quick brown fox jumps over the lazy dog. The Fox is quick.",
-    "fox"
-  )
-);
-// Виведе  [ 16, 49 ]
+console.log(decodeURIComponentWrapper("Hello%20World")); // виведе 'Hello World'
+console.log(decodeURIComponentWrapper("%E0%A4%A")); // виведе інформацію про помилку URIError
 
 // Завдання 6
-
 /**
- * Функція `checkRegexFlags` перевіряє регулярний вираз на наявність флагів 'g' та 'm'.
+ * Функція `findEvenNumber` знаходить перше число, що ділиться на 2 без остачі в масиві.
+ * Якщо такого числа немає, вона кидає помилку.
  *
- *  regex - Регулярний вираз, який потрібно перевірити.
- * Повертає  - true, якщо флаги 'g' та 'm' присутні, інакше - false.
+ *  numbers - Масив чисел для пошуку.
  */
-function checkRegexFlags(regex) {
-  const flags = regex.flags; // Отримуємо всі флаги регулярного виразу.
+function findEvenNumber(numbers) {
+  // Створюємо змінну evenNumber без значення
+  let evenNumber;
 
-  // Перевіряємо наявність флагів 'g' та 'm' за допомогою методу `includes`.
-  const hasGlobalFlag = flags.includes("g");
-  const hasMultilineFlag = flags.includes("m");
+  try {
+    // Шукаємо перше число, що ділиться на 2 без остачі, та записуємо в нашу змінну.
+    evenNumber = numbers.find((number) => number % 2 === 0);
 
-  // Повертаємо  - true, якщо флаги 'g' та 'm' присутні, інакше - false
-
-  return hasGlobalFlag && hasMultilineFlag;
+    // Якщо такого числа немає, кидаємо помилку з повідомлення У масиві немає чисел, що діляться на 2 без остачі!.
+    if (evenNumber === undefined) {
+      throw new Error("У масиві немає чисел, що діляться на 2 без остачі!");
+    }
+    // Якщо число знайдено повертаємо його
+    return evenNumber;
+  } catch (error) {
+    // Виводимо текстове представлення помилки.
+    return error.toString();
+  } finally {
+    // Незалежно від результату, виводимо вихідний масив.
+    console.log(numbers);
+  }
 }
 
-// Перевірка
-
-console.log("Завдання 6 ==============================");
-
-console.log(checkRegexFlags(/pattern/gm));
-// Виведе true
+console.log("Завдання: 6 ==============================");
+// Виклик функції з масивом чисел.
+console.log(findEvenNumber([1, 3, 5]));
+// Виведе
+// [ 1, 3, 5 ]
+// Error: У масиві немає чисел, що діляться на 2 без остачі!;
+console.log(findEvenNumber([1, 4, 5]));
+// Виведе
+// [ 1, 4, 5 ]
+// 4
 
 // Завдання 7
-
 /**
- * Функція `replaceWordOccurrences` замінює всі входження заданого слова у рядку на нове слово.
+ * Функція `validateUser` перевіряє об'єкт користувача на відповідність заданим вимогам.
+ * Якщо об'єкт користувача не відповідає вимогам, вона кидає помилку з причиною (cause).
  *
- *  str - Рядок, в якому потрібно замінити входження слова.
- *  word - Слово, яке потрібно замінити.
- *  newWord - Нове слово, яким потрібно замінити.
- * Повертає  - Результат заміни входжень слова у рядку.
+ *  user - Об'єкт користувача для перевірки.
  */
-function replaceWordOccurrences(str, word, newWord) {
-  // Створюємо регулярний вираз зі словом, використовуючи флаг 'g' для глобального пошуку всіх входжень.
-  const regex = new RegExp(word, "g");
+function validateUser(user) {
+  try {
+    // Перевіряємо, чи існує об'єкт користувача,якщо ні викидуємо помилку з повідомленням "Об'єкт користувача не вказано!".
+    if (!user) {
+      throw new Error("Об'єкт користувача не вказано!");
+    }
 
-  // Заміняємо всі входження слова у рядку на нове слово.
-  const replacedStr = str.replaceAll(regex, newWord);
-  // Повертаємо результат
+    // Перевіряємо, чи існує ім'я користувача,якщо ні викидуємо помилку з повідомленням "Ім'я користувача не вказано!", а як причину вказуємо об'єкт user.
+    if (!user.name) {
+      throw new Error("Ім'я користувача не вказано!", { cause: user });
+    }
 
-  return replacedStr;
+    // Перевіряємо, чи існує email користувача,якщо ні викидуємо помилку з повідомленням "Email користувача не вказано!", а як причину вказуємо об'єкт user.
+    if (!user.email) {
+      throw new Error("Email користувача не вказано!", { cause: user });
+    }
+
+    // Якщо всі перевірки пройдено успішно виводимо повідомлення "Об'єкт користувача відповідає всім вимогам."
+    console.log("Об'єкт користувача відповідає всім вимогам.");
+  } catch (error) {
+    // Виводимо повідомлення про помилку та причину помилки.
+    console.error(error.message, error.cause);
+  }
 }
 
-// Перевірка
-console.log("Завдання 7 ==============================");
+console.log("Завдання: 7 ==============================");
 
-console.log(
-  replaceWordOccurrences(
-    "The quick brown fox jumps over the lazy dog. The fox is quick.",
-    "fox",
-    "cat"
-  )
-);
-// Виведе The quick brown cat jumps over the lazy dog. The cat is quick.
+// Виклик функції з неповним об'єктом користувача.
+validateUser({ name: "John Doe" });
+// Виведе
+// Email користувача не вказано! { name: 'John Doe' }
 
 // Завдання 8
-
 /**
- * Функція `checkFlags` перевіряє, які флаги використовуються в заданому регулярному виразі.
+ * Функція `calculateSquareRoot` обчислює квадратний корінь з числа.
+ * Якщо аргумент не є числом, вона кидає TypeError.
+ * Якщо число від'ємне, вона кидає RangeError.
  *
- *  regex - Регулярний вираз для перевірки.
- * Повертає  - Масив флагів, які використовуються у регулярному виразі.
+ *  number - Число для обчислення квадратного кореня.
  */
-function checkFlags(regex) {
-  // Створюємо масив для зберігання використаних флагів.
-  const usedFlags = [];
+function calculateSquareRoot(number) {
+  try {
+    // Перевіряємо, чи аргумент є числом, якщо ні викидуємо помилку про невірний тип даних з повідомленням Аргумент має бути числом!".
+    if (typeof number !== "number") {
+      throw new TypeError("Аргумент має бути числом!");
+    }
 
-  // Перевіряємо, чи використовується флаг 'i' (ignoreCase) у регулярному виразі.
-  const hasIgnoreCase = regex.ignoreCase;
+    // Перевіряємо, чи число не від'ємне, якщо ні викидуємо помилку про тип недопустимий діапазон з повідомленням Число не повинно бути від'ємним!".
+    if (number < 0) {
+      throw new RangeError("Число не повинно бути від'ємним!");
+    }
 
-  // Додаємо флаг ignoreCase до масиву, якщо він використовується.
-  if (hasIgnoreCase) {
-    usedFlags.push("ignoreCase");
+    // Повертаємо корінь квадратний з вхідного значення
+    return Math.sqrt(number);
+  } catch (error) {
+    // Повертаємо повідомлення про помилку.
+    return error.message;
   }
-
-  // Отримуємо вихідний код регулярного виразу за допомогою властивості `source`.
-  const sourceCode = regex.source;
-
-  // Додаємо вихідний код до масиву
-  usedFlags.push(sourceCode);
-
-  // Повертаємо масив використаних флагів.
-  return usedFlags;
 }
 
-// Приклад використання:
-console.log("Завдання 8 ==============================");
+console.log("Завдання: 8 ==============================");
 
-console.log(checkFlags(/pattern/gimsy));
-// Виведе[ 'ignoreCase', 'pattern' ]
+console.log(calculateSquareRoot(9));
+// Виведе 3
+console.log(calculateSquareRoot(-9));
+// Виведе Число не повинно бути від'ємним!
+console.log(calculateSquareRoot("abc"));
+// Виведе Аргумент має бути числом!
 
 // Завдання 9
 
 /**
- * Функція `checkRegexMethods` перевіряє, які методи використовуються в заданому регулярному виразі.
+ * Функція `processData` обробляє масив чисел.
+ * Якщо в масиві є не число, вона кидає TypeError.
  *
- *  regex - Регулярний вираз для перевірки.
- * Повертає  - Масив методів, які використовуються у регулярному виразі.
+ *  data - Масив чисел для обробки.
  */
-function checkRegexMethods(regex) {
-  // Створюємо масив для зберігання використаних методів.
-  const usedMethods = [];
+function processData(data) {
+  try {
+    // Для кожного елемента в масиві
+    data.forEach((item, index) => {
+      // Перевіряємо, чи елемент є числом
+      if (typeof item !== "number") {
+        // Якщо елемент не є числом, кидаємо помилку невірного типу даних з повідомленням `Елемент з індексом ${index} має бути числом!`
+        throw new TypeError(`Елемент з індексом ${index} має бути числом!`);
+      }
+    });
 
-  // Перевіряємо, чи використовується метод `dotAll`.
-  if (regex.dotAll) {
-    usedMethods.push("dotAll");
+    // Повертаємо рядок "Дані успішно оброблені"
+    return "Дані успішно оброблені";
+  } catch (error) {
+    // Виводимо stack trace помилки
+    console.error(error.stack);
+    // Повертаємо повідомлення помилки
+    return error.message;
   }
-
-  // Перевіряємо, чи використовується метод `multiline`.
-  if (regex.multiline) {
-    usedMethods.push("multiline");
-  }
-
-  // Перевіряємо, чи використовується метод `sticky`.
-  if (regex.sticky) {
-    usedMethods.push("sticky");
-  }
-
-  // Повертаємо масив використаних методів.
-  return usedMethods;
 }
 
-// Приклад використання:
-console.log("Завдання 9 ==============================");
+console.log("Завдання: 9 ==============================");
 
-console.log(checkRegexMethods(/test/msy));
-// Виведе [ 'dotAll', 'multiline', 'sticky' ]
+// Викликаємо функцію з правильними даними
+console.log(processData([1, 2, 3]));
+// Виведе Дані успішно оброблені
+
+// Викликаємо функцію з неправильними даними
+console.log(processData([1, "two", 3]));
+// Виведе Елемент з індексом 1 має бути числом!
 
 // Завдання 10
-
 /**
- * Функція `findWord` знаходить перше входження заданого слова у рядок за допомогою методу `search`.
+ * Функція `evaluateExpression` обчислює результат математичного виразу, переданого у вигляді рядка.
+ * Використовується функція `eval` для обчислення виразу. Якщо виникає помилка EvalError,
+ * вона перехоплюється та виводиться повідомлення про помилку.
  *
- *  str - Рядок, в якому потрібно знайти входження слова.
- *  word - Слово, входження якого потрібно знайти.
- * Повертає  - Індекс першого входження слова у рядок або -1, якщо слово не знайдено.
+ *  expression - Математичний вираз у вигляді рядка.
  */
-function findWord(str, word) {
-  // Створення регулярного виразу для пошуку слова.
-  const regex = new RegExp(word);
-
-  // Використання методу `search` для пошуку першого входження слова.
-  const index = str.search(regex);
-
-  return index;
+function evaluateExpression(expression) {
+  try {
+    const result = eval(expression); // Обчислення виразу за допомогою функції eval
+    // Повертаємо результат розрахунку
+    return result;
+  } catch (error) {
+    // Якщо була виявлена помилка повертаємо помилку при виконанні функції eval
+    return new EvalError(error.message);
+  }
 }
 
-// Приклад використання:
-console.log("Завдання 10 ==============================");
+console.log("Завдання: 10 ==============================");
 
-console.log(
-  findWord(
-    "The quick brown fox jumps over the lazy dog. The fox is quick.",
-    "quick"
-  )
-); // Виведе: 4
+console.log(evaluateExpression("2 + 2")); // виведе 4
+console.log(evaluateExpression("10 / hello")); // виведе EvalError: hello is not defined та інформацію про помилку
+console.log(evaluateExpression('"Hello" + " World"')); // виведе 'Hello World'
