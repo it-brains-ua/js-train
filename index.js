@@ -358,4 +358,3 @@ console.log("Завдання: 10 ==============================");
 
 console.log(evaluateExpression("2 + 2")); // виведе 4
 console.log(evaluateExpression("10 / hello")); // виведе EvalError: hello is not defined та інформацію про помилку
-console.log(evaluateExpression('"Hello" + " World"')); // виведе 'Hello World'
