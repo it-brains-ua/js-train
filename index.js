@@ -1,204 +1,268 @@
-// 1. Створення базового об'єкту "Book":
 /*
- * Об'єкт: Book
- * Властивості:
- * ----------------------------------
- * | Властивість | Значення         |
- * |-------------|------------------|
- * | title       | "Загальна Книга" |
- * | author      | "Анонім"         |
- * | pages       | 0                |
- *
- * Функції:
- * ------------------------------------------------------------------------
- * | Функція    | Опис                                                    |
- * -----------------------------------------------------------------------
- * | read()     | Виводить повідомлення "Ви читаєте <title> від <author>" |
- */
-
-// Створюємо об'єкт Book
-let Book = {
-  title: "Загальна Книга",
-  author: "Анонім",
-  pages: 0,
-  read: function () {
-    console.log(`Ви читаєте "${this.title}" від ${this.author}`);
-  },
-};
-
-console.log("Завдання: 1 ==============================");
-
-// Виводимо в консоль Об'єкт: Book
-console.log(Book);
-// Виводимо в консоль прототип Об'єкту: Novel
-console.log(Book.hasOwnProperty("title"));
-// Використовуємо функцію read об'єкту Book
-Book.read();
-
-// 2. Наслідування від базового об'єкту Book
-
-/*
- * Об'єкт: Novel
- * Властивості та функції наслідуються від об'єкта Book
- * Додаємо нову властивість
- *  | Властивість | Значення |
- *  |-------------|----------|
- *  | genre       | "Новела" |
- */
-
-// Створюємо об'єкт Novel, наслідуємо властивості і функції від об'єкта Book
-let Novel = Object.create(Book);
-// Додаємо властивість genre
-Novel.genre = "Новела";
-console.log("Завдання: 2 ==============================");
-
-// Виводимо в консоль Об'єкт: Novel
-console.log(Novel);
-// Виводимо в консоль прототип Об'єкту: Novel
-console.log(Object.getPrototypeOf(Novel));
-
-// 3. Створення нового об'єкту та зміна його прототипу
-
-/*
- * Об'єкт: Biography
+ * Об'єкт: Vehicle
  * Властивості:
  * --------------------------------------
- * | Властивість | Значення             |
- * |-------------|----------------------|
- * | title       | "Загальна Біографія" |
- * | author      | "Біограф"            |
- * | pages       | 200                  |
+ * | Властивість  |
+ * |--------------|
+ * | brand        |
+ * | model        |
+ * | year         |
+ * | mileage      |
  */
-// Створюємо об'єкт Biography
-let Biography = {
-  title: "Загальна Біографія",
-  author: "Біограф",
-  pages: 200,
+
+// Створюємо Vehicle - це функція-конструктор. Конструктори в JavaScript використовуються для створення об'єктів специфічного типу.
+function Vehicle(brand, model, year, mileage) {
+  this.brand = brand;
+  this.model = model;
+  this.year = year;
+  this.mileage = mileage;
+}
+
+// Текстовому представленю Vehicle призначаємо рядок <brand> <model> <year>
+Vehicle.toString = function () {
+  return `${this.brand} ${this.model} (${this.year})`;
 };
-// Змінемо прототип об'єкта Biography на Novel
-Object.setPrototypeOf(Biography, Novel);
 
-console.log("Завдання: 3 ==============================");
-// Виводимо в консоль Об'єкт: Biography
-console.log(Biography);
-// Перевіримо чи являється Novel прототипом Biography та виведемо в консоль
-console.log(Novel.isPrototypeOf(Biography));
+// valueOf - це метод, який використовується JavaScript для конвертації об'єкта в примітивне значення.
+// Ми перевизначаємо його тут, щоб він повертав пробіг автомобіля.
+Vehicle.prototype.valueOf = function () {
+  return this.mileage;
+};
 
-// 4. Інкапсуляція властивості та додання властивості
 /*
- * Об'єкт: ScienceBook
- * Властивості та функції наслідуються від об'єкта Book
- * Також тут використовується інкапсуляція для створення властивості 'info', яка не може бути змінена напряму, а лише змінюється за допомогю гетера
+ * Об'єкт: Car
+ * Властивості:
+ * --------------------------------------
+ * | Властивість  |
+ * |--------------|
+ * | brand        |
+ * | model        |
+ * | year         |
+ * | mileage      |
+ * | fuelType     |
+ * | speed        |
  */
 
-// Створюємо ScienceBook, наслідуємо властивості і функції від об'єкта Book
-let ScienceBook = Object.create(Book);
+//Створюємо Car - це ще один конструктор, який наслідує властивості і методи з Vehicle за допомогою функції apply.
+function Car(brand, model, year, mileage, fuelType, speed) {
+  // Тут ми викликаємо конструктор Vehicle з контекстом об'єкта Car і передаємо аргументи з функції Car.
+  Vehicle.apply(this, [brand, model, year, mileage]);
+  this.fuelType = fuelType;
+  this.speed = speed;
+}
 
-// Додаємо властивість 'info' за допомогою Object.defineProperty
-Object.defineProperty(ScienceBook, "info", {
-  configurable: false,
-  // Зробимо щоб 'info' не можно було видалити або змінити, перевіримо і спробуємо присвоїти ій будь яке значення (це потрібно робити ззовні defineProperty),
-  // Отримаємо помилку Cannot assign to read only property 'info' of object '#<Object>'
-  // Далі створюємо сетер який присвоє властивості info значення яке отримує при виклику, помилку більше не отримуємо але при спробі вивести значення info отримуємо undefined
-  set(value) {
-    this._info = value;
-  },
-  // Створимо гетер який буде нам повертати рядок: Про книгу <title>: <info>
-  // тепер все виводить коректно
-  get() {
-    return `Про книгу ${this.title}: ${this._info}`;
-  },
-});
+// Щоб наслідувати методи з Vehicle, ми встановлюємо прототип Car таким же, як і Vehicle.
+// Object.create створює новий об'єкт з вказаним прототипом.
+Car.prototype = Object.create(Vehicle.prototype);
+// Ми також повинні встановити властивість constructor об'єкту prototype назад до Car, оскільки вона втратила це зв'язування, коли ми змінили її прототип.
+// Car.prototype.constructor = Car;
 
-// Заповнюємо об'єкт
-// | Властивість | Значення             |
-// |-------------|----------------------|
-// | title       | "Фізика 101"         |
-// | author      | "Альберт Ейнштейн"   |
-// | info        | написана в 1915 році |
+// Ми можемо перевизначити методи з Vehicle в Car.
+// Тут ми перевизначаємо toString, щоб він включав тип палива <brand> <model> <year> - <fuelType>.
+Car.prototype.toString = function () {
+  return `${this.brand} ${this.model} (${this.year}) - ${this.fuelType}`;
+};
 
-ScienceBook.title = "Фізика 101";
-ScienceBook.author = "Альберт Ейнштейн";
-ScienceBook.info = "написана в 1915 році";
-
-console.log("Завдання: 4 ==============================");
-// Виводимо в консоль властивість info
-console.log(ScienceBook.info);
-// Виводимо в консоль налаштування властивости info
-console.log(Object.getOwnPropertyDescriptor(ScienceBook, "info"));
-
-// 5. Поліморфізм: створення нового об'єкта та перевизначення його методу
-/*
- * Об'єкт: Textbook
- * Властивості та функції наслідуються від об'єкта ScienceBook
- * Метод read() перевизначено для демонстрації поліморфізму,
- * має виводити "Ви читаєте підручник "<title>" від <author>. <info>"
- */
-
-//Створюємо Textbook та наслідуємо властивості з ScienceBook
-let Textbook = Object.create(ScienceBook);
-// Перевизначаємо метод read(), відповідно з дописом вище
-Textbook.read = function () {
+// Cтворюємо метод accelerate для прискорення швидкості Car, збільшує швидкість на передане число та виводить рядок
+// Автомобіль <make> <model> прискорився до швидкості <speed> км/год
+Car.prototype.accelerate = function (increment) {
+  this.speed += increment;
   console.log(
-    `Ви читаєте підручник "${this.title}" від ${this.author}. ${this.info}`
+    `Автомобіль ${this.brand} ${this.model} прискорився до швидкості ${this.speed} км/год`
   );
 };
 
-// Встановлюємо значення для Textbook
-// | Властивість | Значення                   |
-// |-------------|----------------------------|
-// | title       | "Фізика у Вищій Школі"     |
-// | author      | "Дж. Д. Джонс"             |
-Textbook.title = "Фізика у Вищій Школі";
-Textbook.author = "Дж. Д. Джонс";
-
-console.log("Завдання: 5 ==============================");
-// Запускаємо функцію read()
-Textbook.read();
-
-// 6. Абстракція: створення об'єкта з загальними властивостями
-/*
- * Об'єкт: Media
- * Властивості:
- * --------------
- * | Властивість | Значення           |
- * |-------------|--------------------|
- * | format      | "Загальний Формат" |
- * | length      | 0                  |
- *
- * Функції:
- * ---------------------------------------------------------------------------------------------------------------
- * | Функція | Опис                                                                                              |
- * |---------|---------------------------------------------------------------------------------------------------|
- * | play()  | Виводить повідомлення "Зараз відтворюється медіа у форматі <format> з тривалістю <length> секунд" |
- */
-// Створюємо об'єкт Media
-let Media = {
-  format: "Загальний Формат",
-  length: 0,
-  play: function () {
-    console.log(
-      `Зараз відтворюється медіа у форматі ${this.format} з тривалістю ${this.length} секунд`
-    );
-  },
+// Метод brake для гальмування Car та виводить рядок
+// Автомобіль <make> <model> зменшив до швидкості <speed> км/год
+Car.prototype.brake = function (decrement) {
+  this.speed -= decrement;
+  console.log(
+    `Автомобіль ${this.brand} ${this.model} зменшив швидкість до ${this.speed} км/год`
+  );
 };
 
 /*
- * Об'єкт: Song
- * Властивості та функції наслідуються від об'єкта Media
- * Додаткові властивості: artist, title
+ * Cтворення об'єкту: Car
+ * Властивості:
+ * --------------------------------------
+ * | Властивість  |  Значення           |
+ * |--------------|---------------------|
+ * | brand        |  "Audi"             |
+ * | model        |  "A6"               |
+ * | year         |  2018               |
+ * | mileage      |  30000              |
+ * | fuelType     |  "Petrol"           |
+ * | speed        |  0                  |
  */
 
-// Створюємо об'єкт Song
+let car = new Car("Audi", "A6", 2018, 30000, "Petrol", 0);
 
-let Song = Object.create(Media);
-// Встановлюємо додаткові властивості
-// | Властивість | Значення               |
-// |-------------|------------------------|
-// | artist      | "Загальний Виконавець" |
-// | title       | "Загальна Пісня"       |
-Song.artist = "Загальний Виконавець";
-Song.title = "Загальна Пісня";
-console.log("Завдання: 6 ==============================");
-// Використовуємо функцію play()
-Song.play();
+// Викличемо функції toString та valueOf об'єкта car
+console.log(car.toString());
+console.log(car.valueOf());
+
+// Використовуємо методи для прискорення та передаємо 50
+car.accelerate(50);
+// Використовуємо методи для гальмування та передаємо 20
+
+car.brake(20);
+
+/*
+ * Об'єкт: Truck
+ * Властивості:
+ * ---------------------------------------------------
+ * | Властивість      | Значення                     |
+ * |------------------|------------------------------|
+ * | brand            | "Toyota"                     |
+ * | model            | "Tundra"                     |
+ * | year             | 2019                         |
+ * | mileage          | 20000                        |
+ * | color            | "Red"                        |
+ * | engineType       | "V8"                         |
+ * | towingCapacity   | 10000                        |
+ * | fuelType         | "Gasoline"                   |
+ * | transmissionType | "Automatic"                  |
+ * | doors            | 4                            |
+ * | weight           | 5600                         |
+ */
+
+// Конструктор Truck наслідуємо Vehicle викликавши його в конструкторі з call
+function Truck(
+  brand,
+  model,
+  year,
+  mileage,
+  color,
+  engineType,
+  towingCapacity,
+  fuelType,
+  transmissionType,
+  doors,
+  weight
+) {
+  Vehicle.call(this, brand, model, year, mileage);
+  this.color = color;
+  this.engineType = engineType;
+  this.towingCapacity = towingCapacity;
+  this.fuelType = fuelType;
+  this.transmissionType = transmissionType;
+  this.doors = doors;
+  this.weight = weight;
+}
+
+// Установлюємо наслідування прототипу Truck від прототипу Vehicle
+Truck.prototype = Object.create(Vehicle.prototype);
+
+// Додатковий метод specific to Trucks, примає число якщо воно більше towingCapacity виводить рядок
+// Навантаження занадто важке для буксирування, якщо ні то рядок Тягнення навантаження...
+Truck.prototype.tow = function (weight) {
+  if (weight > this.towingCapacity) {
+    console.log("Навантаження занадто важке для буксирування.");
+  } else {
+    console.log("Тягнення навантаження...");
+  }
+};
+
+// Створюємо новий екземпляр об'єкта Truck
+/*
+ * Екземпляр об'єкту: myTruck
+ * Властивості:
+ * ---------------------------------------------------
+ * | Властивість      | Значення                     |
+ * |------------------|------------------------------|
+ * | brand            | "Toyota"                     |
+ * | model            | "Tundra"                     |
+ * | year             | 2019                         |
+ * | mileage          | 20000                        |
+ * | color            | "Red"                        |
+ * | engineType       | "V8"                         |
+ * | towingCapacity   | 10000                        |
+ * | fuelType         | "Gasoline"                   |
+ * | transmissionType | "Automatic"                  |
+ * | doors            | 4                            |
+ * | weight           | 5600                         |
+ */
+let myTruck = new Truck(
+  "Toyota",
+  "Tundra",
+  2019,
+  20000,
+  "Red",
+  "V8",
+  10000,
+  "Gasoline",
+  "Automatic",
+  4,
+  5600
+);
+
+// Викликаємо метод tow з вагою меншою за towingCapacity
+myTruck.tow(9000);
+
+// Викликаємо метод tow з вагою більшою за towingCapacity
+myTruck.tow(11000); // Виводить: "The load is too heavy to tow."
+
+// Додаємо метод drive, який збільшує kilometers на передане число, та виводить Подорожуємо <kilometers> кілометрів у <brand> <model>.
+Car.prototype.drive = function (kilometers) {
+  this.mileage += kilometers;
+  console.log(
+    `Подорожуємо ${kilometers} кілометрів у ${this.brand} ${this.model}.`
+  );
+};
+
+// Використовуємо bind для зв'язування методу drive з конкретним об'єктом car.
+// Це створює нову функцію, в якій this постійно встановлено на car, незалежно від того, як функцію викликають.
+// Викликаємо функцію зі значенням 100,
+let driveCar = car.drive.bind(car);
+
+driveCar(100);
+
+/*
+ * Об'єкт: ElectricCar
+ * Властивості:
+ * --------------------------------------
+ * | Властивість   |
+ * |---------------|
+ * | brand         |
+ * | model         |
+ * | year          |
+ * | mileage       |
+ * | batteryCapacity|
+ */
+
+function ElectricCar(brand, model, year, mileage, batteryCapacity) {
+  // Перевіряємо, чи функцію було викликано з new, якщо ні виволимо помилку "Конструктор має бути викликаний з 'new'"
+  if (!new.target) {
+    throw new Error("Конструктор має бути викликаний з 'new'");
+  }
+  // Викликаємо батьківський конструктор Car, передаючи йому потрібні параметри
+  Car.call(this, brand, model, year, mileage);
+  // Додаємо нову властивість batteryCapacity
+  this.batteryCapacity = batteryCapacity;
+}
+
+// Наслідуємо властивості та методи з Car
+ElectricCar.prototype = Object.create(Car.prototype);
+
+// Перевизначаємо toString для ElectricCar він має повертати <brand> <model> <year> - Батарея: <batteryCapacity> kWh
+ElectricCar.prototype.toString = function () {
+  return `${this.brand} ${this.model} (${this.year}) - Батарея: ${this.batteryCapacity}kWh`;
+};
+
+// Створюємо новий екземпляр ElectricCar
+/*
+ * Об'єкт: ElectricCar
+ * Властивості:
+ * --------------------------------------
+ * | Властивість     | Значення          |
+ * |-----------------|-------------------|
+ * | brand           | Tesla             |
+ * | model           | Model S           |
+ * | year            | 2020              |
+ * | mileage         | 10000             |
+ * | batteryCapacity | 100               |
+ */
+let tesla = new ElectricCar("Tesla", "Model S", 2020, 10000, 100);
+
+// Викликаємо метод toString об'єкту tesla та виводимо в консоль
+console.log(tesla.toString()); // "Tesla Model S (2020) - Батарея: 100kWh"
