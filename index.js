@@ -1,258 +1,296 @@
 /*
- * Функція конструктор: Vehicle
+ * Клас: Musician
+ * Статичні поля:
+ * ------------------------
+ * | Поле   |  Значення   |
+ * |--------|-------------|
+ * | count  |  0          |
+ *
  * Властивості:
  * --------------------------------------
- * | Аргументи  |
- * |--------------|
- * | brand        |
- * | model        |
- * | year         |
- * | mileage      |
- */
-
-// Створюємо функцію конструктор Vehicle.
-function Vehicle(brand, model, year, mileage) {
-  //  Записуєм в this.brand значення аргументу brand, в this.model значення аргументу model і так далі зі всіми аргументами
-  this.brand = brand;
-  this.model = model;
-  this.year = year;
-  this.mileage = mileage;
-}
-
-// Рядковому представленю Vehicle призначаємо функцію яка повертає рядок: <brand> <model> <year>
-Vehicle.toString = function () {
-  return `${this.brand} ${this.model} (${this.year})`;
-};
-
-// valueOf - це метод, який використовується JavaScript для конвертації об'єкта в примітивне значення.
-// Ми перевизначаємо його тут, щоб він повертав this.mileage.
-Vehicle.valueOf = function () {
-  return this.mileage;
-};
-
-/*
- * Функція конструктор: Car
- * Властивості:
- * ----------------
- * | Властивість  |
- * |--------------|
- * | brand        |
- * | model        |
- * | year         |
- * | mileage      |
- * | fuelType     |
- * | speed        |
- */
-
-//Створюємо Car - це ще один конструктор, який наслідує властивості і методи з Vehicle за допомогою функції apply.
-function Car(brand, model, year, mileage, fuelType, speed) {
-  // Викликаємо конструктор Vehicle за допомогою apply, передаємо в нього this, [brand, model, year, mileage].
-  Vehicle.apply(this, [brand, model, year, mileage]);
-  //  Записуєм в this.fuelType значення аргументу fuelType, в this.speed значення аргументу speed
-  this.fuelType = fuelType;
-  this.speed = speed;
-}
-
-// Ми можемо перевизначити методи з Vehicle в Car.
-// Рядковому представленю прототипу Car призначаємо функцію яка повертає рядок: <brand> <model> <year> - <fuelType>.
-Car.prototype.toString = function () {
-  return `${this.brand} ${this.model} (${this.year}) - ${this.fuelType}`;
-};
-
-// Cтворюємо метод accelerate для прискорення швидкості прототипу Car, збільшує this.speed на передане число та виводить рядок в консоль: Автомобіль <make> <model> прискорився до швидкості <speed> км/год
-Car.prototype.accelerate = function (increment) {
-  this.speed += increment;
-  console.log(
-    `Автомобіль ${this.brand} ${this.model} прискорився до швидкості ${this.speed} км/год`
-  );
-};
-
-// Метод brake для гальмування прототипу Car,зменшує this.speed на передане число та виводить рядок в консоль в консоль: Автомобіль <make> <model> зменшив до швидкості <speed> км/год
-Car.prototype.brake = function (decrement) {
-  this.speed -= decrement;
-  console.log(
-    `Автомобіль ${this.brand} ${this.model} зменшив швидкість до ${this.speed} км/год`
-  );
-};
-
-// Створюємо новий екземпляр об'єкта Car
-/*
- * Екземпляр об'єкту: Car
- * Властивості:
- * --------------------------------------
- * | Властивість  |  Значення           |
+ * | Властивість  |  Тип                |
  * |--------------|---------------------|
- * | brand        |  "Audi"             |
- * | model        |  "A6"               |
- * | year         |  2018               |
- * | mileage      |  30000              |
- * | fuelType     |  "Petrol"           |
- * | speed        |  0                  |
+ * | _name        |  String             |
+ * | _instrument  |  String             |
+ *
+ * Гетери:
+ * ---------------------
+ * | Гетер    |  Повертає |
+ * |----------|-----------|
+ * | name     |  string   |
+ * | instrument | string  |
+ *
+ * Методи:
+ * --------------------------
+ * | Метод   |  Дія         |
+ * |---------|--------------|
+ * | play()  | Виводить рядок в консоль |
  */
 
-let car = new Car("Audi", "A6", 2018, 30000, "Petrol", 0);
+class Musician {
+  static count = 0; // статичне поле, яке відслідковує кількість музикантів
 
-// Викличемо функції toString та valueOf об'єкта car
-console.log(car.toString());
-console.log(car.valueOf());
+  constructor(name, instrument) {
+    // Конструктор приймає два параметри: ім'я та інструмент
+    this._name = name; // присвоєння вхідного значення name до приватного поля _name
+    this._instrument = instrument; // присвоєння вхідного значення instrument до приватного поля _instrument
+    Musician.count++; // збільшення значення статичного поля на 1
+  }
 
-// Використовуємо методи для прискорення та передаємо 50
-car.accelerate(50);
-// Використовуємо методи для гальмування та передаємо 20
+  get name() {
+    // гетер для приватного поля _name
+    return this._name; // повертає значення приватного поля _name
+  }
 
-car.brake(20);
+  get instrument() {
+    // гетер для приватного поля _instrument
+    return this._instrument; // повертає значення приватного поля _instrument
+  }
 
-/*
- * Функція конструктор Truck
- * Властивості:
- * --------------------
- * | Властивість      |
- * |------------------|
- * | brand            |
- * | model            |
- * | year             |
- * | mileage          |
- * | color            |
- * | engineType       |
- * | towingCapacity   |
- * | fuelType         |
- * | transmissionType |
- * | doors            |
- * | weight           |
- */
-
-// Конструктор Truck наслідуємо Vehicle викликавши його в конструкторі з call
-function Truck(
-  brand,
-  model,
-  year,
-  mileage,
-  color,
-  engineType,
-  towingCapacity,
-  fuelType,
-  transmissionType,
-  doors,
-  weight
-) {
-  // Викликаємо Vehicle.call та передаємо в нього: this, brand, model, year, mileage
-  Vehicle.call(this, brand, model, year, mileage);
-  //  Записуєм в this.color значення аргументу color, в this.engineType значення аргументу engineType і так далі зі всіми аргументами
-  this.color = color;
-  this.engineType = engineType;
-  this.towingCapacity = towingCapacity;
-  this.fuelType = fuelType;
-  this.transmissionType = transmissionType;
-  this.doors = doors;
-  this.weight = weight;
+  play() {
+    // метод, що виводить рядок в консоль <_name> грає на <_instrument>
+    console.log(`${this._name} грає на ${this._instrument}`);
+  }
 }
 
-// Додатковий метод specific для прототипу Trucks, примає число якщо воно більше towingCapacity виводить рядок в консоль: Навантаження занадто важке для буксирування, якщо ні то рядок Тягнення навантаження...
-Truck.prototype.tow = function (weight) {
-  if (weight > this.towingCapacity) {
-    console.log("Навантаження занадто важке для буксирування.");
-  } else {
-    console.log("Тягнення навантаження...");
-  }
-};
-
-// Створюємо новий екземпляр об'єкта Truck
 /*
- * Екземпляр об'єкту: myTruck
+ * Клас: Guitarist
+ * Наслідується від: Musician
+ *
  * Властивості:
+ * ---------------------------------
+ * | Властивість |  Тип           |
+ * |-------------|----------------|
+ * | _name       |  String        |
+ * | _instrument |  String        |
+ * | _band       |  String        |
+ *
+ * Гетери:
+ * ---------------------
+ * | Гетер  |  Повертає  |
+ * |--------|------------|
+ * | name   |  string    |
+ * | band   |  string    |
+ *
+ * Сетери:
+ * ---------------------
+ * | Сетер  |  Очікує   |
+ * |--------|-----------|
+ * | name   |  string   |
+ * | band   |  string   |
+ *
+ * Методи:
+ * --------------------------
+ * | Метод     |  Дія       |
+ * |-----------|------------|
+ * | play()    | Виводить рядок в консоль |
+ * | joinBand()| Змінює значення _band |
+ */
+
+class Guitarist extends Musician {
+  constructor(name, instrument, band) {
+    // Конструктор приймає три параметри: ім'я, інструмент та група
+    super(name, instrument); // виклик конструктора батьківського класу з двома параметрами
+    this._band = band; // присвоєння вхідного значення band до приватного поля _band
+  }
+
+  get band() {
+    // гетер для приватного поля _band
+    return this._band; // повертає значення приватного поля _band
+  }
+
+  set name(newName) {
+    // сетер для приватного поля _name
+    this._name = newName; // присвоює нове значення приватному полю _name
+  }
+
+  set band(newBand) {
+    // сетер для приватного поля _band
+    this._band = newBand; // присвоює нове значення приватному полю _band
+  }
+
+  joinBand(band) {
+    // метод joinBand, що змінює значення _band, this._band = band
+    this._band = band;
+  }
+
+  play() {
+    // перевизначений метод play(), що виводить рядок в консоль <_name> грає на <_instrument> в групі <_band>
+    console.log(
+      `${this._name} грає на ${this._instrument} в групі ${this._band}`
+    );
+  }
+}
+
+/*
+ * Клас: Bassist
+ * Наслідується від: Musician
+ *
+ * Властивості:
+ * ---------------------------------
+ * | Властивість |  Тип           |
+ * |-------------|----------------|
+ * | _name       |  String        |
+ * | _instrument |  String        |
+ * | _band       |  String        |
+ *
+ * Гетери:
+ * ---------------------
+ * | Гетер  |  Повертає  |
+ * |--------|------------|
+ * | name   |  string    |
+ * | band   |  string    |
+ *
+ * Сетери:
+ * ---------------------
+ * | Сетер  |  Очікує   |
+ * |--------|-----------|
+ * | name   |  string   |
+ * | band   |  string   |
+ *
+ * Методи:
+ * --------------------------
+ * | Метод     |  Дія       |
+ * |-----------|------------|
+ * | play()    | Виводить рядок в консоль |
+ * | joinBand()| Змінює значення _band |
+ */
+
+class Bassist extends Musician {
+  constructor(name, instrument, band) {
+    // Конструктор приймає три параметри: ім'я, інструмент та група
+    super(name, instrument); // виклик конструктора батьківського класу з двома параметрами
+    this._band = band; // присвоєння вхідного значення band до приватного поля _band
+  }
+
+  get band() {
+    // гетер для приватного поля _band
+    return this._band; // повертає значення приватного поля _band
+  }
+
+  set name(newName) {
+    // сетер для приватного поля _name
+    this._name = newName; // присвоює нове значення приватному полю _name
+  }
+
+  set band(newBand) {
+    // сетер для приватного поля _band
+    this._band = newBand; // присвоює нове значення приватному полю _band
+  }
+
+  joinBand(band) {
+    // метод joinBand, що змінює значення _band,this._band = band
+    this._band = band;
+  }
+
+  play() {
+    // перевизначений метод play(), що виводить рядок в консоль <_name> грає на <_instrument> в групі <_band>
+    console.log(
+      `${this._name} грає на ${this._instrument} в групі ${this._band}`
+    );
+  }
+}
+
+/*
+ * Створення екземпляра класу Guitarist
  * ---------------------------------------------------
- * | Властивість      | Значення                     |
- * |------------------|------------------------------|
- * | brand            | "Toyota"                     |
- * | model            | "Tundra"                     |
- * | year             | 2019                         |
- * | mileage          | 20000                        |
- * | color            | "Red"                        |
- * | engineType       | "V8"                         |
- * | towingCapacity   | 10000                        |
- * | fuelType         | "Gasoline"                   |
- * | transmissionType | "Automatic"                  |
- * | doors            | 4                            |
- * | weight           | 5600                         |
+ * | Властивість |  Значення     |
+ * |-------------|---------------|
+ * | name        | "Jimmy Page"  |
+ * | instrument  | "guitar"      |
+ * | band        | "Led Zeppelin"|
  */
-let myTruck = new Truck(
-  "Toyota",
-  "Tundra",
-  2019,
-  20000,
-  "Red",
-  "V8",
-  10000,
-  "Gasoline",
-  "Automatic",
-  4,
-  5600
-);
 
-// Викликаємо метод tow з вагою меншою за towingCapacity
-myTruck.tow(9000);
-
-// Викликаємо метод tow з вагою більшою за towingCapacity
-myTruck.tow(11000); // Виводить: "The load is too heavy to tow."
-
-// Додаємо метод drive для прототипу Car, який збільшує kilometers на передане число, та виводить Подорожуємо <kilometers> кілометрів у <brand> <model>.
-Car.prototype.drive = function (kilometers) {
-  this.mileage += kilometers;
-  console.log(
-    `Подорожуємо ${kilometers} кілометрів у ${this.brand} ${this.model}.`
-  );
-};
-
-// Використовуємо bind для зв'язування методу drive з конкретним об'єктом car.
-// Це створює нову функцію, в якій this постійно встановлено на car, незалежно від того, як функцію викликають.
-// Викликаємо функцію зі значенням 100,
-let driveCar = car.drive.bind(car);
-
-driveCar(100);
+const guitarist = new Guitarist("Jimmy Page", "гітара", "Led Zeppelin");
 
 /*
- * Функція конструктор: ElectricCar
- * Властивості:
- * --------------------------------------
- * | Властивість   |
- * |---------------|
- * | brand         |
- * | model         |
- * | year          |
- * | mileage       |
- * | batteryCapacity|
+ * Створення екземпляра класу Bassist
+ * ---------------------------------------------------
+ * | Властивість |  Значення        |
+ * |-------------|------------------|
+ * | name        | "Paul McCartney" |
+ * | instrument  | "bass"           |
+ * | band        | "The Beatles"    |
  */
 
-function ElectricCar(brand, model, year, mileage, batteryCapacity) {
-  // Перевіряємо, чи функцію було викликано з new, якщо ні виволимо помилку "Конструктор має бути викликаний з 'new'"
-  if (!new.target) {
-    throw new Error("Конструктор має бути викликаний з 'new'");
+const bassist = new Bassist("Paul McCartney", "бас-гітара", "The Beatles");
+
+// Тут ми використовуємо Object.defineProperty(), щоб додати сетер band до класу Musician після його створення.
+// Перший аргумент - це об'єкт, до якого ми хочемо додати властивість. У цьому випадку це Musician.prototype,
+// тому що ми хочемо додати сетер до всіх екземплярів класу Musician.
+// Другий аргумент - це ім'я властивості, яку ми хочемо додати. У цьому випадку це 'band'.
+// Третій аргумент - це об'єкт, який описує властивість. У цьому випадку ми хочемо додати сетер,
+// тому ми вказуємо функцію, яка буде викликатися при спробі встановити властивість 'band'.  this._band = newBand
+Object.defineProperty(Musician.prototype, "band", {
+  set: function (newBand) {
+    this._band = newBand;
+  },
+});
+
+/*
+ * Клас: Band
+ * ---------------------------
+ * | Властивість |  Тип       |
+ * |-------------|------------|
+ * | name        |  string    |
+ * | members     |  array     |
+ */
+
+class Band {
+  /*
+   * Створюємо конструктор з двома вхідними параметрами: _name і _members
+   * _members - це масив об'єктів, що є екземплярами класу Musician або його нащадків
+   */
+  constructor(name, members = []) {
+    this._name = name;
+    this._members = [...members];
   }
-  // Викликаємо Car.call та передаємо в нього this, brand, model, year, mileage
-  Car.call(this, brand, model, year, mileage);
-  //  Записуєм в this.batteryCapacity значення аргументу batteryCapacity
-  this.batteryCapacity = batteryCapacity;
+
+  // Створюємо getter для _name, що повертає приватну властивість _name
+  get name() {
+    return this._name;
+  }
+
+  // Створюємо getter для _members, що повертає приватну властивість _members
+  get members() {
+    return this._members;
+  }
+
+  // Створюємо сетер для _name
+  set name(newName) {
+    this._name = newName;
+  }
+
+  // Створюємо метод addMember(), що додає нового учасника до гурту
+  addMember(newMember) {
+    // Перевіряємо чи Musician є прототипом newMember
+    if (newMember instanceof Musician) {
+      newMember.band = this._name; // Ось тут ми використовуємо сетер band класу Musician
+      // До приватного поля _members яке є масивом додаємо мового музиканта
+      this._members.push(newMember);
+    } else {
+      // Якщо ні виводимо в консоль повідомлення Новий учасник повинен бути екземпляром класу Musician
+      console.log("Новий учасник повинен бути екземпляром класу Musician");
+    }
+  }
+
+  // Створюємо метод playMusic(), за допомогою forEach перебираємо масив і викликаємо метод play() для кожного учасника гурту
+  playMusic() {
+    this._members.forEach((member) => member.play());
+  }
 }
 
-// Перевизначаємо toString для прототипу ElectricCar він має повертати <brand> <model> <year> - Батарея: <batteryCapacity> kWh
-ElectricCar.prototype.toString = function () {
-  return `${this.brand} ${this.model} (${this.year}) - Батарея: ${this.batteryCapacity}kWh`;
-};
-
-// Створюємо новий екземпляр ElectricCar
+// Створення екземпляру класу Band
 /*
- * Екземпляр об'єкту: ElectricCar
- * Властивості:
- * --------------------------------------
- * | Властивість     | Значення          |
- * |-----------------|-------------------|
- * | brand           | Tesla             |
- * | model           | Model S           |
- * | year            | 2020              |
- * | mileage         | 10000             |
- * | batteryCapacity | 100               |
+ * Створення екземпляра класу Band
+ * ---------------------------------------------------
+ * | Властивість |  Значення        |
+ * |-------------|------------------|
+ * | name        | "The Beatles"    |
+ * | members     | [bassist]       |
  */
-let tesla = new ElectricCar("Tesla", "Model S", 2020, 10000, 100);
 
-// Викликаємо метод toString об'єкту tesla та виводимо в консоль
-console.log(tesla.toString()); // "Tesla Model S (2020) - Батарея: 100kWh"
+const band = new Band("The Beatles", [bassist]);
+
+// Додаємо гітариста до гурту
+band.addMember(guitarist);
