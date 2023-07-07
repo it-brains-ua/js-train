@@ -34,7 +34,7 @@ class Musician {
   #instrument;
 
   constructor(name, instrument) {
-    // Конструктор приймає два параметри: ім'я та інструмент
+    // Конструктор приймає два параметри: name та instrument
     this.#name = name; // присвоєння вхідного значення name до приватного поля #name
     this.#instrument = instrument; // присвоєння вхідного значення instrument до приватного поля #instrument
     Musician.count++; // збільшення значення статичного поля на 1
@@ -105,8 +105,8 @@ class Guitarist extends Musician {
   #band;
 
   constructor(name, instrument, band) {
-    // Конструктор приймає три параметри: ім'я, інструмент та група
-    super(name, instrument); // виклик конструктора батьківського класу з двома параметрами
+    // Конструктор приймає три параметри: name, instrument та band
+    super(name, instrument); // виклик конструктора батьківського класу super з двома параметрами name, instrument
     this.#band = band; // присвоєння вхідного значення band до приватного поля #band
   }
 
@@ -172,8 +172,8 @@ class Bassist extends Musician {
 
   #band;
   constructor(name, instrument, band) {
-    // Конструктор приймає три параметри: ім'я, інструмент та група
-    super(name, instrument); // виклик конструктора батьківського класу з двома параметрами
+    // Конструктор приймає три параметри: name, instrument та band
+    super(name, instrument); // виклик конструктора батьківського класу super з двома параметрами name, instrument
     this.#band = band; // присвоєння вхідного значення band до приватного поля #band
   }
 
@@ -230,7 +230,7 @@ class Band {
    * Створюємо конструктор з двома вхідними параметрами: #name і #members
    * #members - це масив об'єктів, що є екземплярами класу Musician або його нащадків
    */
-  constructor(name, members = []) {
+  constructor(name, members) {
     this.#name = name;
     this.#members = [...members];
   }
@@ -396,7 +396,7 @@ class Vocalist {
   }
   // Визначаємо метод info(), який виводить інформацію про вокаліста
   info() {
-    // Виводимо інформацію у форматі: "`Вокаліст ${this.name} є членом гурту ${this.band} та виконує партії ${this.part}`"
+    // Виводимо інформацію у форматі: "Вокаліст ${this.name} є членом гурту ${this.band}"
     console.log(`Вокаліст ${this.name} є членом гурту ${this.band}`);
   }
 }
@@ -422,7 +422,7 @@ class SongWriter {
     return this.#songs;
   }
 
-  // Створюємо метод для додавання нової пісні до #songs
+  // Створюємо метод addSong для додавання нової пісні до масиву #songs
   addSong(song) {
     this.#songs.push(song);
   }
@@ -487,7 +487,7 @@ const guitarist = new Guitarist("Jimmy Page", "гітара", "Led Zeppelin");
 
 const bassist = new Bassist("Paul McCartney", "бас-гітара", "The Beatles");
 
-// Створення екземпляру класу Band
+// Створення band екземпляру класу Band
 /*
  * Створення band екземпляра класу Band
  * ---------------------------------------------------
@@ -499,7 +499,7 @@ const bassist = new Bassist("Paul McCartney", "бас-гітара", "The Beatle
 
 const band = new Band("The Beatles", [bassist]);
 
-// Додаємо гітариста до гурту
+// Додаємо guitarist до band за допомогою addMember
 band.addMember(guitarist);
 
 /*
