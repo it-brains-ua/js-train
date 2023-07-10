@@ -209,10 +209,11 @@ traceBackward(5);
 function displayGroupedInfo(students) {
   // Переберомо об'єкт за допомого for of
   for (let student of students) {
-    // Створимо групу з повідомленням `Студент: ${student.name}`
-    // Виведемо корисне повідомлення з текстом `Студент: ${student.name}`
-    // Виведемо корисне повідомлення з текстом `Вік: ${student.age}`
-    // Закриємо групу
+  // Переберомо об'єкт за допомого for of
+  // Створимо групу з повідомленням `Студент: ${student.name}`
+  // Виведемо корисне повідомлення з текстом `Вік: ${student.age}`
+  // Виведемо корисне повідомлення з текстом `Предмет: ${student.subject}`
+  // Закриємо групу
     console.group(`Студент: ${student.name}`);
     console.info(`Вік: ${student.age}`);
     console.info(`Предмет: ${student.subject}`);
