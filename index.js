@@ -59,7 +59,7 @@ Car.prototype.toString = function () {
   return `${this.brand} ${this.model} (${this.year}) - ${this.fuelType}`;
 };
 
-// Cтворюємо метод accelerate для прискорення швидкості прототипу Car, збільшує this.speed на передане число та виводить рядок в консоль: Автомобіль <make> <model> прискорився до швидкості <speed> км/год
+// Cтворюємо метод accelerate для прискорення швидкості прототипу Car, збільшує this.speed на передане число та виводить рядок в консоль: Автомобіль <brand> <model> прискорився до швидкості <speed> км/год
 Car.prototype.accelerate = function (increment) {
   this.speed += increment;
   console.log(
@@ -67,7 +67,7 @@ Car.prototype.accelerate = function (increment) {
   );
 };
 
-// Метод brake для гальмування прототипу Car,зменшує this.speed на передане число та виводить рядок в консоль в консоль: Автомобіль <make> <model> зменшив до швидкості <speed> км/год
+// Метод brake для гальмування прототипу Car,зменшує this.speed на передане число та виводить рядок в консоль в консоль: Автомобіль <brand> <model> зменшив до швидкості <speed> км/год
 Car.prototype.brake = function (decrement) {
   this.speed -= decrement;
   console.log(
