@@ -301,7 +301,7 @@ function sortByKey(arr, key) {
       return -1;
     }
     if (a[key] > b[key]) {
-      // якщо a[key] > b[key] повертаємо -1
+      // якщо a[key] > b[key] повертаємо 1
 
       return 1;
     }
