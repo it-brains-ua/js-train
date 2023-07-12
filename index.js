@@ -1,212 +1,517 @@
-//Завдання 1: Функція для створення символу
-function createSymbol() {
-  // Створюємо символ без опису
-  return Symbol();
-}
+// Клас OrderTracker відповідає за відстеження замовлень
+class OrderTracker {
+  static #instance = null; // Приватне статичне instance поле для збереження єдиного екземпляра класу початкове значення null
+  static #orders = []; // Приватне статичне orders поле для збереження списку замовлень початкове значення []
 
-console.log("Завдання 1 ====================================");
-console.log(createSymbol()); // Виведе Symbol()
-
-//Завдання 2: Функція для створення символу з описом та виведення опису
-function createSymbolWithDescription(property) {
-  // Створюємо символ symbol з описом property
-  let symbol = Symbol(property);
-  //Повертаємо опис символа symbol
-  return symbol.description;
-}
-
-console.log("Завдання 2 ====================================");
-console.log(createSymbolWithDescription("My symbol")); // Виведе My symbol
-
-// Завдання 3: Створення властивостей об'єкту з використанням Symbol
-// В даному завданні ми створимо властивість об'єкту, ключ якої буде символом.
-
-// Створимо функцію, яка створює об'єкт з властивістю, ключ якої є символом
-function createSymbolProperty(property) {
-  // Створимо змінну sym яка дорівнює символу без опису
-  let sym = Symbol();
-
-  // Створимо пустий об'єкт
-  let obj = {};
-
-  // Додамо властивість до об'єкту, ключем якої буде наш символ, а значенням буде аргумент property
-  obj[sym] = property;
-
-  // Повертаємо об'єкт
-  return obj;
-}
-
-console.log("Завдання 3 ====================================");
-
-console.log(
-  createSymbolProperty("Це властивість об'єкту з використанням символу")
-); //Виведе { [Symbol()]: "Це властивість об'єкту з використанням символу" }
-
-// Завдання 4. Перевіримо чи є символи унікальними
-// Функція для створення двох символів з однаковим описом та порівнянням
-function createAndCompareTwoSymbols(value) {
-  // Створюємо два символи з однаковим описом value, та повертаємо результат порівняння двох символів
-  return Symbol(value) === Symbol(value);
-}
-
-console.log("Завдання 4 ====================================");
-
-console.log(createAndCompareTwoSymbols("My Symbol")); // Виведе false, оскільки кожен символ є унікальним
-
-// Завдання 5: Створення символу з використанням Symbol.for()
-
-// Функція createSymbolForKey створює новий символ за допомогою Symbol.for() та повертає його
-function createSymbolForKey(key) {
-  // Використовуємо Symbol.for() для створення нового символу symbol зі значенням key
-  // Symbol.for() шукає символ в глобальному реєстру символів. Якщо символ з таким ключем вже існує, він повертає його, в іншому випадку створює новий символ з даним ключем та додає його в реєстр
-  let symbol = Symbol.for(key);
-
-  // Повертаємо створений символ
-  return symbol;
-}
-
-// Функція compareSymbolsForKey порівнює два символи за допомогою оператора '==='
-function compareSymbolsForKey(symbol1, symbol2) {
-  // Використовуємо оператор '===' для порівняння двох символів
-  // Якщо два символи однакові, він поверне true, в іншому випадку - false
-  return symbol1 === symbol2;
-}
-
-console.log("Завдання 5 ====================================");
-let symbol5 = createSymbolForKey("myKey"); // Створюємо новий символ або отримуємо існуючий з глобального реєстру символів
-let symbol6 = createSymbolForKey("myKey"); // Створюємо новий символ або отримуємо існуючий з глобального реєстру символів
-console.log(compareSymbolsForKey(symbol5, symbol6)); //Виведе: true
-
-// Завдання 6: Використання Symbol.keyFor(sym)
-
-// Функція getSymbolKey приймає символ як аргумент та повертає ключ, який був використаний для його створення в глобальному реєстрі символів
-function getSymbolKey(symbol) {
-  // Використовуємо Symbol.keyFor(sym) для отримання ключа, який був використаний для створення символу в глобальному реєстрі символів
-  // Symbol.keyFor(sym) шукає символ в глобальному реєстрі символів та повертає його ключ, якщо він існує. Якщо символ не існує в глобальному реєстрі, він повертає undefined
-  return Symbol.keyFor(symbol);
-}
-
-console.log("Завдання 6 ====================================");
-let symbolForKey = Symbol.for("myKey"); // Створюємо новий символ або отримуємо існуючий з глобального реєстру символів
-console.log(getSymbolKey(symbolForKey)); // Виводимо ключ символу. Виведе: "myKey"
-
-// Завдання 7: Використання Symbol.toString
-
-function useSymbolToStringTag() {
-  // Створюємо об'єкт myObject.
-  let myObject = {};
-
-  // Встановлюємо властивість Symbol.toStringTag об'єкту myObject на значення "CustomObject".
-  myObject[Symbol] = "CustomObject";
-
-  // Повертаємо рядкове представлення об'єкта myObject[Symbol].
-  return myObject[Symbol].toString();
-}
-
-console.log("Завдання 7 ====================================");
-console.log(useSymbolToStringTag()); //Виведе CustomObject
-
-// Завдання 8: Використання Symbol.description
-
-// Функція useSymbolDescription використовує властивість Symbol.description для отримання опису символу.
-
-function useSymbolDescription() {
-  // Створюємо символ mySymbol зі значенням "mySymbol".
-  let mySymbol = Symbol("mySymbol");
-
-  // Отримуємо опис символу mySymbol в змінну symbolDescription за допомогою властивості description.
-  let symbolDescription = mySymbol.description;
-
-  // Повертаємо symbolDescription
-  return symbolDescription;
-}
-
-console.log("Завдання 8 ====================================");
-console.log(useSymbolDescription()); //Виведе mySymbol
-
-// Завдання 9: Використання Symbol.iterator
-
-// Об'єкт "myObject" представляє значення   from: 1, to: 7, які можна перебрати
-let rangeObject = {
-  from: 1,
-  to: 7,
-
-  // Використовуємо Symbol.iterator для створення ітератора всередині об'єкта "myObject"
-  [Symbol.iterator]() {
-    // this.current присвоюємо this.from
-    this.current = this.from;
-    return this; // Індекс для ітерації по масиву ключів
-  },
-  //створюжмо метод "next" який визначає поведінку при кожній ітерації
-  next() {
-    if (this.current < this.to) {
-      // Використовуйте if
-      // Якщо current менше to, повертаємо об'єкт з властивістю "value",
-      // що містить поточне значення ,та не забуваємо збільшити індекс за допомогою інкремент, і "done" - false, означаючи, що ітерація ще не закінчена
-      return { value: this.current++, done: false };
-    } else {
-      // Якщо індекс вийшов за межі масиву ключів, повертаємо об'єкт з властивістю "done" - true, означаючи, що ітерація закінчена
-      return { done: true };
+  /**
+   * Статичний метод createInstance використовується для створення єдиного екземпляра класу
+   */
+  static createInstance() {
+    // Перевіряємо, чи є вже створений екземпляр класу
+    if (!this.#instance) {
+      // Якщо немає, створюємо новий екземпляр
+      this.#instance = new OrderTracker();
     }
-  },
-};
 
-// Функція "useSymbolIterator" використовує ітератор для отримання значень об'єкта
-function useSymbolIterator(obj) {
-  let result = []; // Створюємо масив для зберігання значень
-
-  // Проходимо крізь елементи об'єкта obj, використовуючи цикл "for...of"
-  for (let value of obj) {
-    // Додаємо кожне значення до масиву "result"
-    result = [...result, value];
+    // Інакше повертаємо єдиний екземпляр класу
+    return this.#instance;
   }
 
-  // Повертаємо масив зі значеннями
-  return result;
+  /**
+   * Статичний метод addOrder використовується для додавання замовлення до списку
+   * Отримує item та додає його до масиву замовлень
+   */
+  static addOrder(item) {
+    this.#orders.push(item);
+  }
+
+  /**
+   * Статичний метод getOrders використовується для отримання списку замовлень
+   */
+  static getOrders() {
+    return this.#orders;
+  }
 }
 
-console.log("Завдання 9 ====================================");
+// Створюємо єдиний екземпляр класу OrderTracker
+const tracker = OrderTracker.createInstance();
 
-console.log(useSymbolIterator(rangeObject)); //Виведе [ 1, 2, 3, 4, 5, 6 ]
+// Додаємо замовлення до списку
+OrderTracker.addOrder("Телефон");
+OrderTracker.addOrder("Ноутбук");
 
-// Завдання 10: Використання Symbol.iterator
+// Отримуємо список замовлень
+const orders = OrderTracker.getOrders();
 
-// Оголошення об'єкта "myObject" з властивістю "category"
-let myObject = {
-  //Cтворюємо масив category
-  category: [
-    { id: 1, name: "apple" }, // Об'єкт категорії з ідентифікатором 1 та назвою "apple"
-    { id: 2, name: "banana" }, // Об'єкт категорії з ідентифікатором 2 та назвою "banana"
-    { id: 3, name: "orange" }, // Об'єкт категорії з ідентифікатором 3 та назвою "orange"
-    { id: 4, name: "grape" }, // Об'єкт категорії з ідентифікатором 4 та назвою "grape"
-    { id: 5, name: "mango" }, // Об'єкт категорії з ідентифікатором 5 та назвою "mango"
-  ],
-  //Створюємо властивість currentIndex зі значенням 0, яка буде нашим лічильником в ітерації
-  currentIndex: 0, // Початковий індекс для ітерації
+// Виводимо список замовлень в консоль
+console.log(orders);
 
-  // Оголошення методу Symbol.iterator для об'єкта "myObject"
-  [Symbol.iterator]() {
-    //Повертаємо this
-    return this;
-  },
+// Клас Book описує книгу в магазині
+class Book {
+  /**
+   * Конструктор Book приймає об'єкт з параметрами
+   * title - назва книги
+   * author - автор книги
+   * coverColor - колір обкладинки книги
+   */
+  constructor({ title, author, coverColor }) {
+    this.title = title;
+    this.author = author;
+    this.coverColor = coverColor;
+  }
 
-  // Оголошення методу "next" для ітерації
-  next() {
-    // Створюємо логічний оператор який буде перевіряти чи властивість об'єкту currentIndex менша ніж довжина масиву category
-    if (this.currentIndex < this.category.length) {
-      //Створюємо змінну value якій присвоємо властивість name елемента масиву category з індексом currentIndex
-      const value = this.category[this.currentIndex].name;
-      // Збільшимо currentIndex на одиницю
-      this.currentIndex++;
-      // Повертаємо об'єкт з властивістю value значенням якої буде value,та прапорцем done: false
-      return { value, done: false };
-    } else {
-      //Якщо властивість об'єкту currentIndex більше або дорівнює довжині масиву category повертаємо об'єкт з прапорцем done: true, коли ітерація закінчена
-      return { done: true };
+  /**
+   * Метод describe генерує опис книги
+   *  Повертає рядок у форматі: "Книга: '{назва}', автор: '{автор}', колір обкладинки: '{колір}'"
+   */
+  describe() {
+    return `Книга: '${this.title}', автор: '${this.author}', колір обкладинки: '${this.coverColor}'`;
+  }
+}
+
+/**
+ * Клас AudioBook описує аудіокнигу в магазині
+ */
+class AudioBook {
+  /**
+   * Конструктор AudioBook приймає об'єкт з параметрами
+   * title - назва книги
+   * author - автор книги
+   * audioLength - тривалість аудіокниги
+   */
+  constructor({ title, author, audioLength }) {
+    this.title = title;
+    this.author = author;
+    this.audioLength = audioLength;
+  }
+
+  /**
+   * Метод describe генерує опис аудіокниги
+     Повертає рядок у форматі: "Аудіокнига: '{назва}', автор: '{автор}', тривалість: '{тривалість}'"
+   */
+  describe() {
+    return `Аудіокнига: '${this.title}', автор: '${this.author}', тривалість: '${this.audioLength}'`;
+  }
+}
+
+/**
+ * Клас ProductFactory використовується для створення об'єктів-продуктів.
+ */
+
+class ProductFactory {
+  // TYPE - статична властивість, що визначає типи продуктів, які можуть бути створені.
+  // {
+  //   BOOK: "book",
+  //   AUDIOBOOK: "audiobook",
+  // }
+  static TYPE = {
+    BOOK: "book",
+    AUDIOBOOK: "audiobook",
+  };
+
+  /**
+   * Статичний метод createProduct використовується для створення об'єктів-продуктів, отримує
+   * type - тип продукту, що має бути створений. Має бути одним зі значень властивості TYPE.
+   * options - об'єкт з параметрами для конструктора продукту.
+   *
+   * В залежності від типу, повертає або екземпляр класу Book, або AudioBook.
+   *
+   *  Кидає помилку, якщо переданий тип не підтримується `Такого типу продукту не існує: ${type}`.
+   */
+  static createProduct(type, options) {
+    switch (type) {
+      case this.TYPE.BOOK:
+        return new Book(options);
+      case this.TYPE.AUDIOBOOK:
+        return new AudioBook(options);
+      default:
+        throw new Error(`Такого типу продукту не існує: ${type}`);
     }
-  },
-};
+  }
+}
 
-console.log("Завдання 10 ====================================");
+// Використовуємо ProductFactory для створення нової книги
+const factoryBook = ProductFactory.createProduct(ProductFactory.TYPE.BOOK, {
+  title: "Назва книги",
+  author: "Автор книги",
+  coverColor: "Синій",
+});
 
-console.log(useSymbolIterator(myObject)); //Виведе [ 'apple', 'banana', 'orange', 'grape', 'mango' ]
+// Виводимо в консоль опис нової книги
+console.log(factoryBook.describe());
+
+// Використовуємо ProductFactory для створення нової аудіокниги
+const factoryAudiobook = ProductFactory.createProduct(
+  ProductFactory.TYPE.AUDIOBOOK,
+  {
+    title: "Назва аудіокниги",
+    author: "Автор аудіокниги ",
+    audioLength: "5 годин",
+  }
+);
+
+// Виводимо в консоль опис нової аудіокниги
+console.log(factoryAudiobook.describe());
+
+// Спробуємо створити продукт непідтримуваного типу
+try {
+  const factoryUnknown = ProductFactory.createProduct("comics", {});
+} catch (error) {
+  // Виводимо помилку в консоль
+  console.error(error.message);
+}
+
+/**
+ * Клас Customer представляє клієнта, що має можливість отримувати повідомлення по електронній пошті.
+ * Клієнт ідентифікується своєю електронною адресою, яку використовується для відправки повідомлень.
+ */
+class Customer {
+  /**
+   * Конструктор для класу Customer. Приймає email - Електронна адреса клієнта.
+   */
+  constructor(email) {
+    this.email = email;
+  }
+
+  /**
+   * Метод відправки повідомлення клієнту по електронній пошті.Приймає message - повідомлення,та виводить в консоль ${this.email} ${message}.
+   */
+  sendEmail(message) {
+    console.log(`${this.email} ${message}`);
+  }
+}
+
+/**
+ * Клас Product представляє продукт, який можна створювати.
+ */
+class Product {
+  /**
+   * Конструктор для класу Product.Приймає name - Назва продукту.
+   */
+  constructor(name) {
+    this.name = name;
+  }
+}
+
+/**
+ * Клас Store представляє магазин, який може мати підписників і створювати нові продукти.
+ * Магазин має назву і список підписників, які отримують повідомлення про нові продукти.
+ */
+class Store {
+  /**
+   * Конструктор для класу Store.Приймає name - Назва магазину, та створює пустий масив customers
+   */
+  constructor(name) {
+    this.name = name;
+    this.customers = [];
+  }
+
+  /**
+   * Метод subscribe для підписки клієнта на магазин. Приймає customer - Клієнт, який підписується.
+   * Після виклику цього методу, клієнт буде отримувати повідомлення про нові продукти, через push додаємо клієнта до масиву.
+   */
+  subscribe(customer) {
+    this.customers.push(customer);
+  }
+
+  /**
+   * Метод unsubscribe для відписки клієнта від магазину.Приймає customer - Клієнт, який відписується.
+   * Після виклику цього методу, клієнт більше не буде отримувати повідомлення про нові продукти, через filter прибираємо клієнта з масиву.
+   */
+  unsubscribe(customer) {
+    this.customers = this.customers.filter((c) => c !== customer);
+  }
+
+  /**
+   * Метод createProduct для створення нового продукту в магазині.Приймає name - Назва нового продукту.
+   * Після виклику цього методу, новий продукт буде створено, а всі підписники отримають про це повідомлення через sendNotify.
+   */
+  createProduct(name) {
+    const product = new Product(name);
+    this.sendNotify(product);
+  }
+
+  /**
+   * Метод для відправки повідомлень всім підписникам про новий продукт.Приймає product - Продукт, про який відправляється повідомлення.
+   * Кожен підписник отримає електронне повідомлення про новий продукт, для цього перебираємо масив клієнтів та для кожного відправлаємо повідомлення
+   * Новий продукт "${product.name}" в магазині ${this.name}! за допомогою sendEmail.
+   */
+  sendNotify(product) {
+    this.customers.forEach((customer) => {
+      customer.sendEmail(
+        `Новий продукт "${product.name}" в магазині ${this.name}!`
+      );
+    });
+  }
+}
+
+const store = new Store("IT Supermarket");
+
+const customer1 = new Customer("john@example.com");
+const customer2 = new Customer("jane@example.com");
+const customer3 = new Customer("alice@example.com");
+
+store.subscribe(customer1);
+store.subscribe(customer2);
+store.subscribe(customer3);
+
+store.createProduct("Новий ноутбук");
+
+store.unsubscribe(customer1);
+
+store.createProduct("Бездротові навушники");
+
+// Клас Drink представляє основний напій, який можна приготувати.
+// Цей клас містить базову вартість напою (price="Чай") та його ім'я (name=10).
+class Drink {
+  name = "Чай";
+  price = 10;
+
+  // Метод prepare() виводить в консоль рядок "Приготування {назва напою}"
+  prepare() {
+    console.log(`Приготування ${this.name}`);
+  }
+}
+
+// Клас HoneyDecorator є декоратором, який додає мед до напою.
+class HoneyDecorator {
+  // Конструктор приймає в якості параметрів базовий напій (drink) та кількість меду (amount), яку треба додати.
+  constructor(drink, amount) {
+    this.drink = drink;
+    this.amount = amount;
+  }
+
+  // Getter для name повертає рядок `${this.drink.name} з ${this.amount} г меду`.
+  get name() {
+    return `${this.drink.name} з ${this.amount} г меду`;
+  }
+
+  // Getter для price розраховує загальну вартість напою, враховуючи базову вартість напою
+  // і додаткову вартість меду, яку за замовчуванням встановлюємо на 0.5, і множимо на this.amount.
+  get price() {
+    const honeyPrice = 0.5;
+    return this.drink.price + honeyPrice * this.amount;
+  }
+
+  // Метод prepare відповідає за приготування напою з медом.
+  // Він виводить в консоль Приготування ${this.name} з медом
+  prepare() {
+    console.log(`Приготування ${this.name} з медом`);
+  }
+}
+
+// Створення об'єкту базового напою (чаю)
+let tea = new Drink();
+console.log(tea.name); // Виводить ім'я напою
+console.log(tea.price); // Виводить вартість напою
+tea.prepare(); // Готує напій
+
+// Додавання декоратора меду до чаю
+let honeyTea = new HoneyDecorator(tea, 2); // Додаємо 2 грами меду
+console.log(honeyTea.name); // Виводить нову назву напою
+console.log(honeyTea.price); // Виводить нову вартість напою
+honeyTea.prepare(); // Готує напій з медом
+
+// Клас Writer відповідає за роботу з текстом.
+class Writer {
+  // Властивість #content представляє поточний текст. Вона ініціалізується порожнім рядком.
+  #content = "";
+
+  // Сетер для властивості content. Він приймає значення newContent (новий текст),
+  // який потрібно встановити як поточний текст. Кожен раз, коли присвоюється нове значення,
+  // викликається метод #store(), який зберігає поточний стан тексту у версіях.
+  set content(newContent) {
+    this.#content = newContent;
+    this.#store();
+  }
+
+  // Метод гетер для властивості content, повертає this.#content.
+  get content() {
+    return this.#content;
+  }
+
+  // Приватний метод #store використовується для зберігання поточного стану тексту.
+  // Він викликає статичний метод класу Version, create, передаючи йому поточний текст як аргумент.
+  #store() {
+    Version.create(this.content);
+  }
+
+  // Метод restore відновлює попередній стан тексту, викликаючи статичний метод класу Version, restore.
+  // Цей метод повертає останню збережену версію тексту, яку ми встановлюємо як поточний текст.
+  restore() {
+    this.#content = Version.restore().content;
+  }
+}
+
+// Клас Version відповідає за створення та зберігання версій тексту.
+class Version {
+  // В конструкторі класу Version приймається аргумент content та встановлює його.
+  // Це вхідний аргумент, який представляє теку збережену версію тексту.
+  constructor(content) {
+    this.content = content;
+  }
+
+  // Властивість #versions це приватний статичний масив, пустий за замовчуванням, що зберігає всі створені версії.
+  static #versions = [];
+
+  // Статичний метод create приймає аргумент content (текст версії) і створює новий екземпляр класу Version в який передає content .
+  // Створений екземпляр додається до масиву версій versions.
+  static create(content) {
+    this.#versions.push(new Version(content));
+  }
+
+  // Статичний метод restore видаляє останный элемент масиву,
+  // та повертає останню збережену версію тексту з масиву версій this.#versions[this.#versions.length - 1] .
+  static restore() {
+    this.#versions.pop();
+    return this.#versions[this.#versions.length - 1];
+  }
+}
+
+// Створюємо новий екземпляр класу Writer
+const writer = new Writer();
+
+// Присвоюємо текст за допомогою сетера
+writer.content = "Це початковий текст.";
+writer.content = "Редагований текст.";
+writer.content = "Оновлений текст.";
+
+// Друкуємо поточний текст
+console.log(writer.content);
+
+// Відновлюємо попередній текст
+writer.restore();
+console.log(writer.content);
+
+// Ще раз відновлюємо попередній текст
+writer.restore();
+console.log(writer.content);
+
+//AuthProcessor клас для обробки аутентифікації.
+class AuthProcessor {
+  // setNextProcessor Метод, який приймає наступний обробник (processor) в ланцюгу.
+  setNextProcessor(processor) {
+    // Зберігає наступний обробник в поточному об'єкті.
+    this.nextProcessor = processor;
+    // Повертає переданий обробник, щоб дозволити подальше ланцюжкове викликання.
+    return processor;
+  }
+
+  //validate Метод для перевірки аутентифікації. Приймає ім'я користувача (username) і пароль (passkey).
+  validate(username, passkey) {
+    // Перевіряє, чи є наступний обробник в ланцюгу.
+    if (this.nextProcessor) {
+      // Якщо так, передає запит на перевірку аутентифікації наступному обробнику,this.nextProcessor.validate(username, passkey), та повертаємо результат.
+      return this.nextProcessor.validate(username, passkey);
+    } else {
+      // Якщо наступного обробника немає, повертає false, сигналізуючи про невдалу аутентифікацію.
+      return false;
+    }
+  }
+}
+
+// TwoStepProcessor Клас обробника, який перевіряє двофакторний код. Наслідує базовий клас AuthProcessor.
+class TwoStepProcessor extends AuthProcessor {
+  // Метод для перевірки аутентифікації. Перевіряє ім'я користувача (username), пароль (passkey) і двофакторний код.
+  validate(username, passkey) {
+    // Якщо ім'я користувача=john, пароль=password та двофакторний код вірний, аутентифікація успішна.
+    // Виводить повідомлення про успішну аутентифікацію: Вхід дозволено з двофакторною аутентифікацією, і повертає true.
+
+    if (
+      username === "john" &&
+      passkey === "password" &&
+      this.isValidTwoStepCode()
+    ) {
+      console.log("Вхід дозволено з двофакторною аутентифікацією");
+      return true;
+    } else {
+      // Якщо дані не вірні, запит на аутентифікацію передається наступному обробнику в ланцюгу, super.validate(username, passkey).
+      return super.validate(username, passkey);
+    }
+  }
+
+  // isValidTwoStepCode Метод для перевірки двофакторного коду,який повертає true.
+  isValidTwoStepCode() {
+    return true;
+  }
+}
+
+// RoleProcessor Клас обробника, який перевіряє ролі користувача. Наслідує базовий клас AuthProcessor.
+class RoleProcessor extends AuthProcessor {
+  // validate Метод для перевірки аутентифікації. Перевіряє роль користувача.
+  validate(username, passkey) {
+    // Якщо роль користувача - гість (guest), аутентифікація успішна.
+    if (username === "guest") {
+      // Виводить повідомлення про успішну аутентифікацію Вхід дозволено з роллю гостя, і повертає true.
+      console.log("Вхід дозволено з роллю гостя");
+      return true;
+    } else {
+      // Якщо роль не відповідає, запит на аутентифікацію передається наступному обробнику в ланцюгу.
+      return super.validate(username, passkey);
+    }
+  }
+}
+
+// CredentialsProcessor Клас обробника, який перевіряє облікові дані користувача. Наслідує базовий клас AuthProcessor.
+class CredentialsProcessor extends AuthProcessor {
+  //validate Метод для перевірки аутентифікації. Перевіряє облікові дані користувача.
+  validate(username, passkey) {
+    // Якщо облікові дані вірні, username=admin, та passkey=admin123, аутентифікація успішна.
+    if (username === "admin" && passkey === "admin123") {
+      // Виводить повідомлення про успішну аутентифікацію Вхід дозволено за обліковими даними, і повертає true.
+      console.log("Вхід дозволено за обліковими даними");
+      return true;
+    } else {
+      // Якщо облікові дані не вірні, запит на аутентифікацію передається наступному обробнику в ланцюгу.
+      return super.validate(username, passkey);
+    }
+  }
+}
+
+// Клас Builder для створення об'єкта ланцюга обробників.
+class ProcessorBuilder {
+  // Конструктор який не приймає вхідні значення
+  constructor() {
+    //Властивість firstProcessor, що зберігає перший обробник у ланцюгу, за замовчуванням дорівнює null.
+    this.firstProcessor = null;
+    //Властивість lastProcessor, що зберігає останній обробник у ланцюгу, за замовчуванням дорівнює null.
+    this.lastProcessor = null;
+  }
+
+  // Метод add для додавання нового обробника в ланцюг.
+  add(processor) {
+    // Якщо це перший обробник, він зберігається як перший і останній.
+    if (!this.firstProcessor) {
+      this.firstProcessor = processor;
+      this.lastProcessor = processor;
+    } else {
+      // Якщо це не перший обробник, він додається в кінець ланцюга, і стає останнім.
+      this.lastProcessor.setNextProcessor(processor);
+      this.lastProcessor = processor;
+    }
+    // Повертає this.
+    return this;
+  }
+
+  // Метод create для створення ланцюга обробників.
+  create() {
+    // Повертає перший обробник у ланцюгу.
+    return this.firstProcessor;
+  }
+}
+
+// Створюємо Builder для ланцюга обробників.
+const processorBuilder = new ProcessorBuilder();
+
+// Додаємо обробники в ланцюг за допомогою builder'а.
+const processor = processorBuilder
+  .add(new CredentialsProcessor())
+  .add(new TwoStepProcessor())
+  .add(new RoleProcessor())
+  .create();
+
+// Перевіряємо користувачів за допомогою нашого ланцюга обробників.
+processor.validate("admin", "admin123"); // Вхід дозволено за обліковими даними
+processor.validate("john", "password"); // Вхід дозволено з двоступінчастою аутентифікацією
+processor.validate("guest", "guest123"); // Вхід дозволено з роллю гостя
+processor.validate("user", "password"); // Вхід заборонено
