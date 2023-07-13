@@ -1,14 +1,14 @@
 // Клас ContentContainer використовується для управління списком вкладених елементів контенту
 class ContentContainer {
-  // Масив для зберігання вкладених елементів контенту. Початкове значення - порожній масив.
+  // Створюємо властивість elements для зберігання вкладених елементів контенту. Початкове значення - порожній масив.
   elements = [];
 
-  // Метод addElement отримує елемент як параметр та додає його в масив elements.
+  // Створюємо addElement, який отримує element як параметр та додає його в масив elements.
   addElement(element) {
     this.elements.push(element);
   }
 
-  // Метод removeElement отримує елемент як параметр, знаходить його індекс у масиві та видаляє, якщо елемент знайдено.
+  // Створюємо removeElement, який отримує element як параметр, знаходить його індекс у масиві та видаляє, якщо елемент знайдено.
   removeElement(element) {
     const index = this.elements.indexOf(element);
     if (index !== -1) {
@@ -19,13 +19,13 @@ class ContentContainer {
 
 // Клас Message, що є розширенням класу ContentContainer. Використовується для створення повідомлень з текстом.
 class Message extends ContentContainer {
-  // Конструктор класу приймає content як параметр та ініціалізує його
+  // Створюємо конструктор класу, який приймає content як параметр та ініціалізує його
   constructor(content) {
     super();
     this.content = content;
   }
 
-  // Метод display виводить ${this.content} для всіх елементів масиву
+  // Створюємо метод display, який виводить ${this.content} для всіх елементів масиву
   display() {
     console.log(`Повідомлення: ${this.content}`);
     for (const element of this.elements) {
@@ -36,13 +36,13 @@ class Message extends ContentContainer {
 
 // Клас Article, що є розширенням класу ContentContainer. Використовується для створення статті з вкладеними елементами.
 class Article extends ContentContainer {
-  // Конструктор класу приймає title назву статті як параметр та ініціалізує об'єкт з нею
+  // Створюємо конструктор класу, який приймає title назву статті як параметр та ініціалізує об'єкт з нею
   constructor(title) {
     super();
     this.title = title;
   }
 
-  // Метод display виводить Стаття: ${this.title} для всіх елементів масиву
+  // Створюємо метод display, який виводить Стаття: ${this.title} для всіх елементів масиву
   display() {
     console.log(`Стаття: ${this.title}`);
     for (const element of this.elements) {
@@ -69,35 +69,37 @@ console.log(article.elements);
 
 // Клас Group. Він використовує шаблон "Одиночка" та відповідає за створення груп товарів.
 class Group {
-  // Приватне статичне поле #groups використовується для зберігання усіх створених груп.
-  // Об'єкт використовується для зберігання груп, де ключ - це назва групи, а значення - екземпляр групи.
+  // Створюємо приватне статичне поле #groups використовується для зберігання усіх створених груп. Має початкове значени: пустий об'єкт
+  //Об'єкт використовується для зберігання груп, де ключ - це назва групи, а значення - екземпляр групи.
   static #groups = {};
 
-  // Конструктор класу приймає назву групи як аргумент та ініціалізує поле this.name.
+  // Створюмєо конструктор класу, який приймає назву групи як аргумент та ініціалізує поле this.name.
   constructor(name) {
     this.name = name;
   }
 
-  // Статичний метод create приймає назву групи name як аргумент.
-  // Якщо група з такою назвою ще не була створена, то вона створюється та зберігається в полі #groups.
+  // Створюємо статичний метод create, який приймає назву групи name як аргумент.
   // Метод завжди повертає екземпляр групи з вказаною назвою.
   static create(name) {
+    // Перевірка чи група з такою назвою ще не була створена
     if (!this.#groups[name]) {
+      // то вона створюється та зберігається в полі #groups.
       this.#groups[name] = new Group(name);
     }
+    // в кінці повертає #groups[name]
     return this.#groups[name];
   }
 }
 
 // Клас Product відповідає за створення продуктів.
 class Product {
-  // Конструктор класу приймає назву продукту name та групу group як аргументи та ініціалізує відповідні поля.
+  // Створюємо конструктор класу, який приймає назву продукту name та групу group як аргументи та ініціалізує відповідні поля.
   constructor(name, group) {
     this.name = name;
     this.group = group;
   }
 
-  // Метод display виводить інформацію про продукт в консоль Продукт: ${this.name}, Група: ${this.group.name}.
+  // Робимо метод display, який виводить інформацію про продукт в консоль Продукт: ${this.name}, Група: ${this.group.name}.
   display() {
     console.log(`Продукт: ${this.name}, Група: ${this.group.name}`);
   }
@@ -136,7 +138,7 @@ console.log(list); // виводиться список продуктів, що
 
 // Клас TeaMaker відповідає за загальні дії, необхідні для приготування чаю.
 class TeaMaker {
-  // Метод makeTea викликає всі кроки приготування чаю по черзі boilWater, addTeaLeaves, #steepTea, pourIntoCup, addCondiments, serveTea.
+  // Робимо метод makeTea, який викликає всі кроки приготування чаю по черзі boilWater, addTeaLeaves, #steepTea, pourIntoCup, addCondiments, serveTea.
   prepareTea() {
     this.boilWater();
     this.addTeaLeaves();
@@ -146,30 +148,30 @@ class TeaMaker {
     this.serveTea();
   }
 
-  // Метод boilWater відповідає за кип'ятіння води та виводить в консоль Кип'ятимо воду....
+  // Робимо метод boilWater, який відповідає за кип'ятіння води та виводить в консоль Кип'ятимо воду....
   boilWater() {
     console.log("Кип'ятимо воду...");
   }
 
-  // Метод addTeaLeaves відповідає за додавання чайних листків та виводить в консоль Додаємо чайні листки....
+  // Робимо метод addTeaLeaves, який відповідає за додавання чайних листків та виводить в консоль Додаємо чайні листки....
   addTeaLeaves() {
     console.log("Додаємо чайні листки...");
   }
 
-  // Приватний метод steepTea, що відповідає за заварювання чаю та виводить в консоль Заварюємо чай....
+  // Робимо метод steepTea, що відповідає за заварювання чаю та виводить в консоль Заварюємо чай....
   #steepTea() {
     console.log("Заварюємо чай...");
   }
 
-  // Метод pourIntoCup відповідає за переливання чаю в чашку та виводить в консоль Переливаємо чай в чашку....
+  // Робимо метод pourIntoCup, що відповідає за переливання чаю в чашку та виводить в консоль Переливаємо чай в чашку....
   pourIntoCup() {
     console.log("Переливаємо чай в чашку...");
   }
 
-  // Метод addCondiments залишається пустим і може бути перевизначений у підкласах.
+  // Робимо метод addCondiments, що залишається пустим і може бути перевизначений у підкласах.
   addCondiments() {}
 
-  // Метод serveTea відповідає за подачу чаю та виводить в консоль Чай подається!.
+  // Робимо метод serveTea, що відповідає за подачу чаю та виводить в консоль Чай подається!.
   serveTea() {
     console.log("Чай подається!");
   }
@@ -177,7 +179,7 @@ class TeaMaker {
 
 // Клас GreenTeaMaker є підкласом класу TeaMaker та додає інгредієнти для зеленого чаю.
 class GreenTeaMaker extends TeaMaker {
-  // Метод addCondiments виводить в консоль Додаємо мед, щоб приготувати зелений чай...
+  // Робимо метод addCondiments, який виводить в консоль Додаємо мед, щоб приготувати зелений чай...
   addCondiments() {
     console.log("Додаємо мед, щоб приготувати зелений чай...");
   }
@@ -185,7 +187,7 @@ class GreenTeaMaker extends TeaMaker {
 
 // Клас BlackTeaMaker є підкласом класу TeaMaker та додає інгредієнти для чорного чаю.
 class BlackTeaMaker extends TeaMaker {
-  // Метод addCondiments виводить в консоль Додаємо мед, щоб приготувати чорний чай...
+  // Робимо метод addCondiments, який виводить в консоль Додаємо мед, щоб приготувати чорний чай...
 
   addCondiments() {
     console.log("Додаємо молоко та цукор, щоб приготувати чорний чай...");
@@ -201,19 +203,19 @@ blackTeaMaker.prepareTea();
 
 // Клас Letter представляє об'єкт листа з назвою і текстом.
 class Letter {
-  // Конструктор приймає назву листа title та його текстовий вміст text та ініціалізує відповідні поля
+  // Створіть конструктор, що приймає назву листа title та його текстовий вміст text та ініціалізує відповідні поля
   constructor(title, text) {
-    this.title = title; // Властивість title представляє назву листа
-    this.text = text; // Властивість text представляє текстовий вміст листа
+    this.title = title; // Записуємо аргумент title в властивість title, яка представляє назву листа в класі
+    this.text = text; // Записуємо аргумент text в властивість text, яка представляє  текстовий вміст листа в класі
   }
 }
 
 // Клас Picture представляє об'єкт зображення з назвою та розміром
 class Picture {
-  // Конструктор приймає назву зображення title та його розмір size та ініціалізує відповідні поля
+  // Створіть конструктор, що приймає назву зображення title та його розмір size та ініціалізує відповідні поля
   constructor(title, size) {
-    this.title = title; // Властивість title представляє назву зображення
-    this.size = size; // Властивість size представляє розмір зображення
+    this.title = title; // Записуємо аргумент title в властивість title, яка представляє назву зображення в класі
+    this.size = size; //  Записуємо аргумент size в властивість size, яка представляє розмір зображення
   }
 }
 
@@ -221,42 +223,43 @@ class Picture {
 class Movie {
   // Конструктор приймає назву відеофільму title та його тривалість duration та ініціалізує відповідні поля
   constructor(title, duration) {
-    this.title = title; // Властивість title представляє назву відеофільму
-    this.duration = duration; // Властивість duration представляє тривалість відеофільму
+    this.title = title; // Записуємо аргумент title в властивість title, яка представляє назву відеофільму в класі
+    this.duration = duration; // Записуємо аргумент duration в властивість duration, яка представляє тривалість відеофільму
   }
 }
 
 // Клас Portfolio представляє колекцію об'єктів, таких як листи, зображення та відеофільми
 class Portfolio {
-  elements = []; // Властивість elements представляє список об'єктів в портфоліо, початкове значення пустий масив
+  elements = []; // Створимо властивість elements, яка представляє список об'єктів в портфоліо, початкове значення пустий масив
 
-  // Метод addElement приймає element та додає об'єкт до портфоліо
+  // Зрібть метод addElement, що приймає element та додає об'єкт до портфоліо
   addElement(element) {
     this.elements.push(element);
   }
 
-  // Методи readLetter приймає letter та виводить в консоль  Лист: ${letter.title}, Розмір: ${letter.text.length} символів
+  // Зробіть методи readLetter, що приймає letter та виводить в консоль: "Лист: ${letter.title}, Розмір: ${letter.text.length} символів"
   readLetter(letter) {
     console.log(
       `Лист: ${letter.title}, Розмір: ${letter.text.length} символів`
     );
   }
 
-  // Методи readPicture приймає letter та виводить в консоль Картина: ${picture.title}, Розмір: ${picture.size} KB
-
+  // Зробіть методи readPicture, що приймає letter та виводить в консоль: "Картина: ${picture.title}, Розмір: ${picture.size} KB"
   readPicture(picture) {
     console.log(`Картина: ${picture.title}, Розмір: ${picture.size} KB`);
   }
 
-  // Методи readMovie приймає letter та виводить в консоль Фільм: ${movie.title}, Тривалість: ${movie.duration} хвилин
-
+  // Зробіть методи readMovie, що приймає letter та виводить в консоль: "Фільм: ${movie.title}, Тривалість: ${movie.duration} хвилин"
   readMovie(movie) {
     console.log(`Фільм: ${movie.title}, Тривалість: ${movie.duration} хвилин`);
   }
 
-  // Метод readElements читає інформацію про всі об'єкти в портфоліо в залежності від того якого класу елемент викликає readLetter, readPicture, readMovie
+  // Зробіть метод readElements, який читає інформацію про всі об'єкти в портфоліо в залежності від того якого класу елемент викликає readLetter, readPicture, readMovie
   readElements() {
+    // Робимо ітерацію for де є змінна element в яку приходять елементи this.elements
     for (const element of this.elements) {
+      // Через instanceof по черзі через if та instanceof перевіряємо відношення element до кожного класу. 
+          // Якщо element є елементом певного класу, то викликати відповідний метод для читання об'єкту певного класу
       if (element instanceof Letter) {
         this.readLetter(element);
       } else if (element instanceof Picture) {
@@ -289,7 +292,7 @@ myPortfolio.readElements();
 
 // Клас BankTransfer представляє собою систему для здійснення банківських переказів
 class BankTransfer {
-  // Метод initiateTransfer приймає amount та відповідає за ініціювання банківського переказу
+  // Зробіть метод initiateTransfer, який приймає amount та відповідає за ініціювання банківського переказу
   // Він приймає суму переказу як параметр
   initiateTransfer(amount) {
     // Для ініціювання банківського переказу спершу обчислюється сума з урахуванням комісії calculatedAmount = this.calculateFee(amount)
@@ -298,8 +301,8 @@ class BankTransfer {
     console.log(`Ініціюємо банківський переказ: $${calculatedAmount}`);
   }
 
-  // Метод calculateFee відповідає за розрахунок комісії за переказ
-  // Він приймає amount переказу як параметр
+  // Зробіть метод calculateFee, який відповідає за розрахунок комісії за переказ
+  // Він приймає amount переказу як параметр та повертає число після розрахування комісії
   calculateFee(amount) {
     // Логіка розрахунку комісії за переказ amount * 1.02
     // Припустимо, комісія становить 2% від суми переказу
@@ -309,7 +312,7 @@ class BankTransfer {
 
 // Клас WalletTransfer представляє собою систему для здійснення переказів з гаманця
 class WalletTransfer {
-  // Метод processTransfer відповідає за здійснення переказу з гаманця
+  // Створіть метод processTransfer, який відповідає за здійснення переказу з гаманця
   // Він приймає суму переказу як параметр
   processTransfer(amount) {
     // Виводимо інформацію про здійснення переказу з гаманця Здійснюємо переказ з гаманця: $${amount}
@@ -320,37 +323,39 @@ class WalletTransfer {
 // Клас TransferAdapter виступає адаптером, який дозволяє нам користуватися
 // методами WalletTransfer так, ніби це BankTransfer.
 class TransferAdapter {
-  // Конструктор приймає об'єкт transferSystem типу WalletTransfer
+  // Робимо конструктор, що приймає об'єкт transferSystem типу WalletTransfer
   constructor(transferSystem) {
     // Зберігаємо посилання на об'єкт WalletTransfer у властивості transferSystem
     this.transferSystem = transferSystem;
   }
 
-  // Метод initiateTransfer адаптує API WalletTransfer до API BankTransfer.
+  // Робимо метод initiateTransfer, який адаптує API WalletTransfer до API BankTransfer.
   // Він приймає amount як аргумент та повертає результат виконання переказу.
   initiateTransfer(amount) {
     // Викликаємо допоміжний метод calculateFee для обчислення комісії за переказ та результат записуєм в константу calculatedAmount
     const calculatedAmount = this.calculateFee(amount);
     // Викликаємо метод processTransfer об'єкту WalletTransfer з calculatedAmount.
-    // В результаті повертається результат виконання переказу.
+    // В результаті повертаємо результат виконання переказу.
     this.transferSystem.processTransfer(calculatedAmount);
   }
 
-  // Метод calculateFee приймає amount та обчислює суму комісії за переказ amount * 1.2, засновуючись на вхідній сумі.
+  // Створюємо метод calculateFee, що приймає amount та обчислює суму комісії за переказ amount * 1.2, засновуючись на вхідній сумі.
   calculateFee(amount) {
-    return amount * 1.2; // Припустимо, що комісія складає 20% від суми переказу
+    // Повертаємо amount * 1.2
+    return amount * 1.2; 
   }
 }
 
-const purchase1 = new Purchase(1000);
-purchase1.initiateTransfer();
+// Створимо  !!!!!!!!!
+const purchase1 = new Purchase(1000);  //!!!!
+purchase1.initiateTransfer(); ///!!!!
 
-const purchase2 = new Purchase(10);
-purchase2.initiateTransfer();
+const purchase2 = new Purchase(10); ///!!!
+purchase2.initiateTransfer();///!!!!!!
 
 // Клас Basket представляє кошик для покупок з певною стратегією знижки
 class Basket {
-  // Конструктор приймає стратегію знижки discountPlan як параметр
+  // Створимо конструктор приймає, що стратегію знижки discountPlan як параметр
   constructor(discountPlan) {
     // Властивість discountPlan отримує значення стратегії знижки, яке було передано конструктору
     this.discountPlan = discountPlan;
@@ -358,13 +363,13 @@ class Basket {
     this.goods = [];
   }
 
-  // Метод addGood приймає один параметр - good, який потрібно додати до масиву
+  // Робимо метод addGood, що приймає один параметр - good, який потрібно додати до масиву
   addGood(good) {
     // Додаємо новий товар в масив товарів
     this.goods.push(good);
   }
 
-  // Метод calculateTotalPrice розраховує загальну вартість товарів в кошику з урахуванням знижки
+  // Робимо метод calculateTotalPrice, що розраховує загальну вартість товарів в кошику з урахуванням знижки
   calculateTotalPrice() {
     // За допомогою метода reduce ми сумуємо вартість всіх товарів в масиві
     const price = this.goods.reduce((acc, good) => acc + good.price, 0);
@@ -373,27 +378,27 @@ class Basket {
   }
 }
 
-// Клас RegularDiscountPlan стратегія знижки для постійних клієнтів
+// Клас RegularDiscountPlan: стратегія знижки для постійних клієнтів
 class RegularDiscountPlan extends DiscountPlan {
-  // Метод applyDiscount приймає ціну price як параметр
+  // Робимо метод applyDiscount, що приймає ціну price як параметр
   applyDiscount(price) {
     // Повертає ціну з урахуванням знижки в 10% price * 0.9
     return price * 0.9;
   }
 }
 
-//Клас VIPDiscountPlan стратегія знижки для VIP клієнтів
+//Клас VIPDiscountPlan: стратегія знижки для VIP клієнтів
 class VIPDiscountPlan extends DiscountPlan {
-  // Метод applyDiscount приймає ціну price як параметр
+  // Робимо метод applyDiscount, що приймає ціну price як параметр
   applyDiscount(price) {
     // Повертає ціну з урахуванням знижки в 20% price * 0.8
     return price * 0.8;
   }
 }
 
-//Клас NewClientDiscountPlan стратегія знижки для нових клієнтів
+// Клас NewClientDiscountPlan: стратегія знижки для нових клієнтів
 class NewClientDiscountPlan extends DiscountPlan {
-  // Метод applyDiscount приймає ціну price як параметр
+  // Робимо метод applyDiscount, що приймає ціну price як параметр
   applyDiscount(price) {
     // Повертає ціну з урахуванням знижки в 5% price * 0.95
     return price * 0.95;
@@ -412,9 +417,9 @@ console.log(basket1.calculateTotalPrice());
 
 // Клас Employee відповідає за створення об'єктів працівників. Кожен працівник має своє ім'я, посаду та зарплату.
 class Employee {
-  // Конструктор використовується для ініціалізації об'єктів класу. Він приймає три параметри: name, position та salary.
+  // Створимо конструктор, що використовується для ініціалізації об'єктів класу. Він приймає три параметри: name, position та salary.
   constructor(name, position, salary) {
-    // this.name, this.position та this.salary - це властивості класу. Вони ініціалізуються значеннями, переданими в конструктор.
+    // Передаємо аргумент в this.name, this.position та this.salary - це властивості класу. Вони ініціалізуються значеннями, переданими в конструктор.
     this.name = name;
     this.position = position;
     this.salary = salary;
@@ -423,10 +428,10 @@ class Employee {
 
 // Клас EmployeeGroup використовується для створення груп працівників. Він містить список працівників.
 class EmployeeGroup {
-  // Масив employees призначений для зберігання працівників. Він ініціалізується як порожній масив.
+  // Задаємо властивість employees, яке призначене для зберігання працівників. Він ініціалізується як порожній масив.
   employees = [];
 
-  // Метод addEmployee додає працівника до групи. Він приймає один параметр employee - об'єкт типу Employee.
+  // Робимо метод addEmployee, який додає працівника до групи. Він приймає один параметр employee - об'єкт типу Employee.
   addEmployee(employee) {
     // Цей метод додає об'єкт працівника до масиву employees, використовуючи метод push.
     this.employees.push(employee);
@@ -435,9 +440,9 @@ class EmployeeGroup {
 
 // Клас EmployeeIterator відповідає за ітерацію по групі працівників.
 class EmployeeIterator {
-  // Властивість #employees - це масив працівників, по якому ми будемо ітерувати. Він ініціалізується у конструкторі.
+  // Робимо властивість #employees - це масив працівників, по якому ми будемо ітерувати. Він ініціалізується у конструкторі.
   #employees = [];
-  // #currentIndex вказує на поточну позицію в масиві працівників. Він ініціалізується зі значенням 0.
+  // Робимо властивість #currentIndex, яка вказує на поточну позицію в масиві працівників. Він ініціалізується зі значенням 0.
   #currentIndex = 0;
 
   // Конструктор приймає один параметр employeeGroup - об'єкт типу EmployeeGroup. Він ініціалізує властивість #employees this.#employees = employeeGroup.employees.
@@ -445,13 +450,13 @@ class EmployeeIterator {
     this.#employees = employeeGroup.employees;
   }
 
-  // Метод #hasNext перевіряє, чи є в масиві працівників наступний елемент для ітерації.
+  // Створимо метод #hasNext, який перевіряє, чи є в масиві працівників наступний елемент для ітерації.
   // Він повертає true, якщо поточний індекс менший за довжину масиву, і false в протилежному випадку.
   #hasNext() {
     return this.#currentIndex < this.#employees.length;
   }
 
-  // Метод next повертає наступного працівника в масиві та збільшує #currentIndex на 1 якщо є наступний елемент, інакше повертає null.
+  // Робимо метод next, який повертає наступного працівника в масиві та збільшує #currentIndex на 1 якщо є наступний елемент, інакше повертає null.
   next() {
     if (this.#hasNext()) {
       const employee = this.#employees[this.#currentIndex];
@@ -461,7 +466,7 @@ class EmployeeIterator {
     return null;
   }
 
-  // Метод list використовується для виведення імен всіх працівників в групі.
+  // Робимо метод list, який використовується для виведення імен всіх працівників в групі.
   list() {
     return this.#employees.map((employee) => employee.name);
   }
