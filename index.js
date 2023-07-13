@@ -1,517 +1,481 @@
-// Клас OrderTracker відповідає за відстеження замовлень
-class OrderTracker {
-  static #instance = null; // Приватне статичне instance поле для збереження єдиного екземпляра класу початкове значення null
-  static #orders = []; // Приватне статичне orders поле для збереження списку замовлень початкове значення []
+// Клас ContentContainer використовується для управління списком вкладених елементів контенту
+class ContentContainer {
+  // Масив для зберігання вкладених елементів контенту. Початкове значення - порожній масив.
+  elements = [];
 
-  /**
-   * Статичний метод createInstance використовується для створення єдиного екземпляра класу
-   */
-  static createInstance() {
-    // Перевіряємо, чи є вже створений екземпляр класу
-    if (!this.#instance) {
-      // Якщо немає, створюємо новий екземпляр
-      this.#instance = new OrderTracker();
-    }
-
-    // Інакше повертаємо єдиний екземпляр класу
-    return this.#instance;
+  // Метод addElement отримує елемент як параметр та додає його в масив elements.
+  addElement(element) {
+    this.elements.push(element);
   }
 
-  /**
-   * Статичний метод addOrder використовується для додавання замовлення до списку
-   * Отримує item та додає його до масиву замовлень
-   */
-  static addOrder(item) {
-    this.#orders.push(item);
-  }
-
-  /**
-   * Статичний метод getOrders використовується для отримання списку замовлень
-   */
-  static getOrders() {
-    return this.#orders;
-  }
-}
-
-// Створюємо єдиний екземпляр класу OrderTracker
-const tracker = OrderTracker.createInstance();
-
-// Додаємо замовлення до списку
-OrderTracker.addOrder("Телефон");
-OrderTracker.addOrder("Ноутбук");
-
-// Отримуємо список замовлень
-const orders = OrderTracker.getOrders();
-
-// Виводимо список замовлень в консоль
-console.log(orders);
-
-// Клас Book описує книгу в магазині
-class Book {
-  /**
-   * Конструктор Book приймає об'єкт з параметрами
-   * title - назва книги
-   * author - автор книги
-   * coverColor - колір обкладинки книги
-   */
-  constructor({ title, author, coverColor }) {
-    this.title = title;
-    this.author = author;
-    this.coverColor = coverColor;
-  }
-
-  /**
-   * Метод describe генерує опис книги
-   *  Повертає рядок у форматі: "Книга: '{назва}', автор: '{автор}', колір обкладинки: '{колір}'"
-   */
-  describe() {
-    return `Книга: '${this.title}', автор: '${this.author}', колір обкладинки: '${this.coverColor}'`;
-  }
-}
-
-/**
- * Клас AudioBook описує аудіокнигу в магазині
- */
-class AudioBook {
-  /**
-   * Конструктор AudioBook приймає об'єкт з параметрами
-   * title - назва книги
-   * author - автор книги
-   * audioLength - тривалість аудіокниги
-   */
-  constructor({ title, author, audioLength }) {
-    this.title = title;
-    this.author = author;
-    this.audioLength = audioLength;
-  }
-
-  /**
-   * Метод describe генерує опис аудіокниги
-     Повертає рядок у форматі: "Аудіокнига: '{назва}', автор: '{автор}', тривалість: '{тривалість}'"
-   */
-  describe() {
-    return `Аудіокнига: '${this.title}', автор: '${this.author}', тривалість: '${this.audioLength}'`;
-  }
-}
-
-/**
- * Клас ProductFactory використовується для створення об'єктів-продуктів.
- */
-
-class ProductFactory {
-  // TYPE - статична властивість, що визначає типи продуктів, які можуть бути створені.
-  // {
-  //   BOOK: "book",
-  //   AUDIOBOOK: "audiobook",
-  // }
-  static TYPE = {
-    BOOK: "book",
-    AUDIOBOOK: "audiobook",
-  };
-
-  /**
-   * Статичний метод createProduct використовується для створення об'єктів-продуктів, отримує
-   * type - тип продукту, що має бути створений. Має бути одним зі значень властивості TYPE.
-   * options - об'єкт з параметрами для конструктора продукту.
-   *
-   * В залежності від типу, повертає або екземпляр класу Book, або AudioBook.
-   *
-   *  Кидає помилку, якщо переданий тип не підтримується `Такого типу продукту не існує: ${type}`.
-   */
-  static createProduct(type, options) {
-    switch (type) {
-      case this.TYPE.BOOK:
-        return new Book(options);
-      case this.TYPE.AUDIOBOOK:
-        return new AudioBook(options);
-      default:
-        throw new Error(`Такого типу продукту не існує: ${type}`);
+  // Метод removeElement отримує елемент як параметр, знаходить його індекс у масиві та видаляє, якщо елемент знайдено.
+  removeElement(element) {
+    const index = this.elements.indexOf(element);
+    if (index !== -1) {
+      this.elements.splice(index, 1);
     }
   }
 }
 
-// Використовуємо ProductFactory для створення нової книги
-const factoryBook = ProductFactory.createProduct(ProductFactory.TYPE.BOOK, {
-  title: "Назва книги",
-  author: "Автор книги",
-  coverColor: "Синій",
-});
-
-// Виводимо в консоль опис нової книги
-console.log(factoryBook.describe());
-
-// Використовуємо ProductFactory для створення нової аудіокниги
-const factoryAudiobook = ProductFactory.createProduct(
-  ProductFactory.TYPE.AUDIOBOOK,
-  {
-    title: "Назва аудіокниги",
-    author: "Автор аудіокниги ",
-    audioLength: "5 годин",
-  }
-);
-
-// Виводимо в консоль опис нової аудіокниги
-console.log(factoryAudiobook.describe());
-
-// Спробуємо створити продукт непідтримуваного типу
-try {
-  const factoryUnknown = ProductFactory.createProduct("comics", {});
-} catch (error) {
-  // Виводимо помилку в консоль
-  console.error(error.message);
-}
-
-/**
- * Клас Customer представляє клієнта, що має можливість отримувати повідомлення по електронній пошті.
- * Клієнт ідентифікується своєю електронною адресою, яку використовується для відправки повідомлень.
- */
-class Customer {
-  /**
-   * Конструктор для класу Customer. Приймає email - Електронна адреса клієнта.
-   */
-  constructor(email) {
-    this.email = email;
-  }
-
-  /**
-   * Метод відправки повідомлення клієнту по електронній пошті.Приймає message - повідомлення,та виводить в консоль ${this.email} ${message}.
-   */
-  sendEmail(message) {
-    console.log(`${this.email} ${message}`);
-  }
-}
-
-/**
- * Клас Product представляє продукт, який можна створювати.
- */
-class Product {
-  /**
-   * Конструктор для класу Product.Приймає name - Назва продукту.
-   */
-  constructor(name) {
-    this.name = name;
-  }
-}
-
-/**
- * Клас Store представляє магазин, який може мати підписників і створювати нові продукти.
- * Магазин має назву і список підписників, які отримують повідомлення про нові продукти.
- */
-class Store {
-  /**
-   * Конструктор для класу Store.Приймає name - Назва магазину, та створює пустий масив customers
-   */
-  constructor(name) {
-    this.name = name;
-    this.customers = [];
-  }
-
-  /**
-   * Метод subscribe для підписки клієнта на магазин. Приймає customer - Клієнт, який підписується.
-   * Після виклику цього методу, клієнт буде отримувати повідомлення про нові продукти, через push додаємо клієнта до масиву.
-   */
-  subscribe(customer) {
-    this.customers.push(customer);
-  }
-
-  /**
-   * Метод unsubscribe для відписки клієнта від магазину.Приймає customer - Клієнт, який відписується.
-   * Після виклику цього методу, клієнт більше не буде отримувати повідомлення про нові продукти, через filter прибираємо клієнта з масиву.
-   */
-  unsubscribe(customer) {
-    this.customers = this.customers.filter((c) => c !== customer);
-  }
-
-  /**
-   * Метод createProduct для створення нового продукту в магазині.Приймає name - Назва нового продукту.
-   * Після виклику цього методу, новий продукт буде створено, а всі підписники отримають про це повідомлення через sendNotify.
-   */
-  createProduct(name) {
-    const product = new Product(name);
-    this.sendNotify(product);
-  }
-
-  /**
-   * Метод для відправки повідомлень всім підписникам про новий продукт.Приймає product - Продукт, про який відправляється повідомлення.
-   * Кожен підписник отримає електронне повідомлення про новий продукт, для цього перебираємо масив клієнтів та для кожного відправлаємо повідомлення
-   * Новий продукт "${product.name}" в магазині ${this.name}! за допомогою sendEmail.
-   */
-  sendNotify(product) {
-    this.customers.forEach((customer) => {
-      customer.sendEmail(
-        `Новий продукт "${product.name}" в магазині ${this.name}!`
-      );
-    });
-  }
-}
-
-const store = new Store("IT Supermarket");
-
-const customer1 = new Customer("john@example.com");
-const customer2 = new Customer("jane@example.com");
-const customer3 = new Customer("alice@example.com");
-
-store.subscribe(customer1);
-store.subscribe(customer2);
-store.subscribe(customer3);
-
-store.createProduct("Новий ноутбук");
-
-store.unsubscribe(customer1);
-
-store.createProduct("Бездротові навушники");
-
-// Клас Drink представляє основний напій, який можна приготувати.
-// Цей клас містить базову вартість напою (price="Чай") та його ім'я (name=10).
-class Drink {
-  name = "Чай";
-  price = 10;
-
-  // Метод prepare() виводить в консоль рядок "Приготування {назва напою}"
-  prepare() {
-    console.log(`Приготування ${this.name}`);
-  }
-}
-
-// Клас HoneyDecorator є декоратором, який додає мед до напою.
-class HoneyDecorator {
-  // Конструктор приймає в якості параметрів базовий напій (drink) та кількість меду (amount), яку треба додати.
-  constructor(drink, amount) {
-    this.drink = drink;
-    this.amount = amount;
-  }
-
-  // Getter для name повертає рядок `${this.drink.name} з ${this.amount} г меду`.
-  get name() {
-    return `${this.drink.name} з ${this.amount} г меду`;
-  }
-
-  // Getter для price розраховує загальну вартість напою, враховуючи базову вартість напою
-  // і додаткову вартість меду, яку за замовчуванням встановлюємо на 0.5, і множимо на this.amount.
-  get price() {
-    const honeyPrice = 0.5;
-    return this.drink.price + honeyPrice * this.amount;
-  }
-
-  // Метод prepare відповідає за приготування напою з медом.
-  // Він виводить в консоль Приготування ${this.name} з медом
-  prepare() {
-    console.log(`Приготування ${this.name} з медом`);
-  }
-}
-
-// Створення об'єкту базового напою (чаю)
-let tea = new Drink();
-console.log(tea.name); // Виводить ім'я напою
-console.log(tea.price); // Виводить вартість напою
-tea.prepare(); // Готує напій
-
-// Додавання декоратора меду до чаю
-let honeyTea = new HoneyDecorator(tea, 2); // Додаємо 2 грами меду
-console.log(honeyTea.name); // Виводить нову назву напою
-console.log(honeyTea.price); // Виводить нову вартість напою
-honeyTea.prepare(); // Готує напій з медом
-
-// Клас Writer відповідає за роботу з текстом.
-class Writer {
-  // Властивість #content представляє поточний текст. Вона ініціалізується порожнім рядком.
-  #content = "";
-
-  // Сетер для властивості content. Він приймає значення newContent (новий текст),
-  // який потрібно встановити як поточний текст. Кожен раз, коли присвоюється нове значення,
-  // викликається метод #store(), який зберігає поточний стан тексту у версіях.
-  set content(newContent) {
-    this.#content = newContent;
-    this.#store();
-  }
-
-  // Метод гетер для властивості content, повертає this.#content.
-  get content() {
-    return this.#content;
-  }
-
-  // Приватний метод #store використовується для зберігання поточного стану тексту.
-  // Він викликає статичний метод класу Version, create, передаючи йому поточний текст як аргумент.
-  #store() {
-    Version.create(this.content);
-  }
-
-  // Метод restore відновлює попередній стан тексту, викликаючи статичний метод класу Version, restore.
-  // Цей метод повертає останню збережену версію тексту, яку ми встановлюємо як поточний текст.
-  restore() {
-    this.#content = Version.restore().content;
-  }
-}
-
-// Клас Version відповідає за створення та зберігання версій тексту.
-class Version {
-  // В конструкторі класу Version приймається аргумент content та встановлює його.
-  // Це вхідний аргумент, який представляє теку збережену версію тексту.
+// Клас Message, що є розширенням класу ContentContainer. Використовується для створення повідомлень з текстом.
+class Message extends ContentContainer {
+  // Конструктор класу приймає content як параметр та ініціалізує його
   constructor(content) {
+    super();
     this.content = content;
   }
 
-  // Властивість #versions це приватний статичний масив, пустий за замовчуванням, що зберігає всі створені версії.
-  static #versions = [];
-
-  // Статичний метод create приймає аргумент content (текст версії) і створює новий екземпляр класу Version в який передає content .
-  // Створений екземпляр додається до масиву версій versions.
-  static create(content) {
-    this.#versions.push(new Version(content));
-  }
-
-  // Статичний метод restore видаляє останный элемент масиву,
-  // та повертає останню збережену версію тексту з масиву версій this.#versions[this.#versions.length - 1] .
-  static restore() {
-    this.#versions.pop();
-    return this.#versions[this.#versions.length - 1];
-  }
-}
-
-// Створюємо новий екземпляр класу Writer
-const writer = new Writer();
-
-// Присвоюємо текст за допомогою сетера
-writer.content = "Це початковий текст.";
-writer.content = "Редагований текст.";
-writer.content = "Оновлений текст.";
-
-// Друкуємо поточний текст
-console.log(writer.content);
-
-// Відновлюємо попередній текст
-writer.restore();
-console.log(writer.content);
-
-// Ще раз відновлюємо попередній текст
-writer.restore();
-console.log(writer.content);
-
-//AuthProcessor клас для обробки аутентифікації.
-class AuthProcessor {
-  // setNextProcessor Метод, який приймає наступний обробник (processor) в ланцюгу.
-  setNextProcessor(processor) {
-    // Зберігає наступний обробник в поточному об'єкті.
-    this.nextProcessor = processor;
-    // Повертає переданий обробник, щоб дозволити подальше ланцюжкове викликання.
-    return processor;
-  }
-
-  //validate Метод для перевірки аутентифікації. Приймає ім'я користувача (username) і пароль (passkey).
-  validate(username, passkey) {
-    // Перевіряє, чи є наступний обробник в ланцюгу.
-    if (this.nextProcessor) {
-      // Якщо так, передає запит на перевірку аутентифікації наступному обробнику,this.nextProcessor.validate(username, passkey), та повертаємо результат.
-      return this.nextProcessor.validate(username, passkey);
-    } else {
-      // Якщо наступного обробника немає, повертає false, сигналізуючи про невдалу аутентифікацію.
-      return false;
+  // Метод display виводить ${this.content} для всіх елементів масиву
+  display() {
+    console.log(`Повідомлення: ${this.content}`);
+    for (const element of this.elements) {
+      element.display();
     }
   }
 }
 
-// TwoStepProcessor Клас обробника, який перевіряє двофакторний код. Наслідує базовий клас AuthProcessor.
-class TwoStepProcessor extends AuthProcessor {
-  // Метод для перевірки аутентифікації. Перевіряє ім'я користувача (username), пароль (passkey) і двофакторний код.
-  validate(username, passkey) {
-    // Якщо ім'я користувача=john, пароль=password та двофакторний код вірний, аутентифікація успішна.
-    // Виводить повідомлення про успішну аутентифікацію: Вхід дозволено з двофакторною аутентифікацією, і повертає true.
-
-    if (
-      username === "john" &&
-      passkey === "password" &&
-      this.isValidTwoStepCode()
-    ) {
-      console.log("Вхід дозволено з двофакторною аутентифікацією");
-      return true;
-    } else {
-      // Якщо дані не вірні, запит на аутентифікацію передається наступному обробнику в ланцюгу, super.validate(username, passkey).
-      return super.validate(username, passkey);
-    }
+// Клас Article, що є розширенням класу ContentContainer. Використовується для створення статті з вкладеними елементами.
+class Article extends ContentContainer {
+  // Конструктор класу приймає title назву статті як параметр та ініціалізує об'єкт з нею
+  constructor(title) {
+    super();
+    this.title = title;
   }
 
-  // isValidTwoStepCode Метод для перевірки двофакторного коду,який повертає true.
-  isValidTwoStepCode() {
-    return true;
-  }
-}
-
-// RoleProcessor Клас обробника, який перевіряє ролі користувача. Наслідує базовий клас AuthProcessor.
-class RoleProcessor extends AuthProcessor {
-  // validate Метод для перевірки аутентифікації. Перевіряє роль користувача.
-  validate(username, passkey) {
-    // Якщо роль користувача - гість (guest), аутентифікація успішна.
-    if (username === "guest") {
-      // Виводить повідомлення про успішну аутентифікацію Вхід дозволено з роллю гостя, і повертає true.
-      console.log("Вхід дозволено з роллю гостя");
-      return true;
-    } else {
-      // Якщо роль не відповідає, запит на аутентифікацію передається наступному обробнику в ланцюгу.
-      return super.validate(username, passkey);
+  // Метод display виводить Стаття: ${this.title} для всіх елементів масиву
+  display() {
+    console.log(`Стаття: ${this.title}`);
+    for (const element of this.elements) {
+      element.display();
     }
   }
 }
 
-// CredentialsProcessor Клас обробника, який перевіряє облікові дані користувача. Наслідує базовий клас AuthProcessor.
-class CredentialsProcessor extends AuthProcessor {
-  //validate Метод для перевірки аутентифікації. Перевіряє облікові дані користувача.
-  validate(username, passkey) {
-    // Якщо облікові дані вірні, username=admin, та passkey=admin123, аутентифікація успішна.
-    if (username === "admin" && passkey === "admin123") {
-      // Виводить повідомлення про успішну аутентифікацію Вхід дозволено за обліковими даними, і повертає true.
-      console.log("Вхід дозволено за обліковими даними");
-      return true;
-    } else {
-      // Якщо облікові дані не вірні, запит на аутентифікацію передається наступному обробнику в ланцюгу.
-      return super.validate(username, passkey);
+// Створюємо об'єкт Article з назвою "Навчальна стаття"
+const article = new Article("Навчальна стаття");
+
+// Додаємо повідомлення до статті
+article.addElement(new Message("Дуже корисна стаття"));
+article.addElement(new Message("Дякую за чудовий матеріал!"));
+
+// Додаємо вкладене повідомлення до першого повідомлення в статті
+article.elements[0].addElement(new Message("Відповідь: Згоден!"));
+
+// Виводимо інформацію про статтю та всі її вкладені елементи
+article.display();
+
+// Виводимо масив вкладених елементів статті
+console.log(article.elements);
+
+// Клас Group. Він використовує шаблон "Одиночка" та відповідає за створення груп товарів.
+class Group {
+  // Приватне статичне поле #groups використовується для зберігання усіх створених груп.
+  // Об'єкт використовується для зберігання груп, де ключ - це назва групи, а значення - екземпляр групи.
+  static #groups = {};
+
+  // Конструктор класу приймає назву групи як аргумент та ініціалізує поле this.name.
+  constructor(name) {
+    this.name = name;
+  }
+
+  // Статичний метод create приймає назву групи name як аргумент.
+  // Якщо група з такою назвою ще не була створена, то вона створюється та зберігається в полі #groups.
+  // Метод завжди повертає екземпляр групи з вказаною назвою.
+  static create(name) {
+    if (!this.#groups[name]) {
+      this.#groups[name] = new Group(name);
+    }
+    return this.#groups[name];
+  }
+}
+
+// Клас Product відповідає за створення продуктів.
+class Product {
+  // Конструктор класу приймає назву продукту name та групу group як аргументи та ініціалізує відповідні поля.
+  constructor(name, group) {
+    this.name = name;
+    this.group = group;
+  }
+
+  // Метод display виводить інформацію про продукт в консоль Продукт: ${this.name}, Група: ${this.group.name}.
+  display() {
+    console.log(`Продукт: ${this.name}, Група: ${this.group.name}`);
+  }
+}
+
+// Створення груп за допомогою методу Group.create. Цей метод гарантує, що кожна група з унікальною назвою буде створена лише один раз.
+const electronics = Group.create("Електроніка");
+const books = Group.create("Книги");
+const electronics2 = Group.create("Електроніка");
+
+// Виведення груп в консоль. Ми бачимо, що electronics та electronics2 - це один і той же об'єкт.
+console.log(electronics, books, electronics2);
+console.log(electronics === electronics2); // true
+
+// Створення продуктів. Кожен продукт належить до певної групи.
+const product1 = new Product("Ноутбук", electronics);
+const product2 = new Product("Навушники", electronics);
+const product3 = new Product("Воно", books);
+const product4 = new Product("Смартфон", Group.create("Електроніка")); // тут створюється нова група або використовується вже створена
+
+// Виведення продуктів в консоль.
+product1.display();
+product2.display();
+product3.display();
+product4.display();
+
+// Перевірка, чи належать два продукти до однієї групи.
+console.log(product1.group === product4.group); // true
+
+// Фільтрація продуктів за групою. В даному випадку виводяться тільки продукти групи "Електроніка".
+const list = [product1, product2, product3, product4].filter(
+  (product) => product.group === Group.create("Електроніка")
+);
+
+console.log(list); // виводиться список продуктів, що належать до групи "Електроніка"
+
+// Клас TeaMaker відповідає за загальні дії, необхідні для приготування чаю.
+class TeaMaker {
+  // Метод makeTea викликає всі кроки приготування чаю по черзі boilWater, addTeaLeaves, #steepTea, pourIntoCup, addCondiments, serveTea.
+  prepareTea() {
+    this.boilWater();
+    this.addTeaLeaves();
+    this.#steepTea();
+    this.pourIntoCup();
+    this.addCondiments();
+    this.serveTea();
+  }
+
+  // Метод boilWater відповідає за кип'ятіння води та виводить в консоль Кип'ятимо воду....
+  boilWater() {
+    console.log("Кип'ятимо воду...");
+  }
+
+  // Метод addTeaLeaves відповідає за додавання чайних листків та виводить в консоль Додаємо чайні листки....
+  addTeaLeaves() {
+    console.log("Додаємо чайні листки...");
+  }
+
+  // Приватний метод steepTea, що відповідає за заварювання чаю та виводить в консоль Заварюємо чай....
+  #steepTea() {
+    console.log("Заварюємо чай...");
+  }
+
+  // Метод pourIntoCup відповідає за переливання чаю в чашку та виводить в консоль Переливаємо чай в чашку....
+  pourIntoCup() {
+    console.log("Переливаємо чай в чашку...");
+  }
+
+  // Метод addCondiments залишається пустим і може бути перевизначений у підкласах.
+  addCondiments() {}
+
+  // Метод serveTea відповідає за подачу чаю та виводить в консоль Чай подається!.
+  serveTea() {
+    console.log("Чай подається!");
+  }
+}
+
+// Клас GreenTeaMaker є підкласом класу TeaMaker та додає інгредієнти для зеленого чаю.
+class GreenTeaMaker extends TeaMaker {
+  // Метод addCondiments виводить в консоль Додаємо мед, щоб приготувати зелений чай...
+  addCondiments() {
+    console.log("Додаємо мед, щоб приготувати зелений чай...");
+  }
+}
+
+// Клас BlackTeaMaker є підкласом класу TeaMaker та додає інгредієнти для чорного чаю.
+class BlackTeaMaker extends TeaMaker {
+  // Метод addCondiments виводить в консоль Додаємо мед, щоб приготувати чорний чай...
+
+  addCondiments() {
+    console.log("Додаємо молоко та цукор, щоб приготувати чорний чай...");
+  }
+}
+
+// Створюємо екземпляри класів GreenTeaMaker та BlackTeaMaker.
+const greenTeaMaker = new GreenTeaMaker();
+greenTeaMaker.prepareTea();
+
+const blackTeaMaker = new BlackTeaMaker();
+blackTeaMaker.prepareTea();
+
+// Клас Letter представляє об'єкт листа з назвою і текстом.
+class Letter {
+  // Конструктор приймає назву листа title та його текстовий вміст text та ініціалізує відповідні поля
+  constructor(title, text) {
+    this.title = title; // Властивість title представляє назву листа
+    this.text = text; // Властивість text представляє текстовий вміст листа
+  }
+}
+
+// Клас Picture представляє об'єкт зображення з назвою та розміром
+class Picture {
+  // Конструктор приймає назву зображення title та його розмір size та ініціалізує відповідні поля
+  constructor(title, size) {
+    this.title = title; // Властивість title представляє назву зображення
+    this.size = size; // Властивість size представляє розмір зображення
+  }
+}
+
+// Клас Movie представляє об'єкт відеофільму з назвою та тривалістю
+class Movie {
+  // Конструктор приймає назву відеофільму title та його тривалість duration та ініціалізує відповідні поля
+  constructor(title, duration) {
+    this.title = title; // Властивість title представляє назву відеофільму
+    this.duration = duration; // Властивість duration представляє тривалість відеофільму
+  }
+}
+
+// Клас Portfolio представляє колекцію об'єктів, таких як листи, зображення та відеофільми
+class Portfolio {
+  elements = []; // Властивість elements представляє список об'єктів в портфоліо, початкове значення пустий масив
+
+  // Метод addElement приймає element та додає об'єкт до портфоліо
+  addElement(element) {
+    this.elements.push(element);
+  }
+
+  // Методи readLetter приймає letter та виводить в консоль  Лист: ${letter.title}, Розмір: ${letter.text.length} символів
+  readLetter(letter) {
+    console.log(
+      `Лист: ${letter.title}, Розмір: ${letter.text.length} символів`
+    );
+  }
+
+  // Методи readPicture приймає letter та виводить в консоль Картина: ${picture.title}, Розмір: ${picture.size} KB
+
+  readPicture(picture) {
+    console.log(`Картина: ${picture.title}, Розмір: ${picture.size} KB`);
+  }
+
+  // Методи readMovie приймає letter та виводить в консоль Фільм: ${movie.title}, Тривалість: ${movie.duration} хвилин
+
+  readMovie(movie) {
+    console.log(`Фільм: ${movie.title}, Тривалість: ${movie.duration} хвилин`);
+  }
+
+  // Метод readElements читає інформацію про всі об'єкти в портфоліо в залежності від того якого класу елемент викликає readLetter, readPicture, readMovie
+  readElements() {
+    for (const element of this.elements) {
+      if (element instanceof Letter) {
+        this.readLetter(element);
+      } else if (element instanceof Picture) {
+        this.readPicture(element);
+      } else if (element instanceof Movie) {
+        this.readMovie(element);
+      }
     }
   }
 }
 
-// Клас Builder для створення об'єкта ланцюга обробників.
-class ProcessorBuilder {
-  // Конструктор який не приймає вхідні значення
-  constructor() {
-    //Властивість firstProcessor, що зберігає перший обробник у ланцюгу, за замовчуванням дорівнює null.
-    this.firstProcessor = null;
-    //Властивість lastProcessor, що зберігає останній обробник у ланцюгу, за замовчуванням дорівнює null.
-    this.lastProcessor = null;
+// Створюємо екземпляр класу Portfolio
+const myPortfolio = new Portfolio();
+
+// Створюємо різні об'єкти
+const letter = new Letter("My Letter", "Hello, this is a letter.");
+const picture = new Picture("My Picture", 2048);
+const movie = new Movie("My Movie", 120);
+
+// Додаємо об'єкти до портфоліо
+myPortfolio.addElement(letter);
+myPortfolio.addElement(picture);
+myPortfolio.addElement(movie);
+
+// Виводимо всі об'єкти в портфоліо
+console.log(myPortfolio.elements);
+
+// Читаємо інформацію про всі об'єкти в портфоліо
+myPortfolio.readElements();
+
+// Клас BankTransfer представляє собою систему для здійснення банківських переказів
+class BankTransfer {
+  // Метод initiateTransfer приймає amount та відповідає за ініціювання банківського переказу
+  // Він приймає суму переказу як параметр
+  initiateTransfer(amount) {
+    // Для ініціювання банківського переказу спершу обчислюється сума з урахуванням комісії calculatedAmount = this.calculateFee(amount)
+    const calculatedAmount = this.calculateFee(amount);
+    // Виводимо інформацію про ініціювання банківського переказу Ініціюємо банківський переказ: $${calculatedAmount}
+    console.log(`Ініціюємо банківський переказ: $${calculatedAmount}`);
   }
 
-  // Метод add для додавання нового обробника в ланцюг.
-  add(processor) {
-    // Якщо це перший обробник, він зберігається як перший і останній.
-    if (!this.firstProcessor) {
-      this.firstProcessor = processor;
-      this.lastProcessor = processor;
-    } else {
-      // Якщо це не перший обробник, він додається в кінець ланцюга, і стає останнім.
-      this.lastProcessor.setNextProcessor(processor);
-      this.lastProcessor = processor;
-    }
-    // Повертає this.
-    return this;
-  }
-
-  // Метод create для створення ланцюга обробників.
-  create() {
-    // Повертає перший обробник у ланцюгу.
-    return this.firstProcessor;
+  // Метод calculateFee відповідає за розрахунок комісії за переказ
+  // Він приймає amount переказу як параметр
+  calculateFee(amount) {
+    // Логіка розрахунку комісії за переказ amount * 1.02
+    // Припустимо, комісія становить 2% від суми переказу
+    return amount * 1.02;
   }
 }
 
-// Створюємо Builder для ланцюга обробників.
-const processorBuilder = new ProcessorBuilder();
+// Клас WalletTransfer представляє собою систему для здійснення переказів з гаманця
+class WalletTransfer {
+  // Метод processTransfer відповідає за здійснення переказу з гаманця
+  // Він приймає суму переказу як параметр
+  processTransfer(amount) {
+    // Виводимо інформацію про здійснення переказу з гаманця Здійснюємо переказ з гаманця: $${amount}
+    console.log(`Здійснюємо переказ з гаманця: $${amount}`);
+  }
+}
 
-// Додаємо обробники в ланцюг за допомогою builder'а.
-const processor = processorBuilder
-  .add(new CredentialsProcessor())
-  .add(new TwoStepProcessor())
-  .add(new RoleProcessor())
-  .create();
+// Клас TransferAdapter виступає адаптером, який дозволяє нам користуватися
+// методами WalletTransfer так, ніби це BankTransfer.
+class TransferAdapter {
+  // Конструктор приймає об'єкт transferSystem типу WalletTransfer
+  constructor(transferSystem) {
+    // Зберігаємо посилання на об'єкт WalletTransfer у властивості transferSystem
+    this.transferSystem = transferSystem;
+  }
 
-// Перевіряємо користувачів за допомогою нашого ланцюга обробників.
-processor.validate("admin", "admin123"); // Вхід дозволено за обліковими даними
-processor.validate("john", "password"); // Вхід дозволено з двоступінчастою аутентифікацією
-processor.validate("guest", "guest123"); // Вхід дозволено з роллю гостя
-processor.validate("user", "password"); // Вхід заборонено
+  // Метод initiateTransfer адаптує API WalletTransfer до API BankTransfer.
+  // Він приймає amount як аргумент та повертає результат виконання переказу.
+  initiateTransfer(amount) {
+    // Викликаємо допоміжний метод calculateFee для обчислення комісії за переказ та результат записуєм в константу calculatedAmount
+    const calculatedAmount = this.calculateFee(amount);
+    // Викликаємо метод processTransfer об'єкту WalletTransfer з calculatedAmount.
+    // В результаті повертається результат виконання переказу.
+    this.transferSystem.processTransfer(calculatedAmount);
+  }
+
+  // Метод calculateFee приймає amount та обчислює суму комісії за переказ amount * 1.2, засновуючись на вхідній сумі.
+  calculateFee(amount) {
+    return amount * 1.2; // Припустимо, що комісія складає 20% від суми переказу
+  }
+}
+
+const purchase1 = new Purchase(1000);
+purchase1.initiateTransfer();
+
+const purchase2 = new Purchase(10);
+purchase2.initiateTransfer();
+
+// Клас Basket представляє кошик для покупок з певною стратегією знижки
+class Basket {
+  // Конструктор приймає стратегію знижки discountPlan як параметр
+  constructor(discountPlan) {
+    // Властивість discountPlan отримує значення стратегії знижки, яке було передано конструктору
+    this.discountPlan = discountPlan;
+    // Створюємо новий пустий масив для зберігання товарів (goods) в кошику
+    this.goods = [];
+  }
+
+  // Метод addGood приймає один параметр - good, який потрібно додати до масиву
+  addGood(good) {
+    // Додаємо новий товар в масив товарів
+    this.goods.push(good);
+  }
+
+  // Метод calculateTotalPrice розраховує загальну вартість товарів в кошику з урахуванням знижки
+  calculateTotalPrice() {
+    // За допомогою метода reduce ми сумуємо вартість всіх товарів в масиві
+    const price = this.goods.reduce((acc, good) => acc + good.price, 0);
+    // Застосовуємо знижку до загальної вартості за допомогою метода applyDiscount нашого об'єкта discountPlan
+    return this.discountPlan.applyDiscount(price);
+  }
+}
+
+// Клас RegularDiscountPlan стратегія знижки для постійних клієнтів
+class RegularDiscountPlan extends DiscountPlan {
+  // Метод applyDiscount приймає ціну price як параметр
+  applyDiscount(price) {
+    // Повертає ціну з урахуванням знижки в 10% price * 0.9
+    return price * 0.9;
+  }
+}
+
+//Клас VIPDiscountPlan стратегія знижки для VIP клієнтів
+class VIPDiscountPlan extends DiscountPlan {
+  // Метод applyDiscount приймає ціну price як параметр
+  applyDiscount(price) {
+    // Повертає ціну з урахуванням знижки в 20% price * 0.8
+    return price * 0.8;
+  }
+}
+
+//Клас NewClientDiscountPlan стратегія знижки для нових клієнтів
+class NewClientDiscountPlan extends DiscountPlan {
+  // Метод applyDiscount приймає ціну price як параметр
+  applyDiscount(price) {
+    // Повертає ціну з урахуванням знижки в 5% price * 0.95
+    return price * 0.95;
+  }
+}
+
+// Створення нового екземпляру кошика зі стратегією знижки для нових клієнтів
+const basket1 = new Basket(new NewClientDiscountPlan());
+
+// Додавання товарів до кошика
+basket1.addGood({ name: "Product 1", price: 100 });
+basket1.addGood({ name: "Product 2", price: 50 });
+
+// Розрахунок і виведення загальної вартості товарів з урахуванням знижки
+console.log(basket1.calculateTotalPrice());
+
+// Клас Employee відповідає за створення об'єктів працівників. Кожен працівник має своє ім'я, посаду та зарплату.
+class Employee {
+  // Конструктор використовується для ініціалізації об'єктів класу. Він приймає три параметри: name, position та salary.
+  constructor(name, position, salary) {
+    // this.name, this.position та this.salary - це властивості класу. Вони ініціалізуються значеннями, переданими в конструктор.
+    this.name = name;
+    this.position = position;
+    this.salary = salary;
+  }
+}
+
+// Клас EmployeeGroup використовується для створення груп працівників. Він містить список працівників.
+class EmployeeGroup {
+  // Масив employees призначений для зберігання працівників. Він ініціалізується як порожній масив.
+  employees = [];
+
+  // Метод addEmployee додає працівника до групи. Він приймає один параметр employee - об'єкт типу Employee.
+  addEmployee(employee) {
+    // Цей метод додає об'єкт працівника до масиву employees, використовуючи метод push.
+    this.employees.push(employee);
+  }
+}
+
+// Клас EmployeeIterator відповідає за ітерацію по групі працівників.
+class EmployeeIterator {
+  // Властивість #employees - це масив працівників, по якому ми будемо ітерувати. Він ініціалізується у конструкторі.
+  #employees = [];
+  // #currentIndex вказує на поточну позицію в масиві працівників. Він ініціалізується зі значенням 0.
+  #currentIndex = 0;
+
+  // Конструктор приймає один параметр employeeGroup - об'єкт типу EmployeeGroup. Він ініціалізує властивість #employees this.#employees = employeeGroup.employees.
+  constructor(employeeGroup) {
+    this.#employees = employeeGroup.employees;
+  }
+
+  // Метод #hasNext перевіряє, чи є в масиві працівників наступний елемент для ітерації.
+  // Він повертає true, якщо поточний індекс менший за довжину масиву, і false в протилежному випадку.
+  #hasNext() {
+    return this.#currentIndex < this.#employees.length;
+  }
+
+  // Метод next повертає наступного працівника в масиві та збільшує #currentIndex на 1 якщо є наступний елемент, інакше повертає null.
+  next() {
+    if (this.#hasNext()) {
+      const employee = this.#employees[this.#currentIndex];
+      this.#currentIndex++;
+      return employee;
+    }
+    return null;
+  }
+
+  // Метод list використовується для виведення імен всіх працівників в групі.
+  list() {
+    return this.#employees.map((employee) => employee.name);
+  }
+}
+
+// Створюємо нову групу працівників.
+const employeeGroup = new EmployeeGroup();
+
+// Додаємо нових працівників до групи, використовуючи метод addEmployee.
+employeeGroup.addEmployee(new Employee("John Doe", "Manager", 5000));
+employeeGroup.addEmployee(new Employee("Jane Smith", "Developer", 4000));
+
+// Створюємо новий ітератор для групи працівників.
+const employeeIterator = new EmployeeIterator(employeeGroup);
+
+// Виводимо імена всіх працівників в групі, використовуючи метод list.
+console.log(employeeIterator.list());
