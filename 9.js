@@ -20,4 +20,5 @@ function task9() {
     .catch((error) => console.log(error));
 }
 
-task9(); // Виведе: Error: Помилка при з'єднанні з сервером
+// Викликаємо функцію task10
+task9();

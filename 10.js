@@ -26,4 +26,5 @@ function task10() {
     .catch((error) => console.log(error));
 }
 
+// Викликаємо функцію task10
 task10();

@@ -21,4 +21,5 @@ function task8() {
     .catch((error) => console.log(error));
 }
 
-task8(); // Виведе: {name: "John", age: 30}
+// Викликаємо функцію task8
+task8();
