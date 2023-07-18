@@ -1,7 +1,7 @@
 // Клас TeaMaker відповідає за загальні дії, необхідні для приготування чаю.
 class TeaMaker {
   // Робимо метод makeTea, який викликає всі кроки приготування чаю по черзі boilWater, addTeaLeaves, #steepTea, pourIntoCup, addCondiments, serveTea.
-  prepareTea() {
+  makeTea() {
     this.boilWater();
     this.addTeaLeaves();
     this.#steepTea();
