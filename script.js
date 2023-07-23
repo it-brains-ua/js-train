@@ -223,6 +223,7 @@ async function* gatherData() {
   }
 }
 
+// Створюємо асинхрону функцію displayData
 async function displayData() {
   // Створюємо екземпляр генератора gatherData
   const dataGenerator = gatherData();
