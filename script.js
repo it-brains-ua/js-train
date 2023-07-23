@@ -171,28 +171,73 @@ console.log("Завдання: 5 ==============================");
 printFiveItems();
 
 //Завдання 6
-// Створюємо генератор numerateArrayGenerator, який буде нумерувати елементи масиву, приймає аргумент arr
-function* numerateArrayGenerator(arr) {
-  // Перебираємо масив за дпомомогою циклу for
-  for (let i = 0; i < arr.length; i++) {
-    // Використовуємо ключове слово yield, щоб віддати масив з індексом масиву і поточним значенням: [i, arr[i]]
-    yield [i, arr[i]];
+
+// Функція, яка симулює витягування даних з бази даних
+async function getDataFromDB() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Дані з бази даних");
+    }, 1000);
+  });
+}
+
+// Функція, яка симулює отримання даних з API
+async function getDataFromAPI() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Дані з API");
+    }, 800);
+  });
+}
+
+// Функція, яка симулює отримання даних з кешу
+async function getDataFromCache() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Дані з кешу");
+    }, 600);
+  });
+}
+
+// Оголошуємо асинхронну функцію-генератор з ім'ям gatherData
+async function* gatherData() {
+  // Використовуємо try для обробки помилок
+  try {
+    // Викликаємо асинхронну функцію getDataFromDB() і чекаємо, поки вона завершиться
+    // Результат роботи функції зберігаємо у змінну dbData
+    const dbData = await getDataFromDB();
+
+    // yield використовується для того, щоб повернути значення dbData
+    yield dbData;
+
+    // Те саме робимо для асинхронної функції getDataFromAPI(), результат зберігаємо в apiData
+    const apiData = await getDataFromAPI();
+    yield apiData;
+
+    // І знову для асинхронної функції getDataFromCache(), результат зберігаємо в cacheData
+    const cacheData = await getDataFromCache();
+    yield cacheData;
+  } catch (error) {
+    // Виводимо помилки в консоль якщо вони є
+    console.error(error);
   }
 }
 
-// Створюємо масив
-let arr = ["Apple", "Banana", "Cherry"];
+async function displayData() {
+  // Створюємо екземпляр генератора gatherData
+  const dataGenerator = gatherData();
+  // Три рази виводимо виводимо поточне значення генератора в консоль
+  console.log((await dataGenerator.next()).value);
 
-// Створюємо екземпляр генератора numeratedArray
-let numeratedArray = numerateArrayGenerator(arr);
+  console.log((await dataGenerator.next()).value);
+
+  console.log((await dataGenerator.next()).value);
+}
+
+// Розкоментуйте після виконання завданння
 console.log("Завдання: 6 ==============================");
 
-// Перебираємо елементи масиву за допомогою циклу for,
-// Виводимо в консоль значення генератора та продовжуємо виконання генератора
-
-for (let i = 0; i < arr.length; i++) {
-  console.log(numeratedArray.next().value);
-}
+displayData();
 
 //Завдання 7
 // Створюємо генератор countdownGenerator, який створює послідовність чисел від вказаного значення до 0, має параметр start
