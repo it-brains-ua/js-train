@@ -34,7 +34,7 @@ function getRandomNumberAfterSeconds(seconds) {
   // Повертаємо новий Promise
   return new Promise((resolve) => {
     // Використовуємо setTimeout для симуляції асинхронної операції.
-    // Після "seconds" секунд, Promise буде виконано з випадковим числом
+    // Після "seconds" секунд, Promise буде виконано з результатом виконання функціх Math.random
     setTimeout(() => {
       resolve(Math.random());
     }, seconds * 1000);
@@ -46,7 +46,8 @@ async function logRandomNumberAfterSeconds(seconds) {
   // Використовуємо try для обробки помилок
   try {
     // Використовуємо await, щоб "почекати", поки Promise від getRandomNumberAfterSeconds буде виконано.
-    // Значення, з яким виконується Promise (випадкове число), присвоюється константі randomNumber.
+    // В функцію потрібно передати в seconds в якості аргументу
+    // Результат виконання функції присвоюється константі randomNumber.
     const randomNumber = await getRandomNumberAfterSeconds(seconds);
     // Виводимо отримане випадкове число в консоль
     console.log(randomNumber);
@@ -65,10 +66,10 @@ logRandomNumberAfterSeconds();
 async function getDataFromUrl(url) {
   // Використовуємо try для обробки помилок
   try {
-    // Використовуємо fetch API для відправки GET-запиту на вказаний URL
+    // Використовуємо fetch для відправки GET-запиту на вказаний URL
     const response = await fetch(url);
 
-    // Перевіряємо, чи є відповідь вдалою якщо ні виводимо помилку в консоль
+    // Перевіряємо через властивість ok, чи є відповідь вдалою якщо ні виводимо помилку в консоль
     if (!response.ok) {
       throw new Error(response.status);
     }
@@ -89,22 +90,22 @@ console.log("Завдання: 3 ==============================");
 getDataFromUrl("https://swapi.dev/api/people/1");
 
 //Завдання 4
-// Асинхронна функція, яка приймає три параметри - URL, дані для відправки та токен авторизації
+// Асинхронна функція, яка приймає три параметри - URL, дані для відправки та токен авторизації, маємо аргумент url, data, authToken
 async function postDataWithAuth(url, data, authToken) {
   // Використовуємо try для обробки помилок
   try {
-    // Використовуємо fetch API для відправки POST-запиту на вказаний URL
+    // Використовуємо fetch для відправки POST-запиту на вказаний URL
     const response = await fetch(url, {
-      method: "POST", // Вказуємо метод запиту
+      method: "POST", // Вказуємо метод запиту POST в конфігурацію параметрів запиту
       headers: {
-        "Content-Type": "application/json", // Вказуємо тип контенту "application/json"
+        "Content-Type": "application/json", // Вказуємо заголовок (header) "Content-Type" зі значенням "application/json"
 
         Authorization: authToken, // Вказуємо заголовок Authorization в який передаємо authToken
       },
-      body: JSON.stringify(data), // Відправляємо дані у форматі JSON
+      body: JSON.stringify(data), // Передаємо дані data в body, які перед цим перетворились в JSON
     });
 
-    // Перевіряємо, чи є відповідь вдалою
+    // Перевіряємо через властивість ok, чи є відповідь вдалою
     if (!response.ok) {
       throw new Error(response.status);
     }
@@ -170,11 +171,11 @@ console.log("Завдання: 5 ==============================");
 printFiveItems();
 
 //Завдання 6
-// Створюємо генератор numerateArrayGenerator, який буде нумерувати елементи масиву
+// Створюємо генератор numerateArrayGenerator, який буде нумерувати елементи масиву, приймає аргумент arr
 function* numerateArrayGenerator(arr) {
   // Перебираємо масив за дпомомогою циклу for
   for (let i = 0; i < arr.length; i++) {
-    // Використовуємо ключове слово yield, щоб віддати масив з індексом масиву і поточним значенням
+    // Використовуємо ключове слово yield, щоб віддати масив з індексом масиву і поточним значенням: [i, arr[i]]
     yield [i, arr[i]];
   }
 }
@@ -194,9 +195,9 @@ for (let i = 0; i < arr.length; i++) {
 }
 
 //Завдання 7
-// Створюємо генератор countdownGenerator, який створює послідовність чисел від вказаного значення до 0
+// Створюємо генератор countdownGenerator, який створює послідовність чисел від вказаного значення до 0, має параметр start
 function* countdownGenerator(start) {
-  // Ініціюємо лічильник зі стартовим значенням
+  // Ініціюємо лічильник змінну count зі стартовим значенням параметра start
   let count = start;
 
   // Цикл, що триває доки лічильник більший або рівний 0
