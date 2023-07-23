@@ -1,3 +1,5 @@
+//Завдання 1
+
 // Оригінальна функція, яка повертає Promise.
 function fetchFakeData() {
   const fakeData = {
@@ -26,7 +28,8 @@ async function getData() {
 // // Викликаємо нашу асинхронну функцію.
 // getData();
 
-// Функція, яка приймає один параметр - число секунд.
+//Завдання 2
+// Функція getRandomNumberAfterSeconds, яка приймає один параметр - число секунд.
 function getRandomNumberAfterSeconds(seconds) {
   // Повертаємо новий Promise
   return new Promise((resolve) => {
@@ -57,6 +60,7 @@ async function logRandomNumberAfterSeconds(seconds) {
 console.log("Завдання: 2 ==============================");
 logRandomNumberAfterSeconds();
 
+//Завдання 3
 // Асинхронна функція getDataFromUrl, яка приймає один параметр - URL
 async function getDataFromUrl(url) {
   // Використовуємо try для обробки помилок
@@ -84,6 +88,7 @@ async function getDataFromUrl(url) {
 console.log("Завдання: 3 ==============================");
 getDataFromUrl("https://swapi.dev/api/people/1");
 
+//Завдання 4
 // Асинхронна функція, яка приймає три параметри - URL, дані для відправки та токен авторизації
 async function postDataWithAuth(url, data, authToken) {
   // Використовуємо try для обробки помилок
@@ -130,6 +135,7 @@ postDataWithAuth(
   "fsdodfa8sdg76adtf687ya8rufia8d7fasy6g"
 );
 
+//Завдання 5
 // Створюємо асинхронний генератор asyncGenerator, який виробляє числа з паузою в одну секунду.
 // "async function*" означає, що це асинхронний генератор.
 async function* asyncGenerator() {
@@ -163,7 +169,8 @@ async function printFiveItems() {
 console.log("Завдання: 5 ==============================");
 printFiveItems();
 
-// Створюємо генератор, який буде нумерувати елементи масиву
+//Завдання 6
+// Створюємо генератор numerateArrayGenerator, який буде нумерувати елементи масиву
 function* numerateArrayGenerator(arr) {
   // Перебираємо масив за дпомомогою циклу for
   for (let i = 0; i < arr.length; i++) {
@@ -177,6 +184,7 @@ let arr = ["Apple", "Banana", "Cherry"];
 
 // Створюємо екземпляр генератора numeratedArray
 let numeratedArray = numerateArrayGenerator(arr);
+console.log("Завдання: 6 ==============================");
 
 // Перебираємо елементи масиву за допомогою циклу for,
 // Виводимо в консоль значення генератора та продовжуємо виконання генератора
@@ -185,6 +193,7 @@ for (let i = 0; i < arr.length; i++) {
   console.log(numeratedArray.next().value);
 }
 
+//Завдання 7
 // Створюємо генератор countdownGenerator, який створює послідовність чисел від вказаного значення до 0
 function* countdownGenerator(start) {
   // Ініціюємо лічильник зі стартовим значенням
@@ -202,6 +211,7 @@ function* countdownGenerator(start) {
 
 // Створюємо екземпляр генератора countdown
 let countdown = countdownGenerator(5);
+console.log("Завдання: 7 ==============================");
 
 let nextValue = countdown.next(); // Запускаємо генератор та отримуємо перше значення яку записуємо в змінну nextValue
 // Цикл while, що виводить значення з генератора, та працює поки не є генератор вичерпаним.
