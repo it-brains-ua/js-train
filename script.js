@@ -25,7 +25,7 @@ async function getData() {
 
 // Розкоментуйте після виконання завданння
 // console.log("Завдання: 1 ==============================");
-// // Викликаємо нашу асинхронну функцію.
+// Викликаємо нашу асинхронну функцію.
 // getData();
 
 //Завдання 2
@@ -58,8 +58,8 @@ async function logRandomNumberAfterSeconds(seconds) {
 }
 
 // Розкоментуйте після виконання завданння
-console.log("Завдання: 2 ==============================");
-logRandomNumberAfterSeconds();
+// console.log("Завдання: 2 ==============================");
+// logRandomNumberAfterSeconds();
 
 //Завдання 3
 // Асинхронна функція getDataFromUrl, яка приймає один параметр - URL
@@ -86,8 +86,8 @@ async function getDataFromUrl(url) {
 }
 
 // Розкоментуйте після виконання завданння
-console.log("Завдання: 3 ==============================");
-getDataFromUrl("https://swapi.dev/api/people/1");
+// console.log("Завдання: 3 ==============================");
+// getDataFromUrl("https://swapi.dev/api/people/1");
 
 //Завдання 4
 // Асинхронна функція, яка приймає три параметри - URL, дані для відправки та токен авторизації, маємо аргумент url, data, authToken
@@ -122,19 +122,19 @@ async function postDataWithAuth(url, data, authToken) {
 }
 
 // Розкоментуйте після виконання завданння
-console.log("Завдання: 4 ==============================");
-postDataWithAuth(
-  "https://petstore.swagger.io/v2/store/order",
-  {
-    id: 0,
-    petId: 0,
-    quantity: 0,
-    shipDate: "2023-07-23T19:28:06.229Z",
-    status: "placed",
-    complete: true,
-  },
-  "fsdodfa8sdg76adtf687ya8rufia8d7fasy6g"
-);
+// console.log("Завдання: 4 ==============================");
+// postDataWithAuth(
+//   "https://petstore.swagger.io/v2/store/order",
+//   {
+//     id: 0,
+//     petId: 0,
+//     quantity: 0,
+//     shipDate: "2023-07-23T19:28:06.229Z",
+//     status: "placed",
+//     complete: true,
+//   },
+//   "fsdodfa8sdg76adtf687ya8rufia8d7fasy6g"
+// );
 
 //Завдання 5
 // Створюємо асинхронний генератор asyncGenerator, який виробляє числа з паузою в одну секунду.
@@ -167,8 +167,8 @@ async function printFiveItems() {
 }
 
 // Розкоментуйте після виконання завданння
-console.log("Завдання: 5 ==============================");
-printFiveItems();
+// console.log("Завдання: 5 ==============================");
+// printFiveItems();
 
 //Завдання 6
 
@@ -236,9 +236,9 @@ async function displayData() {
 }
 
 // Розкоментуйте після виконання завданння
-console.log("Завдання: 6 ==============================");
+// console.log("Завдання: 6 ==============================");
 
-displayData();
+// displayData();
 
 //Завдання 7
 // Створюємо генератор countdownGenerator, який створює послідовність чисел від вказаного значення до 0, має параметр start
