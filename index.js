@@ -393,54 +393,6 @@ console.log(
  *
  * Функція повертає новий URL, який було сформовано на основі вхідного URL і параметрів обробки.
  */
-function processURL(url, options) {
-  // Створюємо новий об'єкт URL з вхідної URL-адреси.
-  let urlObj = new URL(url);
-
-  // Якщо в опціях вказано параметри пошуку, додаємо їх до URL.
-  if (options.searchParams) {
-    // За допомогою for in перебираємо ключи параметрів пошуку
-    for (let key in options.searchParams) {
-      // Для кожного ключа параметру додаємо його та відповідне значення до об'єкта 'urlObj' за допомогою методу 'append'.
-      urlObj.searchParams.append(key, options.searchParams[key]);
-    }
-  }
-
-  // Якщо в опціях вказано протокол, змінюємо протокол URL.
-  if (options.protocol) {
-    urlObj.protocol = options.protocol;
-  }
-
-  // Якщо в опціях вказано хост, змінюємо хост URL.
-  if (options.host) {
-    urlObj.host = options.host;
-  }
-
-  // Повертаємо об'єкт URL у вигляді рядка.
-  return urlObj.href;
-}
-
-// Приклад використання функції processURL
-console.log("Завдання: 11 ==============================");
-
-console.log(
-  processURL("https://example.com/path", {
-    searchParams: { param1: "value1", param2: "value2" },
-    protocol: "http:",
-    host: "newexample.com",
-  })
-);
-// Виведе: 'http://newexample.com/path?param1=value1&param2=value2'
-
-// Завдання 12
-
-/**
- * Функція `processURL` приймає URL та об'єкт з параметрами та налаштуваннями для обробки URL.
- * url (рядок) - URL, який потрібно обробити.
- * options (об'єкт) - об'єкт, який містить параметри та налаштування для обробки URL.
- *
- * Функція повертає новий URL, який було сформовано на основі вхідного URL і параметрів обробки.
- */
 function processUrl(url, options) {
   // Створюємо новий об'єкт URL з вхідної URL-адреси.
   let urlObj = new URL(url);
@@ -471,7 +423,7 @@ function processUrl(url, options) {
 }
 
 // Приклад використання функції processURL
-console.log("Завдання: 12 ==============================");
+console.log("Завдання: 11 ==============================");
 
 console.log(
   processUrl("https://example.com/path", {
@@ -482,7 +434,7 @@ console.log(
 );
 // Виведе: 'http://newexample.com/path?param1=value1&param2=value2'
 
-// Завдання 13
+// Завдання 12
 /**
  * Функція `manipulateQuery` отримує URL та словник з додатковими налаштуваннями та працює над пошуковими параметрами URL.
  *
@@ -517,7 +469,7 @@ function manipulateQuery(url, options) {
   return urlObj.href;
 }
 
-console.log("Завдання: 13 ==============================");
+console.log("Завдання: 12 ==============================");
 
 // Приклад використання функції manipulateQuery
 let options = new Map([
@@ -539,7 +491,7 @@ console.log(
 );
 // Виведе: 'https://example.com/path?param3=value3&param4=value4'
 
-// Завдання 14
+// Завдання 13
 
 /**
  * Функція `getUrlData` приймає URL у вигляді рядка і повертає інформацію про URL.
@@ -567,7 +519,7 @@ function getUrlData(url) {
 }
 
 // Приклад використання функції getUrlData
-console.log("Завдання: 14 ==============================");
+console.log("Завдання: 13 ==============================");
 console.log(getUrlData("https://username:password@example.com:8080/path"));
 // Виведе:
 // {
@@ -578,7 +530,7 @@ console.log(getUrlData("https://username:password@example.com:8080/path"));
 //   password: 'password'
 // }
 
-// Завдання 15
+// Завдання 14
 
 /**
  * Функція `sortUrlParams` приймає URL і повертає новий URL з відсортованими пошуковими параметрами.
@@ -609,13 +561,13 @@ function sortUrlParams(url) {
 }
 
 // Приклад використання функції sortUrlParams
-console.log("Завдання: 15 ==============================");
+console.log("Завдання: 14 ==============================");
 console.log(
   sortUrlParams("https://example.com/path?param2=value2&param1=value1")
 );
 // Виведе: 'https://example.com/path?param1=value1&param2=value2'
 
-// Завдання 16
+// Завдання 15
 
 /**
  * Функція `getURLValues` приймає URL і повертає масив значень пошукових параметрів.
@@ -649,14 +601,14 @@ function getURLValues(url) {
 }
 
 // Приклад використання функції getURLValues
-console.log("Завдання: 16 ==============================");
+console.log("Завдання: 15 ==============================");
 console.log(
   getURLValues(
     "https://example.com/path?param1=value1&param2=value2&param3=value3"
   )
 );
 
-// Завдання 17
+// Завдання 16
 
 /**
  * Функція `getUrlKeys` приймає URL і повертає масив з ключами пошукових параметрів.
@@ -676,6 +628,6 @@ function getUrlKeys(url) {
 }
 
 // Приклад використання функції getUrlKeys
-console.log("Завдання: 17 ==============================");
+console.log("Завдання: 16 ==============================");
 console.log(getUrlKeys("https://example.com/path?param1=value1&param2=value2"));
 // Виведе: [ 'param1', 'param2' ]
