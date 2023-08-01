@@ -52,12 +52,12 @@ class Musician {
 
   set name(newName) {
     // сетер для приватного поля #name
-    this.#name = newName; // присвоює нове значення приватному полю #band
+    this.#name = newName; // присвоює нове значення приватному полю #name
   }
 
   set instrument(newInstrument) {
     // сетер для приватного поля #instrument
-    this.#instrument = newInstrument; // присвоює нове значення приватному полю #band
+    this.#instrument = newInstrument; // присвоює нове значення приватному полю #instrument
   }
 
   play() {
