@@ -92,7 +92,7 @@ class ProcessorBuilder {
   // Метод add для додавання нового обробника в ланцюг.
   add(processor) {
     // Якщо це перший обробник, він зберігається як перший і останній.
-    if (!this.firstProcessor) {
+    if (this.firstProcessor) {
       this.firstProcessor = processor;
       this.lastProcessor = processor;
     } else {
