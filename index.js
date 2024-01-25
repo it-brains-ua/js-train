@@ -67,7 +67,7 @@ console.log("isPositiveNumber(-2)", isPositiveNumber(-2)); // Виведе: fals
 //Задача 5: Напишіть функцію, яка перевіряє, чи є заданий рядок пустим. Використовуйте умовний оператор та властивість довжини рядка для перевірки.
 
 function isEmptyString(str) {
-  return str === "";
+  return str.length === 0;
 }
 
 console.log("Завдання 5 ====================================");
@@ -78,8 +78,11 @@ console.log('isEmptyString("Hello")', isEmptyString("Hello")); // Виведе: 
 // Виведіть в консоль повідомлення з результатом перевірки типу, наприклад, Значення "hello" має тип "string"
 
 function checkDataType(value) {
+  // Отримуємо тип значення value за допомогою оператора typeof
   const dataType = typeof value;
+  // Виводимо у консоль повідомлення, яке містить значення value та його тип
   console.log(`Значення "${value}" має тип "${dataType}".`);
+  // Повертаємо тип значення value
   return dataType;
 }
 
