@@ -607,6 +607,7 @@ console.log(
     "https://example.com/path?param1=value1&param2=value2&param3=value3"
   )
 );
+//Виведе: [ 'value1', 'value2', 'value3' ]
 
 // Завдання 16
 
