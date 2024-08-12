@@ -546,7 +546,8 @@ function sortUrlParams(url) {
   let paramsArray = Array.from(urlObj.searchParams.entries());
 
   // Сортуємо масив за ключами у порядку зростання.
-  paramsArray.sort((a, b) => a[0] - b[0]);
+  // paramsArray.sort((a, b) => a[0] - b[0]);
+  paramsArray.sort();
 
   // Очищуємо пошукові параметри URL.
   urlObj.search = "";
